@@ -1,26 +1,17 @@
 
-/*
-:左右の中央寄せ
-position: sticky...スクロール固定
- */
-.container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    position: sticky;
+.titlelogo {
+    position: fixed;
+    margin: auto 0;
 }
 
+.container{
+    display: flex;/*　子要素を横並びにする　*/
+}
 
-.sidebar-sticky {
-    position: -webkit-sticky;
-    position: sticky;
+.content{
+    overflow: scroll;/*要素をスクロール可能にする*/
 }
 
 .sidebar-sticky {
-    position: relative;
-    top: 0;
-    height: calc(100vh - 48px);
-    padding-top: .5rem;
-    overflow-x: hidden;
-    overflow-y: auto;
+    display: flex;
 }

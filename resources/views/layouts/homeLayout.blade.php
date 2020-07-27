@@ -18,17 +18,17 @@
 </header>
 
 <div class="container">
-        <!--画面左に固定されるサイドバー-->
+        <!--サイドバー-->
     <div class="sidebar">
         <ul>
             <li>
-             日記を書く
+                <a href="yumelog/writelog">日記を書く</a>
             </li>
             <li>
-                マイページ
+                <a href="yumelog/mypage">マイページ</a>
             </li>
             <li>
-                お気に入り
+                <a href="yumelog/favorite">お気に入り</a>
             </li>
         </ul>
     </div>

@@ -1,0 +1,15 @@
+<html>
+<head>
+    <title>Hello/Index</title>
+</head>
+<body>
+<h1>夢日記を描く</h1>
+<form method= "POST" action="/yumelog/public/yumelog">
+    @csrf
+    内容
+    <input type="textarea"  name="content" id="content"><!--idをキーにしてコントローラーに値受け渡し-->
+    <input type="submit" value="日記を書く">
+</form>
+<button id="square_btn" onClick="history.back()">戻る</button>
+</body>
+</html>

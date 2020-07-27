@@ -19,7 +19,7 @@ class CreateDiaryTable extends Migration
             $table->timestamps();
             $table->string("text",300);
             //usersテーブルのuserIdを参照する外部キー
-            $table->string("authorId");
+            $table->integer("authorId");
 
             //外部キー制約。下記に指定した項目が外部キーとなる
             $table->foreign('authorId')

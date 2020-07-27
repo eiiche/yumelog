@@ -14,6 +14,9 @@ class YumeLogController extends Controller
         $user = Auth::user();
         $param = ["user" => $user];
             return view ("layouts.homeLayout",$param);
-
+    }
+    public function post(Request $request){
+        $content = $request->input("content");
+        return view();
     }
 }

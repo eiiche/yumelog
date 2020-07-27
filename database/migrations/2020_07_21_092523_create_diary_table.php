@@ -23,7 +23,7 @@ class CreateDiaryTable extends Migration
 
             //外部キー制約。下記に指定した項目が外部キーとなる
             $table->foreign('authorId')
-                ->references('userId')
+                ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
         });

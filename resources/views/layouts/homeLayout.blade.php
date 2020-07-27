@@ -35,7 +35,7 @@
 
     <!--スクロール表示可能な日記-->
     <div class="content">
-        <?php for($i=0;$i<30;$i++): ?>
+        <?php for($i=0;$i<50;$i++): ?>
         <h1>test</h1>
         <?php endfor ?>
     </div>

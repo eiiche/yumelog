@@ -13,7 +13,7 @@ class CreateDiaryTable extends Migration
      */
     public function up()
     {
-        Schema::create('diary', function (Blueprint $table) {
+        Schema::create('diaries', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments("id");//findメソッドで値取得するにはフィールド名をidにする
             $table->string("text",300);

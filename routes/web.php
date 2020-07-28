@@ -26,4 +26,6 @@ Route::get('yumelog/mypage', function (){return view("yumelog.mypage");});
 Route::get('yumelog/favorite', function (){return view("yumelog.favorite");});
 
 //アドレス yumelog にpostアクセス(フォーム送信)された場合のルーティング
-Route::post("yumelog","BoardController@store");
+Route::post("yumelog","DiaryController@store");
+
+Route::get("yumelogPost","YumelogController@index");

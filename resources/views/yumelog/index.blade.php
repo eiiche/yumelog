@@ -30,6 +30,7 @@
             <li>
                 <a href="yumelog/favorite">お気に入り</a>
             </li>
+            <!--ログインチェックはミドルウェアかクッキーに処理を移行した方が良さそう-->
             <?php if(Auth::check()){ ?>
             <p>User:{{$user->name}}</p>
             <?php }else{ ?>
@@ -42,9 +43,9 @@
 
     <!--スクロール表示可能な日記-->
     <div class="content">
-        <?php for($i=0;$i<50;$i++): ?>
+        <?php foreach($diaries as $diary){ ?>
         <h1>test</h1>
-        <?php endfor ?>
+        <?php } ?>
     </div>
 </div>
 

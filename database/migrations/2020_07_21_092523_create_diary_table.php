@@ -15,11 +15,12 @@ class CreateDiaryTable extends Migration
     {
         Schema::create('diary', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->increments("diaryId");
-            $table->timestamps();
+            $table->increments("id");//findメソッドで値取得するにはフィールド名をidにする
             $table->string("text",300);
             //usersテーブルのuserIdを参照する外部キー
-            $table->unsignedinteger("authorId");
+            $table->unsignedinteger("authorId");//usersテーブルのincrementsはunsignedinteger型なので型を合致させる
+            $table->timestamp('updated_at')->useCurrent()->nullable();
+            $table->timestamp('created_at')->useCurrent()->nullable();//NULL値可能なcreated_atとupdated_atカラム追加。現在時刻を設定。
 
             //外部キー制約。下記に指定した項目が外部キーとなる
             $table->foreign('authorId')

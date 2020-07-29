@@ -44,7 +44,9 @@
     <!--スクロール表示可能な日記-->
     <div class="content">
         <?php foreach($diaries as $diary){ ?>
-        <h1>test</h1>
+            {{$diary->user->name}}
+            {{$diary->created_at}}
+        <h3>{{$diary->text}}></h3>
         <?php } ?>
     </div>
 </div>

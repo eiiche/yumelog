@@ -12,9 +12,8 @@ class Diary extends Model
         "authorId" => "required",
     );//バリデーションルール
 
-    public function user() // リレーション (従属の関係)。単数形
+    public function user()// リレーション (従属の関係)。単数形
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(User::class,"authorId");
     }
-
 }

@@ -21,7 +21,7 @@ Route::get('yumelog', 'YumeLogController@index');
 //write
 Route::get('yumelog/writelog', function (){return view("yumelog.writelog");});
 
-Route::get('yumelog/mypage', function (){return view("yumelog.mypage");});
+Route::get('yumelog/mypage',"YumelogController@mypage");
 
 Route::get('yumelog/favorite', function (){return view("yumelog.favorite");});
 

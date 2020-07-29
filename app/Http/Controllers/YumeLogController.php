@@ -22,4 +22,13 @@ class YumeLogController extends Controller
 
         return view("yumelog.index",["user" => $user,"diaries" => $diaries]);
     }
+
+    public function mypage(){
+        $user = Auth::user();//ログインしているユーザ取得
+
+        //最新からauthorId=全件取得
+        $diaries = Diary::with("user")->get();
+
+        return view("yumelog.mypage",["diaries" => $diaries]);
+    }
 }

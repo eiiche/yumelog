@@ -5,8 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+{{--    <!-- Bootstrap CSS -->--}}
+{{--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" --}}
+{{--          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">--}}
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <title>YUMELOG</title>
 </head>
@@ -33,6 +34,7 @@
             <!--ログインチェックはミドルウェアかクッキーに処理を移行した方が良さそう-->
             <?php if(Auth::check()){ ?>
             <p>User:{{$user->name}}</p>
+            <p><a href="logout">ログアウト</i></a></p>
             <?php }else{ ?>
             <p><a href="login">ログイン</a></p>
             <a href="register">登録</a>
@@ -47,6 +49,12 @@
             {{ $diary->user->name }}
             {{$diary->created_at}}
         <h3>{{$diary->text}}></h3>
+            <!--お気に入りボタン-->
+            <?php if($diary->id === $faves->favUser){?>
+                <a href="yumelog">★</a>
+            <?php }else{?>
+                <a href="yumelog">☆</a>
+            <?php }?>
         <?php } ?>
     </div>
 </div>

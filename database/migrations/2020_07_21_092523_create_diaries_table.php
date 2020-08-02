@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDiaryTable extends Migration
+class CreateDiariesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -17,8 +17,8 @@ class CreateDiaryTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments("id");//findメソッドで値取得するにはフィールド名をidにする
             $table->string("text",300);
-            //usersテーブルのuserIdを参照する外部キー
-            $table->unsignedinteger("authorId");//usersテーブルのincrementsはunsignedinteger型なので型を合致させる
+            $table->unsignedinteger("authorId");//usersテーブルのuserIdを参照する外部キー。usersテーブルのincrementsはunsignedinteger型なので型を合致させる
+//          $table->integer("likeCount")->default(0);　//いいね数はサービス的に不要ではないか
             $table->timestamp('updated_at')->useCurrent()->nullable();
             $table->timestamp('created_at')->useCurrent()->nullable();//NULL値可能なcreated_atとupdated_atカラム追加。現在時刻を設定。
 
@@ -31,8 +31,8 @@ class CreateDiaryTable extends Migration
     }
 
     /**
-     * Reverse the migrations.
      *
+     * Reverse the migrations.
      * @return void
      */
     public function down()

@@ -29,3 +29,5 @@ Route::get('yumelog/favorite', function (){return view("yumelog.favorite");});
 Route::post("yumelog","DiaryController@store");
 
 Route::get("yumelogPost","YumelogController@index");
+
+Route::get("logout","YumelogController@logout");

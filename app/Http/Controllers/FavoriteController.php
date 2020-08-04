@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Diary;
+use App\Favorite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
-class DiaryController extends Controller
+class FavoriteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class DiaryController extends Controller
      */
     public function index()
     {
-
+        //
     }
 
     /**
@@ -36,14 +36,7 @@ class DiaryController extends Controller
      */
     public function store(Request $request)
     {
-        //日記のモデル保存処理
-        $diary = new Diary;//格納用インスタンス生成
-        $diary->text = $request->text;//フォームからid=textを格納
-        $user = Auth::user();//authorID用にログインユーザインスタンス取得
-        $diary->author_id = $user->id;//usersテーブルのidをauthorIdとして格納
-
-        $diary->save();//保存処理。
-        return redirect("/yumelogPost");
+        //
     }
 
     /**
@@ -65,7 +58,7 @@ class DiaryController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -89,5 +82,27 @@ class DiaryController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function postFavorite(Request $request){
+        //テーブル編集用のキーを生成
+        $diary_id = $request->favoritebtn;
+        $user_id = Auth::user()->id;//userId用にログインユーザインスタンス取得
+
+        $favorite = new Favorite();//格納用インスタンス生成
+        $favorite->user_id = $user_id;
+        $favorite->diary_id = $diary_id;
+        $result = Favorite::where("diary_id","=",$diary_id)->where("user_id","=",$user_id)->get();
+        //フォームからdairyIdを受け取り、該当のお気にいりレコードの有無に応じてテーブルを挿入・削除
+        if(isset($result) == false){
+            //保存処理
+            $favorite->save();
+        }else{
+            //削除処理
+            $favorite->delete();
+        }
+
+        return redirect("/yumelog");
+
     }
 }

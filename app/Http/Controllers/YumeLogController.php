@@ -24,31 +24,49 @@ class YumeLogController extends Controller
         //最新の投稿を30件数一覧取得
         $diaries = Diary::latest()->paginate(30);
 
-        //ログインしている場合、ユーザがお気に入りした日記を取得
-        if($user != null) {
-            $faves = Favorite::where("favUser", "=", $user->id)->get();
-        }
+        //$user=trueの場合(ログイン済)、ユーザのお気に入りデータを取得。$userがfalseなら空を挿入
+        //A ? B : C
+            $faves = $user ?
+                Favorite::where("user_id", "=", $user->id)->whereIn('diary_id', $diaries->pluck('id'))->pluck('diary_id')
+                :
+                collect([])
+            ;
+
         return view("yumelog.index",["user" => $user,"diaries" => $diaries,"faves" => $faves]);
     }
 
     public function mypage(){
         $user = Auth::user();//ログインしているユーザ取得
 
-        $diaries = Diary::where("authorId","=",$user->id)->get();
+        $diaries = Diary::where("author_id","=",$user->id)->get();
 
         return view("yumelog.mypage",["diaries" => $diaries]);
     }
 
-    public function favorite(){
+    public function favorite()
+    {
         $user = Auth::user();//ログインしているユーザ取得
 
-        //ログインしている場合、ユーザに紐づくお気に入りを取得
-        if($user != null) {
-            $faves = Favorite::where("favUser", "=", $user->id)->get(   );
+        $diaries = Diary::all();
+
+        //$userが空でない場合(ログイン済)、ユーザのお気に入りした日記のidを$favesに挿入。$userが空なら$favesに空を挿入
+        if(isset($user)) {
+
+            $faves = Favorite::where("user_id", "=", $user->id)->whereIn('diary_id', $diaries->pluck('id'))->pluck('diary_id');
+
+        }else {
+
+            $faves = collect([]);
         }
 
         //お気に入りに紐づく日記を取得
-        $diaries = Diary::where("id","=",$faves)->get();
+        $diaries = $faves ?
+            //お気にいりした日記のidに該当する日記を全て取得
+            Diary::where("id", "=", $faves)->get()
+            :
+            collect([])
+        ;
+
         return view("yumelog.favorite",["user" => $user,"diaries" => $diaries]);
     }
 
@@ -58,4 +76,5 @@ class YumeLogController extends Controller
 
         return redirect("yumelog");
     }
+
 }

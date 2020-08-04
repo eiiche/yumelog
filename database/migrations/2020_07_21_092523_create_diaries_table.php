@@ -17,13 +17,13 @@ class CreateDiariesTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments("id");//findメソッドで値取得するにはフィールド名をidにする
             $table->string("text",300);
-            $table->unsignedinteger("authorId");//usersテーブルのuserIdを参照する外部キー。usersテーブルのincrementsはunsignedinteger型なので型を合致させる
+            $table->unsignedinteger("author_id");//usersテーブルのuserIdを参照する外部キー。usersテーブルのincrementsはunsignedinteger型なので型を合致させる
 //          $table->integer("likeCount")->default(0);　//いいね数はサービス的に不要ではないか
             $table->timestamp('updated_at')->useCurrent()->nullable();
             $table->timestamp('created_at')->useCurrent()->nullable();//NULL値可能なcreated_atとupdated_atカラム追加。現在時刻を設定。
 
             //外部キー制約。下記に指定した項目が外部キーとなる
-            $table->foreign('authorId')
+            $table->foreign('author_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');

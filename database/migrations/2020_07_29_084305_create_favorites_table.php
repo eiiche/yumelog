@@ -14,18 +14,20 @@ class CreateFavoritesTable extends Migration
     public function up()
     {
         Schema::create('favorites', function (Blueprint $table) {
-            $table->increments("favNum");
-            $table->unsignedInteger("dairyId");
-            $table->unsignedInteger("favUser");
+            $table->increments("id");
+            $table->unsignedInteger("diary_id");
+            $table->unsignedInteger("user_id");
+            $table->timestamp('updated_at')->useCurrent()->nullable();
+            $table->timestamp('created_at')->useCurrent()->nullable();//NULL値可能なcreated_atとupdated_atカラム追加。現在時刻を設定。
 
             //外部キー制約。
-            $table->foreign('favUser')
+            $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
 
             //外部キー制約。
-            $table->foreign('dairyId')
+            $table->foreign('diary_id')
                 ->references('id')
                 ->on('diaries')
                 ->onDelete('cascade');

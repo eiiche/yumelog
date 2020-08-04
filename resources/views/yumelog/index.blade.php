@@ -46,16 +46,22 @@
     <!--スクロール表示可能な日記-->
     <div class="content">
         <?php foreach($diaries as $diary){ ?>
-            {{ $diary->user->name }}
+            {{$diary->user->name}}
             {{$diary->created_at}}
         <h3>{{$diary->text}}></h3>
             <!--お気に入りボタン-->
-            <?php if($diary->id === $faves->favUser){?>
-                <a href="yumelog">★</a>
-            <?php }else{?>
-                <a href="yumelog">☆</a>
-            <?php }?>
-        <?php } ?>
+            <form action="yumelog/postFav" method="post">
+                @csrf
+                <input type="hidden" name="favoritebtn" value="{{$diary->id}}">
+                <button type="submit">
+                    <?php if($faves->contains($diary->id)){?>
+                        ★
+                        <?php }else{?>
+                        ☆
+                    <?php }?>
+                </button>
+            </form>
+            <?php } ?>
     </div>
 </div>
 

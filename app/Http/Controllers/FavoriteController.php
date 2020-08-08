@@ -6,6 +6,7 @@ use App\Diary;
 use App\Favorite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 class FavoriteController extends Controller
 {
     /**
@@ -58,7 +59,6 @@ class FavoriteController extends Controller
      */
     public function edit($id)
     {
-
     }
 
     /**

@@ -14,7 +14,8 @@ class YumeLogController extends Controller
 {
     //web.phpからgetアクセスされた際の処理を記述
     //ログイン状態確認のため、Requestを引数に受け取り、判定
-    public function  index(Request $request){
+    public function index(Request $request)
+    {
 
         //ログイン確認
         $user = Auth::user();//ログインしているユーザのモデルインスタンスを返す。ログインしていなければnull
@@ -26,21 +27,22 @@ class YumeLogController extends Controller
 
         //$user=trueの場合(ログイン済)、ユーザのお気に入りデータを取得。$userがfalseなら空を挿入
         //A ? B : C
-            $faves = $user ?
+        $faves = $user ?
                 Favorite::where("user_id", "=", $user->id)->whereIn('diary_id', $diaries->pluck('id'))->pluck('diary_id')
                 :
                 collect([])
             ;
 
-        return view("yumelog.index",["user" => $user,"diaries" => $diaries,"faves" => $faves]);
+        return view("yumelog.index", ["user" => $user,"diaries" => $diaries,"faves" => $faves]);
     }
 
-    public function mypage(){
+    public function mypage()
+    {
         $user = Auth::user();//ログインしているユーザ取得
 
-        $diaries = Diary::where("author_id","=",$user->id)->get();
+        $diaries = Diary::where("author_id", "=", $user->id)->get();
 
-        return view("yumelog.mypage",["diaries" => $diaries]);
+        return view("yumelog.mypage", ["diaries" => $diaries]);
     }
 
 
@@ -48,20 +50,20 @@ class YumeLogController extends Controller
     {
         $user = Auth::user();//ログインしているユーザ取得
         $diaries = $user
-            ? Diary::whereHas('favorites', function($query) use($user) {//リレーション先が存在するか
+            ? Diary::whereHas('favorites', function ($query) use ($user) {//リレーション先が存在するか
                 $query->where('user_id', $user->id);
             })->get()
             : collect([])
         ;
-        return view("yumelog.favorite",["user" => $user,"diaries" => $diaries]);
+        return view("yumelog.favorite", ["user" => $user,"diaries" => $diaries]);
     }
 
 
     //ログアウト
-    public function logout(){
+    public function logout()
+    {
         Auth::logout();
 
         return redirect("yumelog");
     }
-
 }

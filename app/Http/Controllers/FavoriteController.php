@@ -84,25 +84,21 @@ class FavoriteController extends Controller
         //
     }
 
-    public function postFavorite(Request $request){
-        //テーブル編集用のキーを生成
-        $diary_id = $request->favoritebtn;
-        $user_id = Auth::user()->id;//userId用にログインユーザインスタンス取得
+    public function postFavorite(Request $request)
+    {
+        //テーブル編集用のデータを生成
+        $diary_id = $request->favoritebtn;//ビューのフォームからidを取得
+        $user_id = Auth::user()->id;//ログインしているuseridを取得
 
-        $favorite = new Favorite();//格納用インスタンス生成
-        $favorite->user_id = $user_id;
-        $favorite->diary_id = $diary_id;
-        $result = Favorite::where("diary_id","=",$diary_id)->where("user_id","=",$user_id)->get();
-        //フォームからdairyIdを受け取り、該当のお気にいりレコードの有無に応じてテーブルを挿入・削除
-        if(isset($result) == false){
-            //保存処理
-            $favorite->save();
-        }else{
+        //紐づくお気に入りレコードを取得。ない場合はnullが格納される
+        $favorite = Favorite::where(['diary_id' => $diary_id, 'user_id' => $user_id])->first();//紐づいたFavoriteモデルのオブジェクトを取得
+        if ($favorite) {
             //削除処理
             $favorite->delete();
+        } else {
+            //保存処理
+            Favorite::create(['diary_id' => $diary_id, 'user_id' => $user_id]);
         }
-
         return redirect("/yumelog");
-
     }
 }

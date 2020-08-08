@@ -39,9 +39,7 @@ class Diary extends Model
         return $this->belongsTo(User::class,"author_id");
     }
 
-    //ローカルスコープ
-    public function scopeFav($query)
-    {
-        return $query->where('votes', '>', 100);
+    public function favorites(){
+        return $this->hasMany(Favorite::class);
     }
 }

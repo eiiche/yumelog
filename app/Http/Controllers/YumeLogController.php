@@ -43,32 +43,19 @@ class YumeLogController extends Controller
         return view("yumelog.mypage",["diaries" => $diaries]);
     }
 
+
     public function favorite()
     {
         $user = Auth::user();//ログインしているユーザ取得
-
-        $diaries = Diary::all();
-
-        //$userが空でない場合(ログイン済)、ユーザのお気に入りした日記のidを$favesに挿入。$userが空なら$favesに空を挿入
-        if(isset($user)) {
-
-            $faves = Favorite::where("user_id", "=", $user->id)->whereIn('diary_id', $diaries->pluck('id'))->pluck('diary_id');
-
-        }else {
-
-            $faves = collect([]);
-        }
-
-        //お気に入りに紐づく日記を取得
-        $diaries = $faves ?
-            //お気にいりした日記のidに該当する日記を全て取得
-            Diary::where("id", "=", $faves)->get()
-            :
-            collect([])
+        $diaries = $user
+            ? Diary::whereHas('favorites', function($query) use($user) {//リレーション先が存在するか
+                $query->where('user_id', $user->id);
+            })->get()
+            : collect([])
         ;
-
         return view("yumelog.favorite",["user" => $user,"diaries" => $diaries]);
     }
+
 
     //ログアウト
     public function logout(){

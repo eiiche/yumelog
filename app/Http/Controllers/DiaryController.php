@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Diary;
+use App\Http\Requests\Diary\StoreRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,15 +34,9 @@ class DiaryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //日記のモデル保存処理
-        $diary = new Diary;//格納用インスタンス生成
-        $diary->text = $request->text;//フォームからid=textを格納
-        $user = Auth::user();//authorID用にログインユーザインスタンス取得
-        $diary->author_id = $user->id;//usersテーブルのidをauthorIdとして格納
-
-        $diary->save();//保存処理。
+        Diary::create($request->validated());
         return redirect("/yumelogPost");
     }
 

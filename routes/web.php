@@ -33,8 +33,9 @@ Route::get("logout","YumelogController@logout");
 
 Route::post("yumelog/postFav","FavoriteController@postFavorite");
 
-Route::group(['middleware' => ['auth']], function () {
-    Route::get('yumelog/mypage',"YumelogController@mypage");
+Route::group(['middleware' => ['auth.withInstance']], function () {
+    Route::get('yumelog/mypage',"MypageController@index");
+
     Route::get('yumelog/favorite', "YumelogController@favorite");
 
 });

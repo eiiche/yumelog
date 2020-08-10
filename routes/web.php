@@ -21,9 +21,8 @@ Route::get('yumelog', 'YumeLogController@index');
 //write
 Route::get('yumelog/writelog', function (){return view("yumelog.writelog");});
 
-Route::get('yumelog/mypage',"YumelogController@mypage");
 
-Route::get('yumelog/favorite', "YumelogController@favorite");
+
 
 //アドレス yumelog にpostアクセス(フォーム送信)された場合のルーティング
 Route::post("yumelog","DiaryController@store");
@@ -33,3 +32,9 @@ Route::get("yumelogPost","YumelogController@index");
 Route::get("logout","YumelogController@logout");
 
 Route::post("yumelog/postFav","FavoriteController@postFavorite");
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('yumelog/mypage',"YumelogController@mypage");
+    Route::get('yumelog/favorite', "YumelogController@favorite");
+
+});

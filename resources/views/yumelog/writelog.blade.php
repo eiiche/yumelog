@@ -10,6 +10,6 @@
     <input type="textarea"  name="text" id="text"><!--idをキーにしてコントローラーに日記テキスト受け渡し-->
     <input type="submit" value="日記を書く">
 </form>
-<button id="square_btn" onClick="history.back()">戻る</button>
+<a href="./">戻る</a>
 </body>
 </html>

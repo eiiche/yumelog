@@ -37,6 +37,10 @@ Route::post("yumelog/postFav","FavoriteController@postFavorite");
 
 Route::post("yumelog/editDiary","EditDiaryPageController@index");
 
+Route::post("yumelog/deleteDiary","DeleteDiaryPageController@index");
+
+Route::post("yumelog/deletedDiary","DiaryController@destroy");
+
 //ログイン判定をしたいアクセスをグループにし、ミドルウェアを割り当て
 Route::group(['middleware' => ['auth']], function () {
     Route::get('yumelog/mypage',"MypageController@index");

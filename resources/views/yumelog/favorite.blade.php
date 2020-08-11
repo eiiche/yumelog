@@ -8,6 +8,6 @@
 {{$diary->created_at}}
 <h3>{{$diary->text}}></h3>
 <?php } ?>
-<button id="square_btn" onClick="history.back()">戻る</button>
+<a href="./">戻る</a>
 </body>
 </html>

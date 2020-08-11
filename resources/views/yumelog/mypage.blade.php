@@ -11,7 +11,7 @@
 </head>
 <body>
 <h1>書いた夢日記</h1><br>
-<button id="square_btn" onClick="history.back()">戻る</button>
+<a href="./">戻る</a>
 <!--スクロール表示可能な日記。YumelogController@mypageからログインしているユーザidに紐づいた日記が渡される-->
 <div class="content">
     <?php foreach($diaries as $diary){ ?>
@@ -22,6 +22,13 @@
             <input type="hidden" name="editbtn" value="{{$diary->id}}"><!--ボタン押下時に送信する情報はこのタグに追加-->
             <button type="submit">
                 編集
+            </button>
+        </form>
+        <form action="deleteDiary" method="post">
+            @csrf
+            <input type="hidden" name="deletebtn" value="{{$diary->id}}"><!--ボタン押下時に送信する情報はこのタグに追加-->
+            <button type="submit">
+                削除
             </button>
         </form>
     <?php } ?>

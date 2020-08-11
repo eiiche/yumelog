@@ -71,21 +71,26 @@ class DiaryController extends Controller
      */
     public function update(Request $request)
     {
-        $diary_id = $request->id;//日記のid取得
-        $diary_text = $request->text;
+        $diary_id = $request->diary_id;//日記のid取得
+        $diary_text = $request->text;//日記の編集後テキスト取得
         Diary::where("id",$diary_id)->update(["text"=>$diary_text]);
 
         return redirect("/yumelog/mypage");
     }
 
+
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $diary_id = $request->diary_id;//日記のid取得
+
+        Diary::where("id",$diary_id)->delete();
+
+        return redirect("/yumelog/mypage");
     }
 }

@@ -14,6 +14,5 @@ class EditDiaryPageController extends Controller
         $diary_id = $request->editbtn;//mypageのeditbtnから日記id取得
         $diary = Diary::find($diary_id);
         return view("yumelog.editDiary",["diary" => $diary]);
-
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Diary;
+
 use App\Favorite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

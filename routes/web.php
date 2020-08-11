@@ -29,13 +29,16 @@ Route::post("yumelog","DiaryController@store");
 
 Route::get("yumelogPost","YumelogController@index");
 
-Route::get("logout","YumelogController@logout");
+Route::get("logout","LoginController@logout");
+
+Route::post("yumelog/editedDiary","DiaryController@update");
 
 Route::post("yumelog/postFav","FavoriteController@postFavorite");
 
-Route::group(['middleware' => ['auth.withInstance']], function () {
+Route::post("yumelog/editDiary","EditDiaryPageController@index");
+
+//ログイン判定をしたいアクセスをグループにし、ミドルウェアを割り当て
+Route::group(['middleware' => ['auth']], function () {
     Route::get('yumelog/mypage',"MypageController@index");
-
-    Route::get('yumelog/favorite', "YumelogController@favorite");
-
+    Route::get('yumelog/favorite', "FavoritePageController@index");
 });

@@ -59,7 +59,7 @@ class DiaryController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -67,11 +67,15 @@ class DiaryController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $diary_id = $request->id;//日記のid取得
+        $diary_text = $request->text;
+        Diary::where("id",$diary_id)->update(["text"=>$diary_text]);
+
+        return redirect("/yumelog/mypage");
     }
 
     /**

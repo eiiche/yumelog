@@ -39,34 +39,4 @@ class YumeLogController extends Controller
         return view("yumelog.index", ["user" => $user,"diaries" => $diaries,"faves" => $faves]);
     }
 
-    public function mypage()
-    {
-        $user = Auth::user();//ログインしているユーザ取得
-
-        $diaries = Diary::where("author_id", "=", $user->id)->get();
-
-        return view("yumelog.mypage", ["diaries" => $diaries]);
-    }
-
-
-    public function favorite()
-    {
-        $user = Auth::user();//ログインしているユーザ取得
-        $diaries = $user
-            ? Diary::whereHas('favorites', function ($query) use ($user) {//リレーション先が存在するか
-                $query->where('user_id', $user->id);
-            })->get()
-            : collect([])
-        ;
-        return view("yumelog.favorite", ["user" => $user,"diaries" => $diaries]);
-    }
-
-
-    //ログアウト
-    public function logout()
-    {
-        Auth::logout();
-
-        return redirect("yumelog");
-    }
 }

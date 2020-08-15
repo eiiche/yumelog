@@ -18,7 +18,6 @@ class CreateDiariesTable extends Migration
             $table->increments("id");//findメソッドで値取得するにはフィールド名をidにする
             $table->string("text",300);
             $table->unsignedinteger("author_id");//usersテーブルのuserIdを参照する外部キー。usersテーブルのincrementsはunsignedinteger型なので型を合致させる
-//          $table->integer("likeCount")->default(0);　//いいね数はサービス的に不要ではないか
             $table->timestamp('updated_at')->useCurrent()->nullable();
             $table->timestamp('created_at')->useCurrent()->nullable();//NULL値可能なcreated_atとupdated_atカラム追加。現在時刻を設定。
 

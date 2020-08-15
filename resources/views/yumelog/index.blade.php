@@ -34,7 +34,7 @@
             <!--ログインチェックはミドルウェアかクッキーに処理を移行した方が良さそう-->
             <?php if(Auth::check()){ ?>
             <p>User:{{$user->name}}</p>
-            <p><a href="logout">ログアウト</i></a></p>
+            <p><a href="logout">ログアウト</a></p>
             <?php }else{ ?>
             <p><a href="login">ログイン</a></p>
             <a href="register">登録</a>
@@ -50,7 +50,7 @@
             {{$diary->created_at}}
         <h3>{{$diary->text}}></h3>
             <!--お気に入りボタン-->
-            <form action="yumelog/postFav" method="post">
+            <form action="yumelog/postFav" method="post" enctype='multipart/form-data'>
                 @csrf
                 <input type="hidden" name="favoritebtn" value="{{$diary->id}}">
                 <button type="submit">

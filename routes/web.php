@@ -29,7 +29,7 @@ Route::post("yumelog","DiaryController@store");
 
 Route::get("yumelogPost","YumelogController@index");
 
-Route::get("logout","LoginController@logout");
+Route::get("logout","Auth\LoginController@logout");
 
 Route::post("yumelog/editedDiary","DiaryController@update");
 
@@ -45,4 +45,12 @@ Route::post("yumelog/deletedDiary","DiaryController@destroy");
 Route::group(['middleware' => ['auth']], function () {
     Route::get('yumelog/mypage',"MypageController@index");
     Route::get('yumelog/favorite', "FavoritePageController@index");
+});
+
+//Adminログイン用ルーティング
+Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function(){
+
+    Auth::routes(['register' => false]);// /admin/registerのルーティングを登録させない
+
+    Route::get('/home', 'AdminHomeController@index')->name('admin_home');
 });

@@ -17,19 +17,23 @@ header {
     width: 100%;
     height: 700px;
     position: absolute;
+
 }
+.content::-webkit-scrollbar {  /* Chrome, Safari 対応 */
+    display:none;
+}
+
 
 .sidebar {
     /*border:solid 5px #000;*/
     width: 400px;
 }
 
-.content{
-    overflow: scroll;/*要素をスクロール可能にする*/
-    height: 100%;/*containerの高さに対して100%の縦サイズ*/
+.content {
+    overflow: scroll; /*要素をスクロール可能にする*/
+    height: 100%; /*containerの高さに対して100%の縦サイズ*/
     width: 60%;
     /*border:solid 1px #000;*/
     margin: 0 auto;
+    -ms-overflow-style: none; /* IE, Edge 対応 */
 }
-
-

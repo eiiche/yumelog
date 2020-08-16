@@ -53,4 +53,10 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function(){
     Auth::routes(['register' => false]);// /admin/registerのルーティングを登録させない
 
     Route::get('/home', 'AdminHomeController@index')->name('admin_home');
+    Route::get('/manage_users', 'ManageUsersPageController@index')->name('admin_manage_users');
+    Route::get('/manage_diaries', 'ManageDiariesPageController@index')->name('admin_manage_diaries');
+    Route::get("/manage_favorites","ManageFavoritesPageController@index")->name("admin_manage_favorites");
+    Route::get("/manage_admins","ManageAdminsPageController@index")->name("admin_manage_admins");
+    Route::get("/manage_access_logs","ManageAccessLogsPageController@index")->name("admin_manage_access_logs");
+    Route::get("/manage_admin_logs","ManageAdminLogsController@index")->name("admin_manage_admin_logs");
 });

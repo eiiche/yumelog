@@ -1,27 +1,34 @@
-@extends('layouts.app_admin')
+@extends('layouts.app')
 
 @section('content')
-    <h1>管理者用ログイン画面</h1>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-2">
+                <div class="menu_parent">
+                    <h2>管理画面</h2>
+                    <a href="home">TOP</a>
+                    <div class="menu1">
+                        <h3>テーブル</h3>
+                        <a href="manage_users">users</a><br>
+                        <a href="manage_diaries">diaries</a><br>
+                        <a href="manage_favorites">favorites</a><br>
+                        <a href="manage_access_log">access_logs</a><br>
+                        <a href="manage_admin_log">admin_logs</a><br>
+                        <a href="manage_admins">admins</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header">Admin Dashboard</div>
+                    <div class="card-header">Employee Dashboard</div>
 
                     <div class="card-body">
                         @if (session('status'))
                             <div class="alert alert-success" role="alert">
                                 {{ session('status') }}
                             </div>
-                            <div>
-                                <?php foreach($diaries as $diary){ ?>
-                                {{$diary->user->name}}
-                                {{$diary->created_at}}
-                                <h3>{{$diary->text}}></h3>
-                            </div>
                         @endif
-
-                        You are logged in!
+                        hello
                     </div>
                 </div>
             </div>

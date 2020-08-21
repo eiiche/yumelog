@@ -43,6 +43,7 @@ class LoginController extends Controller
 
         return redirect("yumelog");
     }
+
     public function showLoginForm()
     {
         return view('admin.auth.login');

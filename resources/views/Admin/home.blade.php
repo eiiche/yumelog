@@ -20,7 +20,10 @@
             </div>
             <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header">Employee Dashboard</div>
+                    <div class="card-header">
+
+
+                    </div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -28,7 +31,7 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        hello
+
                     </div>
                 </div>
             </div>

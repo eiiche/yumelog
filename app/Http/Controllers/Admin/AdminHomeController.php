@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Diary;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AdminHomeController extends Controller
 {
@@ -20,7 +21,6 @@ class AdminHomeController extends Controller
      */
     public function index()
     {
-        $diaries = Diary::latest()->paginate();
         return view('admin.home');
     }
 }

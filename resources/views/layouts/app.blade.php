@@ -18,6 +18,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!--chart.js-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 </head>
 <body>
     <div id="app">
@@ -74,7 +76,43 @@
 
         <main class="py-4">
             @yield('content')
+            <!--chart.jsを使用-->
+            <canvas id="myChart" width="400" height="400"></canvas>
+            <div id="app">
+            </div>
         </main>
     </div>
 </body>
+<script>
+    var ctx = document.getElementById("myChart");
+    var myChart = new Chart(ctx, {
+        //グラフのタイプを指定
+        type: "line",
+        //グラフの設定やデータ
+        data: {
+            labels : ["青"],//グラフのラベルの色名
+            datasets : [{//グラフのデータ
+                label: "投稿数",//ラベルの表示
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [//色指定
+                    'rgba(54, 162, 235, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                ],
+                borderWidth: 1,
+            }]
+        },
+        //グラフのオプション設定
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+    });
+</script>
 </html>

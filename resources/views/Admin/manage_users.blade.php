@@ -56,7 +56,7 @@
                                             <td>{{$user->name}}</td>
                                             <td>{{$user->email}}</td>
                                             <td>{{$user->email_verified_at}}</td>
-                                            <td>{{$user->password}}</td>
+                                            <td class="overflow-auto">{{$user->password}}</td>
                                             <td>{{$user->created_at}}</td>
                                             <td>{{$user->updated_at}}</td>
                                         </tr>

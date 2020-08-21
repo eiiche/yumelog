@@ -47,6 +47,20 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    <!--検索メニュー-->
+                        <div>
+                            <form method= "POST" action="manage_users">
+                                @csrf
+                                キーワード検索
+                                <input type="text"  name="search_text" id="search_text">
+                                日時指定
+                                Since:
+                                <input type="date" name="since_date" id="since_date" >
+                                Until:
+                                <input type="date" name="until_date" id="until_date">
+                                <input type="submit" value="検索">
+                            </form>
+                        </div>
                     <div class="container">
                         <table class="table">
                             <tr><th>id</th><th>text</th><th>author_id</th><th>created_at</th><th>updated_at</th></tr>

@@ -47,16 +47,27 @@
                                 {{ session('status') }}
                             </div>
                         @endif
+                        <!--検索メニュー-->
+                        <div>
+                            <form method= "POST" action="manage_users">
+                                @csrf
+                                ID,名前,メールアドレス検索
+                                <input type="text"  name="search_text" id="search_text">
+                                <input type="submit" value="検索">
+                            </form>
+                        </div>
+
+                            <!--一覧表示-->
                             <div class="container">
                                 <table class="table">
-                                 <tr><th>id</th><th>name</th><th>email</th><th>email_verified_at</th><th>password</th><th>created_at</th><th>updated_at</th></tr>
+                                 <tr><th>会員id</th><th>名前</th><th>メールアドレス</th><th>登録日</th><th>更新日</th></tr>
                                     @foreach($users as $user)
                                         <tr>
                                             <td>{{$user->id}}</td>
                                             <td>{{$user->name}}</td>
                                             <td>{{$user->email}}</td>
-                                            <td>{{$user->email_verified_at}}</td>
-                                            <td class="overflow-auto">{{$user->password}}</td>
+                                        {{--<td>{{$user->email_verified_at}}</td>--}}
+                                        {{--<td >{{$user->password}}</td>--}}
                                             <td>{{$user->created_at}}</td>
                                             <td>{{$user->updated_at}}</td>
                                         </tr>

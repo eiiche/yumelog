@@ -9,7 +9,7 @@ class StoreRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize()//ユーザの認証チェック
     {
         return true; //[ *1.変更：default=false ]
     }
@@ -37,7 +37,7 @@ class StoreRequest extends FormRequest
     }
 
     // [ *4.追加：validated関数でフォームの値を連想配列で取得。連想配列にauthorIdを追加する（省略可） ]
-    // Requestクラス、user()メソッドにてauthorIdにリクエストを作成したユーザーを代入し、validatedで返却することでControllerの処理を簡易化する
+    // Requestクラス(親クラス)、user()メソッドにてauthorIdにリクエストを作成したユーザーを代入し、validatedで返却することでControllerの処理を簡易化する
     public function validated()
     {
         return parent::validated() + [ 'author_id' => $this->user()->id ];

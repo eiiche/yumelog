@@ -60,4 +60,5 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function(){
     Route::get("/manage_access_logs","ManageAccessLogsPageController@index")->name("admin_manage_access_logs");
     Route::get("/manage_admin_logs","ManageAdminLogsController@index")->name("admin_manage_admin_logs");
     Route::post('/manage_users', 'ManageUsersPageController@search');
+    Route::post('/manage_diaries', 'ManageDiariesPageController@search');
 });

@@ -49,28 +49,30 @@
                     @endif
                     <!--検索メニュー-->
                         <div>
-                            <form method= "POST" action="manage_users">
+                            <form method= "POST" action="manage_diaries">
                                 @csrf
-                                キーワード検索
-                                <input type="text"  name="search_text" id="search_text">
-                                日時指定
+                                日記ID・投稿文検索
+                                <input type="text"  name="search_text" id="search_text" style="width: 10%">
+                                投稿者ID検索
+                                <input type="text"  name="search_id" id="search_id" style="width: 10%">
+                                投稿日時指定
                                 Since:
-                                <input type="date" name="since_date" id="since_date" >
+                                <input type="date" name="since_date" id="since_date" style="width: 10%">
                                 Until:
-                                <input type="date" name="until_date" id="until_date">
+                                <input type="date" name="until_date" id="until_date"style="width: 10%">
                                 <input type="submit" value="検索">
                             </form>
                         </div>
                     <div class="container">
                         <table class="table">
-                            <tr><th>id</th><th>text</th><th>author_id</th><th>created_at</th><th>updated_at</th></tr>
+                            <tr><th>日記id</th><th>投稿文</th><th>投稿者ID</th><th>投稿日</th><th>更新日</th></tr>
                             @foreach($diaries as $diary)
                                 <tr>
-                                    <td>{{$diary->id}}</td>
-                                    <td>{{$diary->text}}</td>
-                                    <td>{{$diary->author_id}}</td>
-                                    <td>{{$diary->created_at}}</td>
-                                    <td>{{$diary->updated_at}}</td>
+                                    <td style="width: 10%">{{$diary->id}}</td>
+                                    <td style="width: 60%;overflow: scroll">{{$diary->text}}</td>
+                                    <td style="width: 10%;">{{$diary->author_id}}</td>
+                                    <td style="width: 10%;">{{$diary->created_at}}</td>
+                                    <td style="width: 10%;">{{$diary->updated_at}}</td>
                                 </tr>
                             @endforeach
                         </table>

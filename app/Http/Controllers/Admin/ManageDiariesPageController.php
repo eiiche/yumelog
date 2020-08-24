@@ -19,21 +19,38 @@ class ManageDiariesPageController extends Controller
     public function search(DiarySearchRequest $request){
         //検索値を用意
         $search_text = $request->search_text;
-        $search_id = $request->id;
+        $author_id = $request->author_id;
         $since_date = $request->since_date;
-        $until_date = $request->until_date;
+        $until_date = date('Y-m-d H:i:s', strtotime($request->until_date . ' +1 day'));//一日加算し当日の0時まで検索可能にする
         //検索
         $diaries =
-            Diary::
-                //日記ID・投稿文検索
-            where("id","like","%".$search_text."%")
-            ->orWhere("text","like","%".$search_text."%")
-                //投稿者ID検索
-            ->where("author_id","=",$search_id)
-                //登校日検索
-            ->whereBetween("created_at",[$since_date,$until_date])->get();
+            Diary::when($search_text, function($query, $search_text) {//search_textがtrueの場合search_textで検索
+
+            $query->searchText($search_text);
+            })
+            ->when($author_id, function($query, $author_id) {//author_idがtrueの場合author_idで検索
+                $query->authorId($author_id);
+            })
+            ->where(function($query) use($since_date, $until_date) {
+                if ($since_date && $until_date) {
+                    $query->date($since_date,$until_date);
+                }
+            })
+            ->get();
 
         //ビューに渡す
         return view("admin.manage_diaries",["diaries"=>$diaries]);
+    }
+
+    public function  chartDiaries(){
+        $diaries = Diary::latest()->get();//投稿を全件取得。created_at昇順
+
+        foreach($diaries as $diary){//日付ごとの件数集計
+            if(){
+
+            }
+        }
+
+        return response()->json($result);
     }
 }

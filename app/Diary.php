@@ -43,4 +43,26 @@ class Diary extends Model
     public function favorites(){
         return $this->hasMany(Favorite::class);
     }
+
+    //スコープ。テーブル取得の際に使用する条件を記述
+    public function scopeDate($query,$since_date,$until_date){
+        //指定した日時間でレコード取得
+        return $query->whereBetween("created_at", [$since_date, $until_date]);
+    }
+
+    public function  scopeAuthorId($query,$author_id){
+        return $query->where("author_id",$author_id);
+    }
+
+    public function scopeSearchText($query,$search_text)
+    {
+        if ($search_text) {
+            $query->where(function($query) use($search_text) {
+                $query
+                    ->where("id",$search_text)
+                    ->orWhere("text","like","%".$search_text."%");
+            });
+        }
+        return $query;
+    }
 }

@@ -30,7 +30,9 @@
   "directories": {
     "test": "tests"
   },
-  "dependencies": {},
+  "dependencies": {
+    "chart.js": "^2.9.3"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/eiiche/yumelog.git"

@@ -37,12 +37,15 @@
             </div>
         </div>
     </div>
-{{--    {{}}/{{}}<br>--}}
+@endsection
+@section("graph")
+    <div style="width: 1000px;height: 5 00px">
+    {{--    {{}}/{{}}<br>--}}
     今月の投稿数/総投稿数
-{{--    {{}}/{{}}<br>--}}
+    {{--    {{}}/{{}}<br>--}}
     今月のアクセス数/総アクセス数
     <!--chart.jsを使用-->
-    <canvas id="myChart" width="400" height="400"></canvas>
+    <canvas id="myChart" width="100" height="50"></canvas>
     <script>
         var ctx = document.getElementById("myChart");
         var myChart = new Chart(ctx, {
@@ -75,5 +78,5 @@
             }
         });
     </script>
+    </div>
 @endsection
-

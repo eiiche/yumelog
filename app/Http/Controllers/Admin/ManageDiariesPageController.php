@@ -44,11 +44,9 @@ class ManageDiariesPageController extends Controller
 
     public function  chartDiaries(){
         $diaries = Diary::latest()->get();//投稿を全件取得。created_at昇順
-
+        $result = "";
         foreach($diaries as $diary){//日付ごとの件数集計
-            if(){
-
-            }
+//
         }
 
         return response()->json($result);

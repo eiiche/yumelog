@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ManageUsersPageController extends Controller
 {
@@ -21,5 +22,15 @@ class ManageUsersPageController extends Controller
             ->orWhere("email","like","%".$search_text."%")->get();
 
         return  view("admin.manage_users",["users"=>$users]);
+    }
+
+    public function getUserSummary(){
+        $summary = User::query()
+            ->select(DB::raw("Date(created_at) as date"),DB::raw("count(*) as users"))
+            ->groupBy(DB::raw("Date(created_at)"))
+            ->orderBy("date","asc")
+            ->get();
+
+            return response()->json($summary);
     }
 }

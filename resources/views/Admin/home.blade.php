@@ -38,45 +38,4 @@
         </div>
     </div>
 @endsection
-@section("graph")
-    <div style="width: 1000px;height: 5 00px">
-    {{--    {{}}/{{}}<br>--}}
-    今月の投稿数/総投稿数
-    {{--    {{}}/{{}}<br>--}}
-    今月のアクセス数/総アクセス数
-    <!--chart.jsを使用-->
-    <canvas id="myChart" width="100" height="50"></canvas>
-    <script>
-        var ctx = document.getElementById("myChart");
-        var myChart = new Chart(ctx, {
-            //グラフのタイプを指定
-            type: "line",
-            //グラフの設定やデータ
-            data: {
-                labels : ["青"],//グラフのラベルの色名
-                datasets : [{//グラフのデータ
-                    label: "投稿数",//ラベルの表示
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: [//色指定
-                        'rgba(54, 162, 235, 0.2)',
-                    ],
-                    borderColor: [
-                        'rgba(54, 162, 235, 1)',
-                    ],
-                    borderWidth: 1,
-                }]
-            },
-            //グラフのオプション設定
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        }
-                    }]
-                }
-            }
-        });
-    </script>
-    </div>
-@endsection
+

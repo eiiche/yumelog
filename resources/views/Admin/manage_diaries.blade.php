@@ -20,8 +20,7 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">
-
-
+                        テーブル閲覧
                     </div>
 
                     <div class="card-body">
@@ -68,44 +67,55 @@
         @section("graph")
             <div class="container">
                 <div class="row justify-content-center">
-                    <div style="width: 1000px;height: 5 00px">
-                        {{--    {{}}/{{}}<br>--}}
-                        今月の投稿数/総投稿数
-                        {{--    {{}}/{{}}<br>--}}
-                        今月のアクセス数/総アクセス数
+                    <div class="col-12">
+
                         <!--chart.jsを使用-->
                         <canvas id="myChart" width="100" height="50"></canvas>
                         <script>
-                            var ctx = document.getElementById("myChart");
-                            var myChart = new Chart(ctx, {
-                                //グラフのタイプを指定
-                                type: "line",
-                                //グラフの設定やデータ
-                                data: {
-                                    labels : ["青"],//グラフのラベルの色名
-                                    datasets : [{//グラフのデータ
-                                        label: "投稿数",//ラベルの表示
-                                        data: [12, 19, 3, 5, 2, 3],
-                                        backgroundColor: [//色指定
-                                            'rgba(54, 162, 235, 0.2)',
-                                        ],
-                                        borderColor: [
-                                            'rgba(54, 162, 235, 1)',
-                                        ],
-                                        borderWidth: 1,
-                                    }]
-                                },
-                                //グラフのオプション設定
-                                options: {
-                                    scales: {
-                                        yAxes: [{
-                                            ticks: {
-                                                beginAtZero:true
+                            //チャート用データ取得
+                            var url = "{{url('admin/getDiarySummary')}}";//データ取得用URL
+                            var date = new Array()//ラベル用日付データ
+                            var posts = new Array();//グラフ用件数データ
+                            $(document).ready(function() {
+                                $.get(url, function (response) {//URLにアクセス。レスポンス取得
+                                    response.forEach(function (postCount) {//レスポンスのオブジェクトからdate,postsを取得
+                                        date.push(postCount.date);//変数dateにレスポンスのdateを格納
+                                        posts.push(postCount.posts);//変数postsにレスポンスのpostsを格納
+                                    });
+
+                                    //チャート生成
+                                    var ctx = document.getElementById("myChart");
+                                    var myChart = new Chart(ctx, {
+                                        //グラフのタイプを指定
+                                        type: "line",
+                                        //グラフの設定やデータ
+                                        data: {
+                                            labels: date,//グラフのラベル名
+                                            datasets: [{//グラフのデータ
+                                                label: "投稿数",//ラベルのグループ名
+                                                data: posts,
+                                                backgroundColor: [//色指定
+                                                    'rgba(54, 162, 235, 0.2)',
+                                                ],
+                                                borderColor: [
+                                                    'rgba(54, 162, 235, 1)',
+                                                ],
+                                                borderWidth: 1,
+                                            }]
+                                        },
+                                        //グラフのオプション設定
+                                        options: {
+                                            scales: {
+                                                yAxes: [{
+                                                    ticks: {
+                                                        beginAtZero: true
+                                                    }
+                                                }]
                                             }
-                                        }]
-                                    }
-                                }
-                            });
+                                        }
+                                    });
+                                })
+                            })
                         </script>
                     </div>
                 </div>

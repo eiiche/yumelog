@@ -75,12 +75,12 @@
                             //チャート用データ取得
                             var url = "{{url('admin/getDiarySummary')}}";//データ取得用URL
                             var date = new Array()//ラベル用日付データ
-                            var posts = new Array();//グラフ用件数データ
+                            var postCount = new Array();//グラフ用件数データ
                             $(document).ready(function() {
                                 $.get(url, function (response) {//URLにアクセス。レスポンス取得
-                                    response.forEach(function (postCount) {//レスポンスのオブジェクトからdate,postsを取得
-                                        date.push(postCount.date);//変数dateにレスポンスのdateを格納
-                                        posts.push(postCount.posts);//変数postsにレスポンスのpostsを格納
+                                    response.forEach(function (result) {//レスポンスのオブジェクトからdate,postsを取得
+                                        date.push(result.date);//変数dateにレスポンスのdateを格納
+                                        postCount.push(result.postCount);//変数postsにレスポンスのpostsを格納
                                     });
 
                                     //チャート生成
@@ -93,7 +93,7 @@
                                             labels: date,//グラフのラベル名
                                             datasets: [{//グラフのデータ
                                                 label: "投稿数",//ラベルのグループ名
-                                                data: posts,
+                                                data: postCount,
                                                 backgroundColor: [//色指定
                                                     'rgba(54, 162, 235, 0.2)',
                                                 ],

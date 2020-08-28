@@ -1,39 +1,6 @@
-* {
-    background-color: #fffbdb;
+
+.sidebar_fixed {
+    position: sticky;
+    top: 60px;
 }
 
-header {
-    position: fixed;/*要素を固定*/
-    text-align: center;/*要素内で文字を中央揃え*/
-    width: 100%;/*要素の横サイズを親要素に対して100%に拡大*/
-    border-bottom:solid 1px #1b1e21;/*構造把握用tempコード*/
-
-}
-
-.container{
-    margin-top:200px;/*　前要素より200pxの空白　*/
-    display: flex;/*　子要素を横並びにする　*/
-    /*border:solid 3px #c51f1a;*/
-    width: 100%;
-    height: 700px;
-    position: absolute;
-
-}
-.content::-webkit-scrollbar {  /* Chrome, Safari 対応 */
-    display:none;
-}
-
-
-.sidebar {
-    /*border:solid 5px #000;*/
-    width: 400px;
-}
-
-.content {
-    overflow: scroll; /*要素をスクロール可能にする*/
-    height: 100%; /*containerの高さに対して100%の縦サイズ*/
-    width: 60%;
-    /*border:solid 1px #000;*/
-    margin: 0 auto;
-    -ms-overflow-style: none; /* IE, Edge 対応 */
-}

@@ -49,7 +49,6 @@ class ManageDiariesPageController extends Controller
         //変数を用意
         $start = Carbon::today()->subYear();//本日より一年前(subyear)の日付を格納
         $end = Carbon::today();//本日の日付を格納
-        $postCount= collect([]);
 
         //日付と日付ごとの件数取得
         $summary = Diary::query()
@@ -60,18 +59,21 @@ class ManageDiariesPageController extends Controller
             ->orderBy('date', 'asc')
             ->get();
 
+        //日付を用意
         $d = $start->copy();
         //日付が本日まで(less than equal)の分処理をする
+        $count = 0;
         while($d->lte($end)) {
             //用意された1日刻みの日付に対して該当の日付の日記がある場合、$dataに$summaryのオブジェクトを格納
-            $data = $summary->first(function ($diary) use ($d) {
+            $data = $summary->first(function ($diary) use ($d) {//firstメソッド内foreachがコレクション$summaryからオブジェクト$diaryを一件ずつ取得し、functionを実行
                 return $diary->date == $d->format('Y-m-d');//日記の日付と用意された1日刻みの日付を比較
             });
-            $postCount->push(optional($data)->posts ?? 0);//$dataがnullである場合は0,nullでない場合はpostsを格納
+            $count += optional($data)->posts ?? 0;
+            $result[] = ['date' => $d->format('Y-m-d'), 'postCount' => $count];
             $d->addDay();//日付を進める
         }
 
 
-        return response()->json($postCount);
+        return response()->json($result);
     }
 }

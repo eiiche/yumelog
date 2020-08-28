@@ -78,12 +78,12 @@
                     //チャート用データ取得
                     var url = "{{url('admin/getUserSummary')}}";//データ取得用URL
                     var date = new Array()//ラベル用日付データ
-                    var users = new Array();//グラフ用件数データ
+                    var userCount = new Array();//グラフ用件数データ
                     $(document).ready(function() {
                         $.get(url, function (response) {//URLにアクセス。レスポンス取得
                             response.forEach(function (summary) {//レスポンスのオブジェクトからdate,postsを取得
                                 date.push(summary.date);//変数dateにレスポンスのdateを格納
-                                users.push(summary.users);//変数postsにレスポンスのpostsを格納
+                                userCount.push(summary.userCount);//変数postsにレスポンスのpostsを格納
                             });
 
                             //チャート生成
@@ -96,7 +96,7 @@
                                     labels: date,//グラフのラベル名
                                     datasets: [{//グラフのデータ
                                         label: "ユーザー登録",//ラベルのグループ名
-                                        data: users,
+                                        data: userCount,
                                         backgroundColor: [//色指定
                                             'rgba(54, 162, 235, 0.2)',
                                         ],

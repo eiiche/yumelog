@@ -1,39 +1,26 @@
-<html>
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+@extends("layouts.app2")
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('css/styleMypage.css') }}">
-    <title>YUMELOG</title>
-</head>
-<body>
-<h1>書いた夢日記</h1><br>
-<a href="./">戻る</a>
-<!--スクロール表示可能な日記。YumelogController@mypageからログインしているユーザidに紐づいた日記が渡される-->
-<div class="content">
-    <?php foreach($diaries as $diary){ ?>
-    {{$diary->created_at}}
-    <h3>{{$diary->text}}></h3>
-        <form action="editDiary" method="post">
+@section("content")
+    <h1>書いた夢日記</h1><br>
+    <!--スクロール表示可能な日記。YumelogController@mypageからログインしているユーザidに紐づいた日記が渡される-->
+        <?php foreach($diaries as $diary){ ?>
+        {{$diary->created_at}}
+        <h3>{{$diary->text}}></h3>
+            <div>
+        <form action="editDiary" method="post" style="display: inline">
             @csrf
             <input type="hidden" name="editbtn" value="{{$diary->id}}"><!--ボタン押下時に送信する情報はこのタグに追加-->
-            <button type="submit">
+            <button type="submit" class="btn btn-link btn-lg">
                 編集
             </button>
         </form>
-        <form action="deleteDiary" method="post">
+        <form action="deleteDiary" method="post" style="display: inline">
             @csrf
             <input type="hidden" name="deletebtn" value="{{$diary->id}}"><!--ボタン押下時に送信する情報はこのタグに追加-->
-            <button type="submit">
+            <button type="submit" class="btn btn-link btn-lg">
                 削除
             </button>
         </form>
-    <?php } ?>
-</div>
-
-
-</body>
-</html>
+            </div>
+        <?php } ?>
+@endsection

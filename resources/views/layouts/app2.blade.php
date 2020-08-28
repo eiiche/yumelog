@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <!--chart.js-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 </head>
@@ -25,7 +26,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm fixed-top">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/yumelog') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -74,10 +75,33 @@
             </div>
         </nav>
 
+
         <main class="py-4">
+            <div class="container-xl">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="sidebar_fixed" style="padding-top:75px">
+                                    <p><button type="button" class="btn btn-primary btn-lg" onclick="location.href='/yumelog/public/yumelog/writelog'" style="margin-top:40px">日記を書く</button></p>
+                                    <p><button type="button" class="btn btn-primary btn-lg" onclick="location.href='/yumelog/public/yumelog/mypage'" style="margin-top:40px">マイページ</button></p>
+                                    <p><button type="button" class="btn btn-primary btn-lg" onclick="location.href='/yumelog/public/yumelog/favorite'" style="margin-top:40px">お気に入り</button></p>
 
-            @yield('content')
+                                <!--ログイン関連-->
+                                <?php if(Auth::check()){ ?>
+                                <p><button type="button" class="btn btn-default btn-lg" onclick="location.href='logout'" style="margin-top:40px">ログアウト</button></p>
+                                <?php }else{ ?>
+                                <p><button type="button" class="btn btn-default btn-lg" onclick="location.href='login'" style="margin-top:40px">ログイン</button></p>
+                                <p><button type="button" class="btn btn-default btn-lg" onclick="location.href='register'" style="margin-top:40px">登録</button></p>
+                                <?php } ?>
 
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div style="margin-top:100px">
+                        @yield("content")
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
 

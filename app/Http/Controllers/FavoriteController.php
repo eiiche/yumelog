@@ -99,6 +99,6 @@ class FavoriteController extends Controller
             //保存処理
             Favorite::create(['diary_id' => $diary_id, 'user_id' => $user_id]);
         }
-        return redirect("/yumelog");
+        return redirect()->back();;
     }
 }

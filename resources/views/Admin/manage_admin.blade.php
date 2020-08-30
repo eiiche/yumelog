@@ -1,23 +1,5 @@
 @extends('layouts.app_admin')
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-2">
-                <div class="menu_parent">
-                    <h2>管理画面</h2>
-                    <a href="home">TOP</a>
-                    <div class="menu1">
-                        <h3>テーブル</h3>
-                        <a href="manage_users">users一覧</a><br>
-                        <a href="manage_diaries">diaries一覧</a><br>
-                        <a href="manage_favorites">favorites一覧</a><br>
-                        <a href="manage_access_log">access_logs一覧</a><br>
-                        <a href="manage_admin_log">admin_logs一覧</a><br>
-                        <a href="manage_admins">admins一覧</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">
 
@@ -59,8 +41,4 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    </div>
 @endsection

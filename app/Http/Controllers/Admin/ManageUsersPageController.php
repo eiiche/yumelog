@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\DB;
 class ManageUsersPageController extends Controller
 {
     public function index(){
-        $users = User::latest()->get();
+        $paginate = 10;
+        $users = User::latest()->simplePaginate($paginate);
         return view("admin.manage_users",["users"=>$users]);
     }
 

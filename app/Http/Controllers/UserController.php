@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Diary;
-use App\Http\Requests\Diary\StoreRequest;
+use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class DiaryController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,6 +14,7 @@ class DiaryController extends Controller
      */
     public function index()
     {
+        //
     }
 
     /**
@@ -34,10 +33,9 @@ class DiaryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRequest $request)
+    public function store(Request $request)
     {
-        Diary::create($request->validated());
-        return redirect("/yumelogPost");
+        //
     }
 
     /**
@@ -59,7 +57,7 @@ class DiaryController extends Controller
      */
     public function edit($id)
     {
-
+        //
     }
 
     /**
@@ -67,28 +65,23 @@ class DiaryController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $diary_id = $request->diary_id;//日記のid取得
-        $diary_text = $request->text;//日記の編集後テキスト取得
-        Diary::where("id",$diary_id)->update(["text"=>$diary_text]);
-
-        return redirect("/yumelog/mypage");
+        //
     }
-
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy(Request $request)
     {
-        $ids = $request->diary_id;
-        Diary::whereIn("id",explode(",",$ids))->delete();
+        $ids = $request->user_id;
+        User::whereIn("id",explode(",",$ids))->delete();
 
         return redirect()->back();
     }

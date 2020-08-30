@@ -16,8 +16,8 @@
         </form>
         <form action="deleteDiary" method="post" style="display: inline">
             @csrf
-            <input type="hidden" name="deletebtn" value="{{$diary->id}}"><!--ボタン押下時に送信する情報はこのタグに追加-->
-            <button type="submit" class="btn btn-link btn-lg">
+            <input type="hidden" name="diary_id" value="{{$diary->id}}" ><!--ボタン押下時に送信する情報はこのタグに追加-->
+            <button type="submit" class="btn btn-link btn-lg" onclick="return confirm('削除しますか？')">
                 削除
             </button>
         </form>

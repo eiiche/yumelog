@@ -1,23 +1,6 @@
 @extends('layouts.app_admin')
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-2">
-                <div class="menu_parent">
-                    <h2>管理画面</h2>
-                    <a href="home">TOP</a>
-                    <div class="menu1">
-                        <h3>テーブル</h3>
-                        <a href="manage_users">users一覧</a><br>
-                        <a href="manage_diaries">diaries一覧</a><br>
-                        <a href="manage_favorites">favorites一覧</a><br>
-                        <a href="manage_access_log">access_logs一覧</a><br>
-                        <a href="manage_admin_log">admin_logs一覧</a><br>
-                        <a href="manage_admins">admins一覧</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-10">
+
                 <div class="card">
                     <div class="card-header">
 
@@ -42,10 +25,13 @@
 
                             <!--一覧表示-->
                             <div class="container">
+                                <form method= "POST" action="user_multiple_delete">
+                                    @csrf
                                 <table class="table">
-                                    <tr><th>会員id</th><th>名前</th><th>メールアドレス</th><th>登録日</th><th>更新日</th></tr>
+                                    <tr><th></th><th>会員id</th><th>名前</th><th>メールアドレス</th><th>登録日</th><th>更新日</th></tr>
                                     @foreach($users as $user)
                                         <tr>
+                                            <td><input class="form-check-input" type="checkbox" value="{{$user->id}}" name="user_id"></td>
                                             <td>{{$user->id}}</td>
                                             <td>{{$user->name}}</td>
                                             <td>{{$user->email}}</td>
@@ -56,23 +42,16 @@
                                         </tr>
                                     @endforeach
                                 </table>
+                                    <input type="submit" value="削除する" class="btn btn-danger btn-lg" onclick="return confirm('削除しますか？')">
+                                </form>
+                                {{$users->links()}}
                             </div>
-                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+
 @endsection
 @section("graph")
-    <div class="container">
-        <div class="row justify-content-center">
-            <div style="width: 1000px;height: 5 00px">
-                {{--    {{}}/{{}}<br>--}}
-                今月の投稿数/総投稿数
-                {{--    {{}}/{{}}<br>--}}
-                今月のアクセス数/総アクセス数
-                <!--chart.jsを使用-->
+
                 <canvas id="myChart" width="100" height="50"></canvas>
                 <script>
                     //チャート用データ取得
@@ -120,7 +99,5 @@
                         })
                     })
                 </script>
-            </div>
-        </div>
-    </div>
+
 @endsection

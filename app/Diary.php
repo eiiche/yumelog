@@ -35,6 +35,7 @@ class Diary extends Model
     protected  $perPage = 30;
 
 
+
     public function user()// リレーション (従属の関係)。単数形
     {
         return $this->belongsTo(User::class,"author_id");

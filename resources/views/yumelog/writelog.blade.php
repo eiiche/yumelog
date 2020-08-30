@@ -5,9 +5,8 @@
 
     <form method= "POST" action="/yumelog/public/yumelog" >
         @csrf
-        内容
-        <input type="textarea"  name="text" id="text"><!--name="id"をキーにしてコントローラーに日記テキスト受け渡し-->
+        <textarea class="form-control" id="text" rows="3" name="text"></textarea><!--name="id"をキーにしてコントローラーに日記テキスト受け渡し-->
         <br>
-        <input type="submit" value="日記を書く">
+        <input type="submit" value="投稿する" class="btn btn-default btn-lg">
     </form>
 @endsection

@@ -13,7 +13,8 @@ class ManageDiariesPageController extends Controller
 {
     //管理画面 Diaryテーブル一覧表示
     public function index(){
-        $diaries = Diary::latest()->get();
+        $paginate = 6;
+        $diaries = Diary::latest()->simplePaginate($paginate);
         return view("admin.manage_diaries",["diaries"=>$diaries]);
     }
 

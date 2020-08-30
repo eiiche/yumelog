@@ -37,7 +37,7 @@ Route::post("yumelog/postFav","FavoriteController@postFavorite");
 
 Route::post("yumelog/editDiary","EditDiaryPageController@index");
 
-Route::post("yumelog/deleteDiary","DeleteDiaryPageController@index");
+Route::post("yumelog/deleteDiary","DiaryController@destroy");
 
 Route::post("yumelog/deletedDiary","DiaryController@destroy");
 
@@ -63,4 +63,7 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function(){
     Route::post('/manage_diaries', 'ManageDiariesPageController@search');
     Route::get('/getDiarySummary','ManageDiariesPageController@getDiarySummary');//chart.jsによるアクセス
     Route::get('/getUserSummary','ManageUsersPageController@getUserSummary');//chart.jsによるアクセス
+
 });
+
+Route::post("admin/user_multiple_delete","UserController@destroy");

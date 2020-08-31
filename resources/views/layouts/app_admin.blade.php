@@ -25,7 +25,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/admin/home') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -87,7 +87,6 @@
                             <p><button type="button" class="btn btn-default btn-lg" onclick="location.href='login'" style="margin-top:40px">ログイン</button></p>
                             <p><button type="button" class="btn btn-default btn-lg" onclick="location.href='register'" style="margin-top:40px">登録</button></p>
                             <?php } ?>
-
                         </div>
                     </div>
                     <div class="col-5">
@@ -97,7 +96,14 @@
                     </div>
                     <div class="col-5">
                         <div style="margin-top:100px">
-                            @yield("graph")
+                            <div class="card">
+                                <div class="card-header">
+
+                                </div>
+                                <div class="card-body">
+                                @yield("graph")
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

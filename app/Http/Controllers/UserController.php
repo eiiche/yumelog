@@ -80,9 +80,20 @@ class UserController extends Controller
      */
     public function destroy(Request $request)
     {
-        $ids = $request->user_id;
-        User::whereIn("id",explode(",",$ids))->delete();
+        User::destroy($request->user_id);
 
         return redirect()->back();
+    }
+    //フォームsubmitのvalueの値で処理を振り分け
+    public  function check(Request $request){
+        if($_POST["action"] == "delete"){
+            $this->destroy($request);
+        }elseif($_POST["action"] == "mail"){
+            $this->mail($request);
+        }
+    }
+
+    public function mail(Request $request){
+
     }
 }

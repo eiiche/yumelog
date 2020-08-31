@@ -28,10 +28,13 @@
                                 </form>
                             </div>
                             <div class="container">
+                                <form method= "POST" action="diary_multiple_delete">
+                                    @csrf
                                 <table class="table">
-                                    <tr><th>日記id</th><th>投稿文</th><th>投稿者ID</th><th>投稿日</th><th>更新日</th></tr>
+                                    <tr><th></th><th>日記id</th><th>投稿文</th><th>投稿者ID</th><th>投稿日</th><th>更新日</th></tr>
                                     @foreach($diaries as $diary)
                                         <tr>
+                                            <td><input class="form-check-input" type="checkbox" value="{{$diary->id}}" name="diary_id[]"></td>
                                             <td style="width: 10%">{{$diary->id}}</td>
                                             <td style="width: 60%;overflow: scroll">{{$diary->text}}</td>
                                             <td style="width: 10%;">{{$diary->author_id}}</td>
@@ -40,13 +43,14 @@
                                         </tr>
                                     @endforeach
                                 </table>
+                                    <input type="submit" value="削除する" class="btn btn-danger btn-lg" name="delete" onclick="return confirm('削除しますか？')">
+                                </form>
                                 {{$diaries->links()}}
                             </div>
                     </div>
                 </div>
 @endsection
         @section("graph")
-
                         <!--chart.jsを使用-->
                         <canvas id="myChart" width="100" height="50"></canvas>
                         <script>
@@ -95,5 +99,6 @@
                                 })
                             })
                         </script>
-@endsection
+
+        @endsection
 

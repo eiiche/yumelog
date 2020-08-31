@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Diary;
 use App\Http\Requests\Diary\StoreRequest;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -87,8 +88,7 @@ class DiaryController extends Controller
      */
     public function destroy(Request $request)
     {
-        $ids = $request->diary_id;
-        Diary::whereIn("id",explode(",",$ids))->delete();
+        Diary::destroy($request->diary_id);
 
         return redirect()->back();
     }

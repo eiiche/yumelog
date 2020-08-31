@@ -25,13 +25,13 @@
 
                             <!--一覧表示-->
                             <div class="container">
-                                <form method= "POST" action="user_multiple_delete">
+                                <form method= "POST" action="user_checkbox">
                                     @csrf
                                 <table class="table">
                                     <tr><th></th><th>会員id</th><th>名前</th><th>メールアドレス</th><th>登録日</th><th>更新日</th></tr>
                                     @foreach($users as $user)
                                         <tr>
-                                            <td><input class="form-check-input" type="checkbox" value="{{$user->id}}" name="user_id"></td>
+                                            <td><input class="form-check-input" type="checkbox" value="{{$user->id}}" name="user_id[]"></td>
                                             <td>{{$user->id}}</td>
                                             <td>{{$user->name}}</td>
                                             <td>{{$user->email}}</td>
@@ -42,10 +42,38 @@
                                         </tr>
                                     @endforeach
                                 </table>
-                                    <input type="submit" value="削除する" class="btn btn-danger btn-lg" onclick="return confirm('削除しますか？')">
+                                    <button type="submit" name="action" value="delete" class="btn btn-danger btn-lg" onclick="return confirm('削除しますか？')">削除する</button>
+                                    <button type="submit" name="action" value="mail" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#modalMailForm">メール配信</button>
                                 </form>
                                 {{$users->links()}}
                             </div>
+                    </div>
+                </div>
+
+    <!--mailing modal-->
+                <div class="modal fade" id="modalMailForm" tabindex="-1" role="dialog" aria-labelledby="modalMailFormLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" action="sendMail">
+                                    <p>件名</p>
+                                    <textarea name="" id="" cols="50" rows="2"></textarea>
+                                    <p>本文</p>
+                                    <textarea name="" id="" cols="50" rows="10"></textarea>
+                                    <button type="submit"></button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

@@ -3,6 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
+
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
@@ -68,6 +69,7 @@
                 </div>
             </div>
         </div>
+        <button type="button" class="btn btn-default btn-lg py-5" onclick="location.href='admin/login'" style="margin-top:40px">管理者用</button>
     </div>
 </div>
 @endsection

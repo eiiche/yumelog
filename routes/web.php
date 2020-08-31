@@ -66,4 +66,5 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function(){
 
 });
 
-Route::post("admin/user_multiple_delete","UserController@destroy");
+Route::post("admin/user_checkbox","UserController@check");
+Route::post("admin/diary_multiple_delete","DiaryController@destroy");

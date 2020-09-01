@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\notification;
 use App\User;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -72,6 +74,17 @@ class UserController extends Controller
         //
     }
 
+    //フォームsubmitのvalueの値で処理を振り分け
+    public  function check(Request $request){
+        if($request->input('action') == "delete"){
+            $this->destroy($request);
+        }elseif($request->input('action') == "mail"){
+            $this->mail($request);
+        }
+
+        return redirect()->back();
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -84,16 +97,12 @@ class UserController extends Controller
 
         return redirect()->back();
     }
-    //フォームsubmitのvalueの値で処理を振り分け
-    public  function check(Request $request){
-        if($_POST["action"] == "delete"){
-            $this->destroy($request);
-        }elseif($_POST["action"] == "mail"){
-            $this->mail($request);
-        }
-    }
 
     public function mail(Request $request){
+        $destination = User::where("id",$request->user_id)->get();
+        $title = $request->title;
+        $text = $request->text;
 
+        Mail::to($destination)->send(new notification($title,$text));
     }
 }

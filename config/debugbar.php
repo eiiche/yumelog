@@ -136,7 +136,7 @@ return [
 
     'options' => [
         'auth' => [
-            'show_name' => true,   // Also show the users name/email in the debugbar
+            'show_name' => true,   // Also show the users name/emails in the debugbar
         ],
         'db' => [
             'with_params'       => true,   // Render SQL with the parameters substituted

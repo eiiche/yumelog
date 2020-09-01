@@ -44,11 +44,36 @@
                                     @endforeach
                                 </table>
                                     <input type="submit" value="削除する" class="btn btn-danger btn-lg" name="delete" onclick="return confirm('削除しますか？')">
+                                    <button class="btn btn-warning btn-lg" onclick="location.href='{{route("export_diary_csv")}}'">CSVエクスポート</button>
+                                    <button type="button" name="action" value="mail" class="btn btn-success btn-lg" data-toggle="modal" data-target="#modalCSVForm">CSVインポート</button>
                                 </form>
                                 {{$diaries->links()}}
                             </div>
                     </div>
                 </div>
+
+                <!--CSV upload modal-->
+                <div class="modal fade" id="modalCSVForm" tabindex="-1" role="dialog" aria-labelledby="modalCSVFormLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" action="{{route("import_diary_csv")}}" enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="file" name="csv">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" name="action" value="mail" class="btn btn-danger btn-lg" >送信する</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 @endsection
         @section("graph")
                         <!--chart.jsを使用-->

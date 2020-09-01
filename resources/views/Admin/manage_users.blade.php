@@ -24,9 +24,10 @@
                             </div>
 
                             <!--一覧表示-->
-                            <div class="container">
+
                                 <form method= "POST" action="user_checkbox">
                                     @csrf
+                                    <div class="container">
                                 <table class="table">
                                     <tr><th></th><th>会員id</th><th>名前</th><th>メールアドレス</th><th>登録日</th><th>更新日</th></tr>
                                     @foreach($users as $user)
@@ -43,41 +44,45 @@
                                     @endforeach
                                 </table>
                                     <button type="submit" name="action" value="delete" class="btn btn-danger btn-lg" onclick="return confirm('削除しますか？')">削除する</button>
-                                    <button type="submit" name="action" value="mail" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#modalMailForm">メール配信</button>
+                                    <button type="button" name="action" value="mail" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#modalMailForm">メール配信</button>
+
+                                    <!--mailing modal-->
+                                    <div class="modal fade" id="modalMailForm" tabindex="-1" role="dialog" aria-labelledby="modalMailFormLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post" action="sendMail">
+                                                        <p>件名</p>
+                                                        <textarea name="title" id="title" cols="50" rows="2"></textarea>
+                                                        <p>本文</p>
+                                                        <textarea name="text" id="text" cols="50" rows="10"></textarea>
+                                                        <button type="submit"></button>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="submit" name="action" value="mail" class="btn btn-danger btn-lg" onclick="return confirm('メールを送信しますか？')">送信する</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
                                 </form>
                                 {{$users->links()}}
-                            </div>
+
                     </div>
                 </div>
 
-    <!--mailing modal-->
-                <div class="modal fade" id="modalMailForm" tabindex="-1" role="dialog" aria-labelledby="modalMailFormLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form method="post" action="sendMail">
-                                    <p>件名</p>
-                                    <textarea name="" id="" cols="50" rows="2"></textarea>
-                                    <p>本文</p>
-                                    <textarea name="" id="" cols="50" rows="10"></textarea>
-                                    <button type="submit"></button>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
 
 @endsection
+
 @section("graph")
 
                 <canvas id="myChart" width="100" height="50"></canvas>

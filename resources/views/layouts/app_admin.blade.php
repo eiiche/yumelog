@@ -72,42 +72,41 @@
                 </div>
             </div>
         </nav>
-            <div class="container-auto">
-                <div class="row">
-                    <div class="col-2">
-                        <div class="sidebar_fixed" style="padding-top:75px">
-                            <p><button type="button" class="btn btn-primary btn-lg" onclick="location.href='manage_users'" style="margin-top:40px">ユーザ管理</button></p>
-                            <p><button type="button" class="btn btn-primary btn-lg" onclick="location.href='manage_diaries'" style="margin-top:40px">投稿管理</button></p>
-                            <p><button type="button" class="btn btn-primary btn-lg" onclick="location.href='manage_admins'" style="margin-top:40px">管理者設定</button></p>
+    </div>
+    <div class="container-auto">
+        <div class="row">
+            <div class="col-2">
+                <div class="sidebar_fixed" style="padding-top:75px">
+                    <p><button type="button" class="btn btn-primary btn-lg" onclick="location.href='manage_users'" style="margin-top:40px">ユーザ管理</button></p>
+                    <p><button type="button" class="btn btn-primary btn-lg" onclick="location.href='manage_diaries'" style="margin-top:40px">投稿管理</button></p>
+                    <p><button type="button" class="btn btn-primary btn-lg" onclick="location.href='manage_admins'" style="margin-top:40px">管理者設定</button></p>
 
-                            <!--ログイン関連-->
-                            <?php if(Auth::check()){ ?>
-                            <p><button type="button" class="btn btn-default btn-lg" onclick="location.href='logout'" style="margin-top:40px">ログアウト</button></p>
-                            <?php }else{ ?>
-                            <p><button type="button" class="btn btn-default btn-lg" onclick="location.href='login'" style="margin-top:40px">ログイン</button></p>
-                            <p><button type="button" class="btn btn-default btn-lg" onclick="location.href='register'" style="margin-top:40px">登録</button></p>
-                            <?php } ?>
-                        </div>
-                    </div>
-                    <div class="col-5">
-                        <div style="margin-top:100px">
-                            @yield("content")
-                        </div>
-                    </div>
-                    <div class="col-5">
-                        <div style="margin-top:100px">
-                            <div class="card">
-                                <div class="card-header">
+                    <!--ログイン関連-->
+                    <?php if(Auth::check()){ ?>
+                    <p><button type="button" class="btn btn-default btn-lg" onclick="location.href='logout'" style="margin-top:40px">ログアウト</button></p>
+                    <?php }else{ ?>
+                    <p><button type="button" class="btn btn-default btn-lg" onclick="location.href='login'" style="margin-top:40px">ログイン</button></p>
+                    <?php } ?>
+                </div>
+            </div>
+            <div class="col-5">
+                <div style="margin-top:100px">
+                    @yield("content")
+                </div>
+            </div>
+            <div class="col-5">
+                <div style="margin-top:100px">
+                    <div class="card">
+                        <div class="card-header">
 
-                                </div>
-                                <div class="card-body">
-                                @yield("graph")
-                                </div>
-                            </div>
+                        </div>
+                        <div class="card-body">
+                            @yield("graph")
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     </div>
 
 </body>

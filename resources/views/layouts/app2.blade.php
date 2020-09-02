@@ -20,17 +20,11 @@
     <!-- Styles -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <!--chart.js-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 
-    <style type="text/css">
-        @font-face {
-            font-family: Boku2-Bold;
-            src: url('{{ public_path('fonts/Boku2-bold.otf') }}');
-        }
-    </style>
 </head>
 <body>
     <div id="app">
@@ -86,8 +80,8 @@
         </nav>
 
 
-        <main class="py-4">
-            <div class="container-xl">
+
+            <div class="container-xl background" >
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="sidebar_fixed" style="padding-top:75px">
@@ -106,13 +100,13 @@
                         </div>
                     </div>
                     <div class="col-lg-9">
-                        <div style="margin-top:100px">
+                        <div  class="content-parent">
                         @yield("content")
                         </div>
                     </div>
                 </div>
             </div>
-        </main>
+
     </div>
 
 </body>

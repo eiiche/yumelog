@@ -21,7 +21,7 @@ class ManageUsersPageController extends Controller
         $search_text = $request->search_text;
         $users = User::where("id","like","%".$search_text."%")
             ->orWhere("name","like","%".$search_text."%")
-            ->orWhere("emails","like","%".$search_text."%")->get();
+            ->orWhere("email","like","%".$search_text."%")->get();
 
         return  view("admin.manage_users",["users"=>$users]);
     }

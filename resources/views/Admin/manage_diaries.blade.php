@@ -44,10 +44,16 @@
                                     @endforeach
                                 </table>
                                     <input type="submit" value="削除する" class="btn btn-danger btn-lg" name="delete" onclick="return confirm('削除しますか？')">
-                                    <button class="btn btn-warning btn-lg" onclick="location.href='{{route("export_diary_csv")}}'">CSVエクスポート</button>
-                                    <button type="button" name="action" value="mail" class="btn btn-success btn-lg" data-toggle="modal" data-target="#modalCSVForm">CSVインポート</button>
                                 </form>
+                                <div style="padding-top:25px">
                                 {{$diaries->links()}}
+                                </div>
+                                <form action="{{route("export_csv")}}" method="post" style="display: inline">
+                                    @csrf
+                                    <input type="hidden" name="table" value="diary">
+                                    <button type="submit" class="btn btn-default btn-lg">CSVエクスポート</button>
+                                </form>
+                                    <button type="button" value="diary" name="table" class="btn btn-default btn-lg" data-toggle="modal" data-target="#modalCSVForm">CSVインポート</button>
                             </div>
                     </div>
                 </div>
@@ -63,11 +69,14 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form method="post" action="{{route("import_diary_csv")}}" enctype="multipart/form-data">
+                                <form method="post" action="{{route("import_csv")}}" enctype="multipart/form-data" >
                                     @csrf
                                     <input type="file" name="csv">
+                                    <input type="hidden" name="table" value="diary">
+                                    <div>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" name="action" value="mail" class="btn btn-danger btn-lg" >送信する</button>
+                                    <button type="submit" class="btn btn-danger btn-lg" >送信する</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>

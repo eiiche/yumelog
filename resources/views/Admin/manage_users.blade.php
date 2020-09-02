@@ -43,9 +43,10 @@
                                         </tr>
                                     @endforeach
                                 </table>
+                                        <div>
                                     <button type="submit" name="action" value="delete" class="btn btn-danger btn-lg" onclick="return confirm('削除しますか？')">削除する</button>
                                     <button type="button" name="action" value="mail" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#modalMailForm">メール配信</button>
-
+                                        </div>
                                     <!--mailing modal-->
                                     <div class="modal fade" id="modalMailForm" tabindex="-1" role="dialog" aria-labelledby="modalMailFormLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
@@ -74,12 +75,43 @@
                                     </div>
                                     </div>
                                 </form>
+                                <div style="padding-top:25px">
                                 {{$users->links()}}
+                                </div>
+                            <form action="{{route("export_csv")}}" method="post" style="display: inline">
+                                @csrf
+                                <input type="hidden" name="table" value="user">
+                                <button type="submit" class="btn btn-default btn-lg">CSVエクスポート</button>
+                            </form>
+                            <button type="button" value="user" name="table" class="btn btn-default btn-lg" data-toggle="modal" data-target="#modalCSVForm">CSVインポート</button>
 
                     </div>
                 </div>
 
-
+                <!--CSV upload modal-->
+                <div class="modal fade" id="modalCSVForm" tabindex="-1" role="dialog" aria-labelledby="modalCSVFormLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" action="{{route("import_csv")}}" enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="file" name="csv">
+                                    <input type="hidden" name="table" value="user">
+                                    <div>
+                                    <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Close</button>
+                                    <button type="submit" name="action" value="mail" class="btn btn-danger btn-lg" >送信する</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 @endsection
 

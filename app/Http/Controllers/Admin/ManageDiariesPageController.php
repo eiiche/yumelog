@@ -11,10 +11,11 @@ use Illuminate\Support\Facades\DB;
 
 class ManageDiariesPageController extends Controller
 {
+    public $paginate = 6;
+
     //管理画面 Diaryテーブル一覧表示
     public function index(){
-        $paginate = 6;
-        $diaries = Diary::latest()->simplePaginate($paginate);
+        $diaries = Diary::orderBy("id","asc")->simplePaginate($this->paginate);//ID順
         return view("admin.manage_diaries",["diaries"=>$diaries]);
     }
 
@@ -39,7 +40,7 @@ class ManageDiariesPageController extends Controller
                     $query->date($since_date,$until_date);
                 }
             })
-            ->get();
+                ->simplePaginate($this->paginate);
 
         //ビューに渡す
         return view("admin.manage_diaries",["diaries"=>$diaries]);
@@ -48,7 +49,7 @@ class ManageDiariesPageController extends Controller
     //chart.jsへのグラフデータ受け渡し
     public function  getDiarySummary(){
         //変数を用意
-        $start = Carbon::today()->subYear();//本日より一年前(subyear)の日付を格納
+        $start = Carbon::today()->subMonth(6);//本日より一年前(subyear)の日付を格納
         $end = Carbon::today();//本日の日付を格納
 
         //日付と日付ごとの件数取得

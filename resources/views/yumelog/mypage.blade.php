@@ -1,7 +1,7 @@
 @extends("layouts.app2")
 
 @section("content")
-    <h1>書いた夢日記</h1><br>
+    <h1 class="text-center">書いた夢日記</h1><br>
     <!--スクロール表示可能な日記。YumelogController@mypageからログインしているユーザidに紐づいた日記が渡される-->
         <?php foreach($diaries as $diary){ ?>
         {{$diary->created_at}}

@@ -1,7 +1,7 @@
 @extends('layouts.app_admin')
 @section('content')
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header text-center">
                         テーブル閲覧
                     </div>
 

@@ -10,9 +10,10 @@ use Illuminate\Support\Facades\DB;
 
 class ManageUsersPageController extends Controller
 {
+    public $paginate = 6;
+
     public function index(){
-        $paginate = 10;
-        $users = User::latest()->simplePaginate($paginate);
+        $users = User::orderBy("id","asc")->simplePaginate($this->paginate);//ID順
         return view("admin.manage_users",["users"=>$users]);
     }
 
@@ -21,14 +22,14 @@ class ManageUsersPageController extends Controller
         $search_text = $request->search_text;
         $users = User::where("id","like","%".$search_text."%")
             ->orWhere("name","like","%".$search_text."%")
-            ->orWhere("email","like","%".$search_text."%")->get();
+            ->orWhere("email","like","%".$search_text."%")->simplePaginate($this->paginate);
 
         return  view("admin.manage_users",["users"=>$users]);
     }
 
     public function getUserSummary(){
         //日付を用意
-        $start = Carbon::today()->subYear();//本日より一年前(subyear)の日付を格納
+        $start = Carbon::today()->subMonth(6);//本日より一年前(subyear)の日付を格納
         $end = Carbon::today();//本日の日付を格納
 
         $summary = User::query()
@@ -52,7 +53,6 @@ class ManageUsersPageController extends Controller
             $result[] = ['date' => $d->format('Y-m-d'), 'userCount' => $count];
             $d->addDay();//日付を進める
         }
-
 
         return response()->json($result);
     }

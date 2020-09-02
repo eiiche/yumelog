@@ -1,6 +1,18 @@
 
+*{
+    font-family: 'Kosugi Maru', sans-serif;
+}
+
 .sidebar_fixed {
     position: sticky;
     top: 60px;
 }
+.board{
+    /*background-color: #fffbdb;*/
+}
 
+.text{
+    /*background: linear-gradient(transparent 70%, #ffdcb8 0%);*/
+    /*display: inline;*/
+    /*text-decoration: underline;*/
+}

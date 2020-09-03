@@ -15,15 +15,23 @@
                             <div>
                                 <form method= "POST" action="manage_diaries">
                                     @csrf
+                                    <span class="search_form">
                                     日記ID・投稿文検索
-                                    <input type="text"  name="search_text" id="search_text" style="width: 10%">
+                                    <input type="text"  name="search_text" id="search_text" >
+                                    </span>
+                                    <span class="search_form">
                                     投稿者ID検索
-                                    <input type="text"  name="author_id" id="author_id" style="width: 10%">
+                                    <input type="text"  name="author_id" id="author_id">
+                                    </span>
+                                    <span class="search_form">
                                     投稿日時指定
                                     Since:
-                                    <input type="date" name="since_date" id="since_date" style="width: 15%">
+                                    <input type="date" name="since_date" id="since_date">
+                                    </span>
+                                    <span class="search_form">
                                     Until:
-                                    <input type="date" name="until_date" id="until_date"style="width: 15%">
+                                    <input type="date" name="until_date" id="until_date">
+                                    </span>
                                     <input type="submit" value="検索">
                                 </form>
                             </div>

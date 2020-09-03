@@ -3,21 +3,25 @@
 @section("content")
     @auth
         <div class="board">
-        <div class="title"><h1>ゆ  め  ロ  グ</h1>
-            <h4 class="subtitle">み ん な の ゆ め に っ き</h4>
+        <div class="title"><h1>み ん な の に っ き</h1>
+            <h4 class="subtitle"></h4>
         </div>
         <div class="content">
             <!--スクロール表示可能な日記-->
                 @foreach($diaries as $diary)
 
-                <h3 class="name">
+                  <h3 class="name">
+                <span class="label">
                     なまえ :
+                </span>
+                <span class="value">
                     {{$diary->user->name}}
-                </h3>
+                </span>
+                  </h3>
                 <h3 class="date">
-                    {{$diary->created_at->format('Y年m月d日h時m分')}}
+                    {!! $diary->created_at->format('Y年m月d日h時m分') !!}
                 </h3>
-                <h3>
+                <h3 class="text">
                     {{$diary->text}}
                 </h3>
                 <!--お気に入りボタン-->

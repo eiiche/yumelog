@@ -1,7 +1,7 @@
  @extends("layouts.app2")
 
 @section("content")
-    <h1 class="text-center">夢日記を描く</h1>
+    <h1 class="text-center">日記を描く</h1>
 
     <form method= "POST" action="/yumelog/public/yumelog" class="text-center" >
         @csrf

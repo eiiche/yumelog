@@ -31,17 +31,17 @@ class CSVController extends Controller
 
             //ボタンのテーブルに応じて挿入処理
             if($request->table == "diary"){
-                Diary::insert(array(
-                    'text' => $line[0],
-                    'author_id' => $line[1],
+                Diary::create(array(
+                    'text' => $line[0] ?? null,
+                    'author_id' => $line[1] ?? null,
                     'created_at' => new \DateTime(),
                     'updated_at' => new \DateTime()
                 ));
             }else if($request->table == "user"){
                 User::insert(array(
                     "name" => $line[0],
-                    "email" => $line[1],
-                    "password" => \Hash::make($line[2]),
+                    "email" => $line[1] ?? null,
+                    "password" => \Hash::make($line[2] ?? null),
                     'created_at' => new \DateTime(),
                     'updated_at' => new \DateTime()
                 ));

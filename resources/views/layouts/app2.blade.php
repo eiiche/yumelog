@@ -28,9 +28,9 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm fixed-top">
+        <nav class="navbar navbar-expand-md navbar-light bg-dark shadow-sm fixed-top nav">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/yumelog') }}">
+                <a class="navbar-brand" href="{{ url('/yumelog') }}" style="color: white">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -57,14 +57,14 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre style="color: white">
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                <div class="dropdown-menu dropdown-menu-right bg-dark" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item bg-dark" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                                     document.getElementById('logout-form').submit();" style="color: white">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -80,21 +80,21 @@
         </nav>
 
 
-
-            <div class="container-xl background" >
+        <div class="background">
+            <div class="container-xl">
                 <div class="row">
                     <div class="col-lg-3">
-                        <div class="sidebar_fixed" style="padding-top:75px">
-                                    <p><button type="button" class="btn btn-primary btn-lg" onclick="location.href='/yumelog/public/yumelog/writelog'" style="margin-top:40px">日記を書く</button></p>
-                                    <p><button type="button" class="btn btn-primary btn-lg" onclick="location.href='/yumelog/public/yumelog/mypage'" style="margin-top:40px">マイページ</button></p>
-                                    <p><button type="button" class="btn btn-primary btn-lg" onclick="location.href='/yumelog/public/yumelog/favorite'" style="margin-top:40px">お気に入り</button></p>
+                        <div class="sidebar_fixed text-center" style="padding-top:75px">
+                                    <p><button type="button" class="btn-note1" onclick="location.href='/yumelog/public/yumelog/writelog'" style="margin-top:40px">日記を書く</button></p>
+                                    <p><button type="button" class="btn-note2" onclick="location.href='/yumelog/public/yumelog/mypage'" style="margin-top:40px">マイページ</button></p>
+                                    <p><button type="button" class="btn-note2" onclick="location.href='/yumelog/public/yumelog/favorite'" style="margin-top:40px">お気に入り</button></p>
 
                                 <!--ログイン関連-->
                                 <?php if(Auth::check()){ ?>
-                                <p><button type="button" class="btn btn-default btn-lg" onclick="location.href='logout'" style="margin-top:40px">ログアウト</button></p>
+                                <p><button type="button" class="btn-note2" onclick="location.href='logout'" style="margin-top:40px">ログアウト</button></p>
                                 <?php }else{ ?>
-                                <p><button type="button" class="btn btn-default btn-lg" onclick="location.href='login'" style="margin-top:40px">ログイン</button></p>
-                                <p><button type="button" class="btn btn-default btn-lg" onclick="location.href='register'" style="margin-top:40px">登録</button></p>
+                                <p><button type="button" class="btn-note2" onclick="location.href='login'" style="margin-top:40px">ログイン</button></p>
+                                <p><button type="button" class="btn-note2" onclick="location.href='register'" style="margin-top:40px">登録</button></p>
                                 <?php } ?>
 
                         </div>
@@ -106,7 +106,7 @@
                     </div>
                 </div>
             </div>
-
+        </div>
     </div>
 
 </body>

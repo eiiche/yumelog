@@ -26,7 +26,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 
 </head>
-<body>
+<body class="background">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-dark shadow-sm fixed-top nav">
             <div class="container">
@@ -48,11 +48,11 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link text-white" href="{{ route('login') }}">{{ __('ログイン') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link text-white" href="{{ route('register') }}">{{ __('登録') }}</a>
                                 </li>
                             @endif
                         @else
@@ -62,7 +62,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right bg-dark" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item bg-dark" href="{{ route('logout') }}"
+                                    <a class="dropdown-item bg-dark text-white" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();" style="color: white">
                                         {{ __('Logout') }}
@@ -78,36 +78,26 @@
                 </div>
             </div>
         </nav>
-
-
-        <div class="background">
-            <div class="container-xl">
-                <div class="row">
-                    <div class="col-lg-3">
-                        <div class="sidebar_fixed text-center" style="padding-top:75px">
-                                    <p><button type="button" class="btn-note1" onclick="location.href='/yumelog/public/yumelog/writelog'" style="margin-top:40px">日記を書く</button></p>
-                                    <p><button type="button" class="btn-note2" onclick="location.href='/yumelog/public/yumelog/mypage'" style="margin-top:40px">マイページ</button></p>
-                                    <p><button type="button" class="btn-note2" onclick="location.href='/yumelog/public/yumelog/favorite'" style="margin-top:40px">お気に入り</button></p>
-
-                                <!--ログイン関連-->
-                                <?php if(Auth::check()){ ?>
-                                <p><button type="button" class="btn-note2" onclick="location.href='logout'" style="margin-top:40px">ログアウト</button></p>
-                                <?php }else{ ?>
-                                <p><button type="button" class="btn-note2" onclick="location.href='login'" style="margin-top:40px">ログイン</button></p>
-                                <p><button type="button" class="btn-note2" onclick="location.href='register'" style="margin-top:40px">登録</button></p>
-                                <?php } ?>
-
-                        </div>
+    </div>
+        <div class="container-xl">
+            <div class="row">
+                <div class="col-3">
+                    <div class="sidebar_fixed text-center" style="padding-top:75px">
+                        <p><button type="button" class="btn-note2" onclick="location.href='/yumelog/public/yumelog'" style="margin-top:40px; width: 50%">ホーム</button></p>
+                        <p><button type="button" class="btn-note1" onclick="location.href='/yumelog/public/yumelog/writelog'" style="margin-top:40px; width: 50% ">日記を書く</button></p>
+                        <p><button type="button" class="btn-note2" onclick="location.href='/yumelog/public/yumelog/mypage'" style="margin-top:40px; width: 50%">マイページ</button></p>
+                        <p><button type="button" class="btn-note2" onclick="location.href='/yumelog/public/yumelog/favorite'" style="margin-top:40px; width: 50%">お気に入り</button></p>
+                        <button type="button" class="btn-note2 btn btn-default text-white" onclick="location.href='{{route("about")}}'" style="margin-top:300px">YUMELOGとは？</button>
                     </div>
-                    <div class="col-lg-9">
-                        <div  class="content-parent">
+
+                </div>
+                <div class="col-9">
+                    <div class="board">
                         @yield("content")
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
 </body>
 

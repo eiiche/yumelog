@@ -96,21 +96,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-5">
+            <div class="col-4">
                 <div style="margin-top:100px">
                     @yield("content")
-                </div>
-            </div>
-            <div class="col-5">
-                <div style="margin-top:100px">
-                    <div class="card">
-                        <div class="card-header text-center">
-                            グラフ
-                        </div>
-                        <div class="card-body">
-                            @yield("graph")
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

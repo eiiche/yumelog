@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin\Auth;
+
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -38,7 +39,8 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function  logout(){
+    public function logout()
+    {
         Auth::logout();
 
         return redirect("yumelog");
@@ -49,7 +51,8 @@ class LoginController extends Controller
         return view('admin.auth.login');
     }
 
-    protected function guard(){
+    protected function guard()
+    {
         return Auth::guard('admin');
     }
 }

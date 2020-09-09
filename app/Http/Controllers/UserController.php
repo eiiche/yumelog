@@ -46,7 +46,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(int $id)
     {
         //
     }
@@ -57,7 +57,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(int $id)
     {
         //
     }
@@ -69,19 +69,22 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
         //
     }
 
     //フォームsubmitのvalueの値で処理を振り分け
-    public  function check(Request $request){
-        if($request->input('action') == "delete"){
-            $this->destroy($request);
-        }elseif($request->input('action') == "mail"){
-            $this->mail($request);
+    public function check(Request $request)
+    {
+        //name="action"のタグのvalueの値で振り分け
+        if ($request->input('action') == "delete") {
+            $this->destroy($request);//一括削除
+        } elseif ($request->input('action') == "mail") {
+            $this->mail($request);//メール一括配信
+        } elseif ($request->input('action') == "csv_export") {
+            return redirect(route("export_csv"))->with($request);//csvエクスポート
         }
-
         return redirect()->back();
     }
 
@@ -98,11 +101,12 @@ class UserController extends Controller
         return redirect()->back();
     }
 
-    public function mail(Request $request){
-        $destination = User::where("id",$request->user_id)->get();
+    public function mail(Request $request)
+    {
+        $destination = User::where("id", $request->user_id)->get();
         $title = $request->title;
         $text = $request->text;
 
-        Mail::to($destination)->send(new notification($title,$text));
+        Mail::bcc($destination)->send(new notification($title, $text));
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Favorite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -91,7 +90,9 @@ class FavoriteController extends Controller
         $user_id = Auth::user()->id;//ログインしているuseridを取得
 
         //紐づくお気に入りレコードを取得。ない場合はnullが格納される
-        $favorite = Favorite::where(['diary_id' => $diary_id, 'user_id' => $user_id])->first();//紐づいたFavoriteモデルのオブジェクトを取得
+        //紐づいたFavoriteモデルのオブジェクトを取得。
+        //scopeはquerybuilderを返すので、オブジェクト取得のfirstメソッドはscope外に記述する
+        $favorite = Favorite::idMatch($diary_id,$user_id)->first();
         if ($favorite) {
             //削除処理
             $favorite->delete();
@@ -99,6 +100,6 @@ class FavoriteController extends Controller
             //保存処理
             Favorite::create(['diary_id' => $diary_id, 'user_id' => $user_id]);
         }
-        return redirect()->back();;
+        return redirect()->back();
     }
 }

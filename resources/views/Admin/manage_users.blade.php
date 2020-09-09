@@ -13,6 +13,11 @@
                             </div>
                         @endif
                         <!--検索メニュー-->
+                            @if($errors->has('search_text'))
+                                @foreach($errors->get('search_text') as $search_text_error)
+                                    <p style="color: red">{{$search_text_error}}</p>
+                                @endforeach
+                            @endif
                             <div>
                                 <form method= "POST" action="manage_users">
                                     @csrf
@@ -24,7 +29,7 @@
 
                             <!--一覧表示-->
 
-                                <form method= "POST" action="user_checkbox">
+                                <form method= "POST" action="{{route("user_checkbox")}}">
                                     @csrf
                                     <div class="container">
                                 <table class="table">
@@ -46,6 +51,7 @@
                                     <button type="submit" name="action" value="delete" class="btn btn-danger btn-lg" onclick="return confirm('削除しますか？')">削除する</button>
                                     <button type="button" name="action" value="mail" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#modalMailForm">メール配信</button>
                                         </div>
+
                                     <!--mailing modal-->
                                     <div class="modal fade" id="modalMailForm" tabindex="-1" role="dialog" aria-labelledby="modalMailFormLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
@@ -57,7 +63,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form method="post" action="sendMail">
+                                                    <form method="post" action="{{route('admin.sendMail')}}">
                                                         <p>件名</p>
                                                         <textarea name="title" id="title" cols="50" rows="2"></textarea>
                                                         <p>本文</p>
@@ -77,10 +83,10 @@
                                 <div style="padding-top:25px">
                                 {{$users->links()}}
                                 </div>
-                            <form action="{{route("export_csv")}}" method="post" style="display: inline">
+                            <form action="{{route("export_csv")}}"  method="post" style="display: inline">
                                 @csrf
                                 <input type="hidden" name="table" value="user">
-                                <button type="submit" class="btn btn-default btn-lg">CSVエクスポート</button>
+                                <button type="submit" class="btn btn-default btn-lg" name="action" value="csv_export">CSVエクスポート</button>
                             </form>
                             <button type="button" value="user" name="table" class="btn btn-default btn-lg" data-toggle="modal" data-target="#modalCSVForm">CSVインポート</button>
 

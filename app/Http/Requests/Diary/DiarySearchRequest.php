@@ -26,6 +26,15 @@ class DiarySearchRequest extends FormRequest
         return [
             'since_date' => 'nullable|date',
             'until_date' => 'nullable|date|after_or_equal:since_date',
+            'author_id' => 'integer|nullable',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'author_id.integer' => "投稿者IDは整数で入力してください",
+            'until_date.after_or_equal:since_date' => "untilはsinceより後の日付を指定してください"
         ];
     }
 }

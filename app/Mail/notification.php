@@ -25,7 +25,7 @@ class notification extends Mailable
      * @param $text
      * @param $schedule
      */
-    public function __construct($title,$text)
+    public function __construct($title, $text)
     {
         $this->title = $title;
         $this->text = $text;
@@ -40,6 +40,7 @@ class notification extends Mailable
     {
         return $this->from('ekugio.0809@gmail.com')
                     ->view('emails.information')
-                    ->subject($this->title);
+                    ->subject($this->title)
+                    ->with(['text' => $this->text]);
     }
 }

@@ -13,7 +13,7 @@ class UserSearchRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,15 @@ class UserSearchRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'search_text' => 'required'
+        ];
+    }
+
+    //エラーメッセージのカスタム
+    public function messages()
+    {
+        return [
+            'search_text.required'  => '検索文字列を入力してください',
         ];
     }
 }

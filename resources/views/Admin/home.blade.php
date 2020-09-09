@@ -1,4 +1,4 @@
-@extends('layouts.app_admin')
+@extends('layouts.app_admin_home')
 
 @section('content')
     <div class="container">
@@ -7,8 +7,7 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">
-
-
+                        ログインユーザ
                     </div>
 
                     <div class="card-body">
@@ -17,7 +16,7 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-
+                            {{Auth::user()->name}}
                     </div>
                 </div>
             </div>

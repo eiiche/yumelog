@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class CSVController extends Controller
 {
-
     public function import_csv(Request $request)
     {
         // アップロードファイルのファイルパスを取得
@@ -24,56 +23,61 @@ class CSVController extends Controller
         //CSVとして読み込み
         $file->setFlags(SplFileObject::READ_CSV);
         // 一行ずつ処理
-        foreach($file as $line)
-        {
+        foreach ($file as $line) {
             //UTF8に変換
             mb_convert_variables('UTF-8', 'SJIS', $line);
 
             //ボタンのテーブルに応じて挿入処理
-            if($request->table == "diary"){
-                Diary::create(array(
-                    'text' => $line[0] ?? null,
-                    'author_id' => $line[1] ?? null,
-                    'created_at' => new \DateTime(),
-                    'updated_at' => new \DateTime()
-                ));
-            }else if($request->table == "user"){
-                User::insert(array(
-                    "name" => $line[0],
-                    "email" => $line[1] ?? null,
-                    "password" => \Hash::make($line[2] ?? null),
-                    'created_at' => new \DateTime(),
-                    'updated_at' => new \DateTime()
-                ));
+
+            if ($request->table == "diary") {
+                if (count($line) == 2) {
+                    Diary::create([
+                        'text' => $line[0],
+                        'author_id' => $line[1],
+                        'created_at' => new \DateTime(),
+                        'updated_at' => new \DateTime()
+                    ]);
+                }
+            } elseif ($request->table == "user") {
+                if (count($line) == 3) {
+                    User::create([
+                        "name" => $line[0],
+                        "email" => $line[1],
+                        "password" => \Hash::make($line[2]),
+                        'created_at' => new \DateTime(),
+                        'updated_at' => new \DateTime()
+                    ]);
+                }
             }
-
-
-
         }
         return redirect()->back();
     }
 
     public function export_csv(Request $request)
     {
+        //チェックされたユーザのuser_idを取得
+        $user_id = $request->user_id;
+
         //現時刻取得
         $now = Carbon::now();
         //streamedresponse
         //第一引数にCSVの出力内容(コールバック)、第二引数にレスポンス、第三引数にレスポンスヘッダ
-        $response = new StreamedResponse(function () use($request){
+        $response = new StreamedResponse(
+            function () use ($request) {
 
             // ファイルの書き出しはfopen()
             $stream = fopen('php://output', 'w');
 
             // ボタンのテーブルに応じてヘッダの設定
-            if($request->table == "diary"){
-            $head = [
+            if ($request->table == "diary") {
+                $head = [
                 '投稿ID',
                 'テキスト',
                 '投稿者ID',
                 '登録日',
                 '更新日'
             ];
-            }else if($request->input("table") == "user") {
+            } elseif ($request->input("table") == "user") {
                 $head = [
                     "ユーザID",
                     "名前",
@@ -87,10 +91,9 @@ class CSVController extends Controller
             mb_convert_variables('SJIS-win', 'UTF-8', $head);
             fputcsv($stream, $head);
 
-            if($request->table == "diary"){
-            $data = Diary::latest()->get();
-                foreach ($data as $line)
-                {
+            if ($request->table == "diary") {
+                $data = Diary::latest()->get();
+                foreach ($data as $line) {
                     // ストリームに対して1行ごと書き出し
                     mb_convert_variables('SJIS-win', 'UTF-8', $line);
                     fputcsv($stream, [
@@ -101,10 +104,9 @@ class CSVController extends Controller
                         $line['updated_at'],
                     ]);
                 }
-            }else if($request->table == "user") {
-                $data = User::latest()->get();
-                foreach ($data as $line)
-                {
+            } elseif ($request->table == "user") {
+                $data = User::where("id",$user_id)->get();
+                foreach ($data as $line) {
                     // ストリームに対して1行ごと書き出し
                     mb_convert_variables('SJIS-win', 'UTF-8', $line);
                     fputcsv($stream, [
@@ -127,6 +129,6 @@ class CSVController extends Controller
                 'Content-Disposition' => 'attachment; filename='.$now->format('YmdHis').'.csv',
             ]
         );
-         return $response;
+        return $response;
     }
 }

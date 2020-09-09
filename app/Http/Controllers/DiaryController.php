@@ -38,7 +38,7 @@ class DiaryController extends Controller
     public function store(StoreRequest $request)
     {
         Diary::create($request->validated());
-        return redirect("/yumelogPost");
+        return redirect()->back();
     }
 
     /**
@@ -60,7 +60,6 @@ class DiaryController extends Controller
      */
     public function edit($id)
     {
-
     }
 
     /**
@@ -70,15 +69,14 @@ class DiaryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request)
+    public function update(StoreRequest $request)
     {
         $diary_id = $request->diary_id;//日記のid取得
         $diary_text = $request->text;//日記の編集後テキスト取得
-        Diary::where("id",$diary_id)->update(["text"=>$diary_text]);
+        Diary::where("id", $diary_id)->update(["text"=>$diary_text]);
 
-        return redirect("/yumelog/mypage");
+        return redirect(route('mypage'));
     }
-
 
     /**
      * Remove the specified resource from storage.
@@ -92,4 +90,5 @@ class DiaryController extends Controller
 
         return redirect()->back();
     }
+
 }

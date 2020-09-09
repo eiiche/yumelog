@@ -10,10 +10,20 @@
                             <div class="alert alert-success" role="alert">
                                 {{ session('status') }}
                             </div>
-                    @endif
+                        @endif
                         <!--検索メニュー-->
+                            @if($errors->has('author_id'))
+                                @foreach($errors->get('author_id') as $author_id_error)
+                                    <p style="color: red">{{$author_id_error}}</p>
+                                @endforeach
+                            @endif
+                            @if($errors->has('until_date'))
+                                @foreach($errors->get('until_date') as $until_date_error)
+                                    <p style="color: red">{{$until_date_error}}</p>
+                                @endforeach
+                            @endif
                             <div>
-                                <form method= "POST" action="manage_diaries">
+                                <form method= "POST" action="{{route("admin.manage_diaries")}}">
                                     @csrf
                                     <span class="search_form">
                                     日記ID・投稿文検索
@@ -23,6 +33,7 @@
                                     投稿者ID検索
                                     <input type="text"  name="author_id" id="author_id">
                                     </span>
+                                    <br>
                                     <span class="search_form">
                                     投稿日時指定
                                     Since:
@@ -36,10 +47,10 @@
                                 </form>
                             </div>
                             <div class="container">
-                                <form method= "POST" action="diary_multiple_delete">
+                                <form method= "POST" action="{{route("admin.diary_multiple_delete")}}">
                                     @csrf
                                 <table class="table">
-                                    <tr><th></th><th>日記id</th><th>投稿文</th><th>投稿者ID</th><th>投稿日</th><th>更新日</th></tr>
+                                    <tr><th><input class="form-check-input" type="checkbox" name="all" onClick="AllChecked();"></th><th>日記id</th><th>投稿文</th><th>投稿者ID</th><th>投稿日</th><th>更新日</th></tr>
                                     @foreach($diaries as $diary)
                                         <tr>
                                             <td><input class="form-check-input" type="checkbox" value="{{$diary->id}}" name="diary_id[]"></td>
@@ -56,10 +67,10 @@
                                 <div style="padding-top:25px">
                                 {{$diaries->links()}}
                                 </div>
-                                <form action="{{route("export_csv")}}" method="post" style="display: inline">
+                                <form action="{{route("export_csv")}}"  method="post" style="display: inline">
                                     @csrf
                                     <input type="hidden" name="table" value="diary">
-                                    <button type="submit" class="btn btn-default btn-lg">CSVエクスポート</button>
+                                    <button type="submit" name="action" value="csv_export" class="btn btn-default btn-lg">CSVエクスポート</button>
                                 </form>
                                     <button type="button" value="diary" name="table" class="btn btn-default btn-lg" data-toggle="modal" data-target="#modalCSVForm">CSVインポート</button>
                             </div>
@@ -91,6 +102,16 @@
                     </div>
                 </div>
 
+                <script language="JavaScript" type="text/javascript">
+                    function AllChecked(){
+                        var check =  document.form.all.checked;
+
+                        for (var i=0; i<document.form.elements['diary_id[]'].length; i++){
+                            document.form.elements['diary_id'][i].checked = check;
+                        }
+                    }
+
+                </script>
 @endsection
         @section("graph")
                         <!--chart.jsを使用-->

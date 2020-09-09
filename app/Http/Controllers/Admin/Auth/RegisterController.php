@@ -81,7 +81,8 @@ class RegisterController extends Controller
         return view('admin.auth.register');
     }
 
-    protected function guard(){
+    protected function guard()
+    {
         return Auth::guard('admin');
     }
 }

@@ -14,58 +14,42 @@ class ManageDiariesPageController extends Controller
     public $paginate = 6;
 
     //管理画面 Diaryテーブル一覧表示
-    public function index(){
-        $diaries = Diary::orderBy("id","asc")->simplePaginate($this->paginate);//ID順
-        return view("admin.manage_diaries",["diaries"=>$diaries]);
+    public function index()
+    {
+        $diaries = Diary::orderBy("id", "asc")->simplePaginate($this->paginate);//ID順
+        return view("admin.manage_diaries", ["diaries"=>$diaries]);
     }
 
     //管理画面　Diaryテーブル検索処理
-    public function search(DiarySearchRequest $request){
+    public function search(DiarySearchRequest $request)
+    {
         //検索値を用意
         $search_text = $request->search_text;
         $author_id = $request->author_id;
         $since_date = $request->since_date;
         $until_date = date('Y-m-d H:i:s', strtotime($request->until_date . ' +1 day'));//一日加算し当日の0時まで検索可能にする
-        //検索
-        $diaries =
-            Diary::when($search_text, function($query, $search_text) {//search_textがtrueの場合search_textで検索
 
-            $query->searchText($search_text);
-            })
-            ->when($author_id, function($query, $author_id) {//author_idがtrueの場合author_idで検索
-                $query->authorId($author_id);
-            })
-            ->where(function($query) use($since_date, $until_date) {
-                if ($since_date && $until_date) {
-                    $query->date($since_date,$until_date);
-                }
-            })
-                ->simplePaginate($this->paginate);
+        $diaries = Diary::search($search_text,$author_id,$since_date,$until_date);
 
         //ビューに渡す
-        return view("admin.manage_diaries",["diaries"=>$diaries]);
+        return view("admin.manage_diaries", ["diaries"=>$diaries]);
     }
 
     //chart.jsへのグラフデータ受け渡し
-    public function  getDiarySummary(){
+    public function getDiarySummary()
+    {
         //変数を用意
         $start = Carbon::today()->subMonth(6);//本日より一年前(subyear)の日付を格納
         $end = Carbon::today();//本日の日付を格納
 
         //日付と日付ごとの件数取得
-        $summary = Diary::query()
-            ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as posts'))//日付と日付ごとの件数
-            ->where('created_at', '>=', $start)
-            ->where('created_at', '<=', $end)
-            ->groupBy(DB::raw('Date(created_at)'))
-            ->orderBy('date', 'asc')
-            ->get();
+        $summary = Diary::summary($start,$end)->get();
 
         //日付を用意
         $d = $start->copy();
         //日付が本日まで(less than equal)の分処理をする
         $count = 0;
-        while($d->lte($end)) {
+        while ($d->lte($end)) {
             //用意された1日刻みの日付に対して該当の日付の日記がある場合、$dataに$summaryのオブジェクトを格納
             $data = $summary->first(function ($diary) use ($d) {//firstメソッド内foreachがコレクション$summaryからオブジェクト$diaryを一件ずつ取得し、functionを実行
                 return $diary->date == $d->format('Y-m-d');//日記の日付と用意された1日刻みの日付を比較

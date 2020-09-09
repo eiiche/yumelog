@@ -6,13 +6,14 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\timeline;
+use Illuminate\Support\Facades\DB;
 
 /**
  * App\User
  *
  * @property int $id
  * @property string $name
- * @property string $emails
+ * @property string $email
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property string $password
  * @property string|null $remember_token
@@ -39,13 +40,15 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    protected $guarded = ["id","created_at","updated_at"];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'emails', 'password',
+        'name', 'email', 'password',
     ];
 
     /**
@@ -73,9 +76,25 @@ class User extends Authenticatable
         return $this->hasMany('App\Diary');
     }
 
-    public function favorites(){
+    public function favorites()
+    {
         return $this->hasMany(Favorite::class);
     }
 
+    public function scopeSearchText($query,string $search_text){
+
+        return $query->where("id", "like", "%".$search_text."%")
+            ->orWhere("name", "like", "%".$search_text."%")
+            ->orWhere("email", "like", "%".$search_text."%")->simplePaginate($this->paginate);
+    }
+
+    public function scopeSummary($query,$start,$end){
+        return $query->
+            select(DB::raw("Date(created_at) as date"), DB::raw("count(*) as users"))
+            ->where('created_at', '>=', $start)
+            ->where('created_at', '<=', $end)
+            ->groupBy(DB::raw("Date(created_at)"))
+            ->orderBy("date", "asc");
+    }
 
 }

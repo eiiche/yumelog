@@ -14,7 +14,7 @@
                     @endif
                     <!--検索メニュー-->
                         <div>
-                            <form method= "POST" action="manage_users">
+                            <form method= "POST" action="{{route("admin.manage_users")}}">
                                 @csrf
                                 ID,名前,メールアドレス検索
                                 <input type="text"  name="search_text" id="search_text">

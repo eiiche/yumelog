@@ -16,7 +16,7 @@ class CreateDiariesTable extends Migration
         Schema::create('diaries', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments("id");//findメソッドで値取得するにはフィールド名をidにする
-            $table->string("text",300);
+            $table->string("text", 300);
             $table->unsignedinteger("author_id");//usersテーブルのuserIdを参照する外部キー。usersテーブルのincrementsはunsignedinteger型なので型を合致させる
             $table->timestamp('updated_at')->useCurrent()->nullable();
             $table->timestamp('created_at')->useCurrent()->nullable();//NULL値可能なcreated_atとupdated_atカラム追加。現在時刻を設定。

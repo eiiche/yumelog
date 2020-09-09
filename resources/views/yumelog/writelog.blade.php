@@ -1,9 +1,17 @@
- @extends("layouts.app2")
+@extends("layouts.app2")
 
 @section("content")
-    <h1 class="text-center">日記を描く</h1>
+    <div class="title">
+        <h1>日記を書く</h1>
+    </div>
 
-    <form method= "POST" action="/yumelog/public/yumelog" class="text-center" >
+    @if($errors->has('text'))
+        @foreach($errors->get('text') as $text_error)
+            <p style="color: red">{{$text_error}}</p>
+        @endforeach
+    @endif
+
+    <form method= "POST" action="{{route('wroteDiary')}}" class="text-center" >
         @csrf
         <textarea class="form-control" id="text" rows="10" name="text"></textarea><!--name="id"をキーにしてコントローラーに日記テキスト受け渡し-->
         <br>

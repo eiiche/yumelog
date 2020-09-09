@@ -1,6 +1,9 @@
 <?php
 namespace App\Http\Requests\Diary;
+
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreRequest extends FormRequest
 {
@@ -23,7 +26,7 @@ class StoreRequest extends FormRequest
     {
         //[ *2.追加：Validationルール記述箇所 ]
         return [
-            'text'   => [ 'required', 'string', 'min:3', 'max:3000'], // 詳細は仕様を検討ください
+            'text'   => [ 'required', 'string', 'max:300'], // 詳細は仕様を検討ください
         ];
     }
 
@@ -33,6 +36,15 @@ class StoreRequest extends FormRequest
     {
         return [
             'text'  => 'ゆめログ',
+        ];
+    }
+
+    //エラーメッセージのカスタム
+    public function messages()
+    {
+        return [
+            'text.required'  => '内容を入力してください',
+            'text.min:300' => '300文字以下で入力してください'
         ];
     }
 

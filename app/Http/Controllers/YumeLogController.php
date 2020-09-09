@@ -37,5 +37,4 @@ class YumeLogController extends Controller
 
         return view("yumelog.index", ["user" => $user,"diaries" => $diaries,"faves" => $faves]);
     }
-
 }

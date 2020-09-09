@@ -1,18 +1,28 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Diary;
 
+use App\Http\Requests\Diary\StoreRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class EditDiaryPageController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request)
+    {
 
-        //mypageのeditbtn押下にて、パラメータを追加しeditDiaryビューに遷移
-        $diary_id = $request->editbtn;//mypageのeditbtnから日記id取得
-        $diary = Diary::find($diary_id);
-        return view("yumelog.editDiary",["diary" => $diary]);
+        $diary_id = $request->editbtn;//mypageの編集ボタンからdiary_id取得
+        $diary = Diary::find($diary_id)->first();//該当の投稿を取得
+        $request->session()->put("diary_session",$diary);//セッションに保存
+
+        return redirect(route('editDiary'));
+    }
+
+    public  function show(Request $request){
+
+        $session = $request->session()->get("diary_session");
+        return view("yumelog.editDiary",['diary_session' => $session]);
     }
 }

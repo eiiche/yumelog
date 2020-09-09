@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Auth;
 
 class FavoritePageController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $user = Auth::user();//ログインしているユーザ取得
         $diaries = $user
             ? Diary::whereHas('favorites', function ($query) use ($user) {//リレーション先が存在するか

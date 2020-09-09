@@ -8,8 +8,9 @@ use Illuminate\Http\Request;
 
 class ManageAdminsPageController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $admins = Admin::latest()->get();
-        return view("admin.manage_admin",["admins"=>$admins]);
+        return view("admin.manage_admin", ["admins"=>$admins]);
     }
 }

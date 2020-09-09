@@ -2,12 +2,16 @@
 
 @section("content")
     <!--スクロール表示可能な日記。YumelogController@mypageからログインしているユーザidに紐づいた日記が渡される-->
-        <h1 class="text-center">お気に入りの投稿</h1>
-        <?php foreach($diaries as $diary){ ?>
+    <div class="title">
+        <h1>お気に入りした投稿</h1>
+    </div>
+
+        <?php foreach ($diaries as $diary) { ?>
+    <div class="post">
         {{$diary->created_at}}
         <h3>{{$diary->text}}></h3>
         <!--お気に入りボタン-->
-        <form action="postFav" method="post" enctype='multipart/form-data'>
+        <form action="{{route('postFav')}}" method="post" enctype='multipart/form-data'>
             @csrf
             <input type="hidden" name="favoritebtn" value="{{$diary->id}}">
             <button type="submit" class="btn btn-link btn-sm">
@@ -18,5 +22,6 @@
                 @endif
             </button>
         </form>
+    </div>
         <?php } ?>
 @endsection

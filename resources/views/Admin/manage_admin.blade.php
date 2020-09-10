@@ -30,7 +30,7 @@
                                     <tr>
                                         <td>{{$admin->id}}</td>
                                         <td>{{$admin->name}}</td>
-                                        <td>{{$admin->email}}</td>
+                                        <td>{{$admin->emails}}</td>
                                         {{--<td>{{$user->email_verified_at}}</td>--}}
                                         {{--<td >{{$user->password}}</td>--}}
                                         <td>{{$admin->created_at}}</td>

@@ -42,7 +42,7 @@ class CSVController extends Controller
                 if (count($line) == 3) {
                     User::create([
                         "name" => $line[0],
-                        "email" => $line[1],
+                        "emails" => $line[1],
                         "password" => \Hash::make($line[2]),
                         'created_at' => new \DateTime(),
                         'updated_at' => new \DateTime()
@@ -112,7 +112,7 @@ class CSVController extends Controller
                     fputcsv($stream, [
                         $line['id'],
                         $line['name'],
-                        $line['email'],
+                        $line['emails'],
                         $line["password"],
                         $line['created_at'],
                         $line['updated_at'],

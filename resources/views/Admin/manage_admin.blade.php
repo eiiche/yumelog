@@ -25,7 +25,7 @@
                         <!--一覧表示-->
                         <div class="container">
                             <table class="table">
-                                <tr><th>管理者id</th><th>名前</th><th>メールアドレス</th><th>登録日</th><th>更新日</th></tr>
+                                <tr><th>管理者id</th><th>名前</th><th>メールアドレス</th><th>登録日</th><th>更新日</th><th>ロール</th></tr>
                                 @foreach($admins as $admin)
                                     <tr>
                                         <td>{{$admin->id}}</td>
@@ -35,6 +35,7 @@
                                         {{--<td >{{$user->password}}</td>--}}
                                         <td>{{$admin->created_at}}</td>
                                         <td>{{$admin->updated_at}}</td>
+                                        <td>{{$admin->role}}</td>
                                     </tr>
                                 @endforeach
                             </table>

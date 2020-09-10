@@ -47,7 +47,7 @@
             "authors": [
                 {
                     "name": "Alexander",
-                    "email": "iam.asm89@gmail.com"
+                    "emails": "iam.asm89@gmail.com"
                 }
             ],
             "description": "Cross-origin resource sharing library and stack middleware",

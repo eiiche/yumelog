@@ -31,6 +31,9 @@ class ManageDiariesPageController extends Controller
 
         $diaries = Diary::search($search_text,$author_id,$since_date,$until_date);
 
+        $diary_ids = $diaries->pluck("id");
+        $request->session()->put("diary_search_session",$diary_ids);//セッションに保存
+
         //ビューに渡す
         return view("admin.manage_diaries", ["diaries"=>$diaries]);
     }

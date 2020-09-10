@@ -25,6 +25,9 @@ class ManageUsersPageController extends Controller
         $search_text = $request->search_text;
         $users = User::searchText($search_text);
 
+        $user_ids = $users->pluck("id");
+        $request->session()->put("user_search_session",$user_ids);//セッションに保存
+
         return  view("admin.manage_users", ["users"=>$users]);
     }
 

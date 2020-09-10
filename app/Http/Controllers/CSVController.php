@@ -28,9 +28,10 @@ class CSVController extends Controller
             mb_convert_variables('UTF-8', 'SJIS', $line);
 
             //ボタンのテーブルに応じて挿入処理
-
             if ($request->table == "diary") {
-                if (count($line) == 2) {
+                $col = 2;
+
+                if (count($line) == $col) {
                     Diary::create([
                         'text' => $line[0],
                         'author_id' => $line[1],
@@ -39,7 +40,8 @@ class CSVController extends Controller
                     ]);
                 }
             } elseif ($request->table == "user") {
-                if (count($line) == 3) {
+                $col = 3;
+                if (count($line) == $col) {
                     User::create([
                         "name" => $line[0],
                         "emails" => $line[1],
@@ -55,9 +57,6 @@ class CSVController extends Controller
 
     public function export_csv(Request $request)
     {
-        //チェックされたユーザのuser_idを取得
-        $user_id = $request->user_id;
-
         //現時刻取得
         $now = Carbon::now();
         //streamedresponse
@@ -92,7 +91,10 @@ class CSVController extends Controller
             fputcsv($stream, $head);
 
             if ($request->table == "diary") {
-                $data = Diary::latest()->get();
+
+                //検索結果のidを条件にエクスポート
+                $diary_ids = $request->session()->get("diary_search_session");//セッション取り出し
+                $data = Diary::where("id",$diary_ids)->get();
                 foreach ($data as $line) {
                     // ストリームに対して1行ごと書き出し
                     mb_convert_variables('SJIS-win', 'UTF-8', $line);
@@ -105,7 +107,10 @@ class CSVController extends Controller
                     ]);
                 }
             } elseif ($request->table == "user") {
-                $data = User::where("id",$user_id)->get();
+
+                //検索結果のidを条件にエクスポート
+                $user_ids = $request->session()->get("user_search_session");//セッション取り出し
+                $data = User::where("id",$user_ids)->get();
                 foreach ($data as $line) {
                     // ストリームに対して1行ごと書き出し
                     mb_convert_variables('SJIS-win', 'UTF-8', $line);

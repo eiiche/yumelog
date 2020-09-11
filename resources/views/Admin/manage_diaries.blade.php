@@ -62,7 +62,12 @@
                                         </tr>
                                     @endforeach
                                 </table>
-                                    <input type="submit" value="削除する" class="btn btn-danger btn-lg" name="delete" onclick="return confirm('削除しますか？')">
+                                    <!--gateで振り分け-->
+                                    @can("isAdminDelete",auth()->user())
+                                        <input type="submit" value="削除する" class="btn btn-danger btn-lg" name="delete" onclick="return confirm('削除しますか？')">
+                                    @else
+                                        <input value="削除する(権限者のみ)" class="btn btn-secondary btn-lg">
+                                    @endcan
                                 </form>
                                 <div style="padding-top:25px">
                                 {{$diaries->links()}}

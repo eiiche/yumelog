@@ -86,7 +86,15 @@ class DiaryController extends Controller
      */
     public function destroy(Request $request)
     {
-        Diary::destroy($request->diary_id);
+        //リクエストから送信ユーザと投稿IDを取得
+        $admin = $request->user();
+        $user =  $request->user();
+        $diary_id = $request->id;
+        if ($user->can('isUser', $diary_id)) {
+            Diary::destroy($request->diary_id);
+        }elseif ($admin->can("havePermission",$diary_id)){
+            Diary::destroy($request->diary_id);
+        }
 
         return redirect()->back();
     }

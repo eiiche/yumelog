@@ -1,9 +1,8 @@
-@extends('layouts.app_admin')
+@extends('layouts.app_admin_home')
 @section('content')
                 <div class="card">
-                    <div class="card-header">
-
-
+                    <div class="card-header text-center">
+                        管理者一覧
                     </div>
 
                     <div class="card-body">

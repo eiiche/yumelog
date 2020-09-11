@@ -14,6 +14,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Model' => 'App\Policies\ModelPolicy',
+//        "App\Diary" => "App\Policies\AdminPolicy"//ポリシー登録
     ];
 
     /**
@@ -25,6 +26,15 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        //ゲート
+        //管理者がadminmailerの場合、isAdminMailerの処理を許可
+        Gate::define("isAdminMailer",function ($admin){
+            return $admin->role == "adminmailer";
+        });
+
+        //管理者がadmindeleteの場合、isaAdminDeleteの処理を許可
+        Gate::define("isAdminDelete",function ($admin){
+            return $admin->role == "admindelete";
+        });
     }
 }

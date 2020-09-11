@@ -96,7 +96,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-5">
                 <div style="margin-top:100px">
                     @yield("content")
                 </div>

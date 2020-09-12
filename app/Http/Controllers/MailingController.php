@@ -1,9 +1,10 @@
 <?php
-//
+////
 //namespace App\Http\Controllers;
 //
 //use App\Mail\notification;
 //use Illuminate\Http\Request;
+//use Illuminate\Support\Facades\Mail;
 //
 //class MailingController extends Controller
 //{

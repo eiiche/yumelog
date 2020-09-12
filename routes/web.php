@@ -51,7 +51,7 @@ Route::post("yumelog/editedDiary", "DiaryController@update")->name('editedDiary'
 Route::post("yumelog/postFav", "FavoriteController@postFavorite")->name('postFav');
 
 Route::post("yumelog/editDiary", "EditDiaryPageController@index")->name('editDiarySession');
-Route::get('yumelog/editDiary',"EditDiaryPageController@show")->name('editDiary');
+Route::get('yumelog/editDiary', "EditDiaryPageController@show")->name('editDiary');
 
 Route::post("yumelog/deleteDiary", "DiaryController@destroy")->name('deleteDiary');
 
@@ -81,10 +81,9 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
     Route::post('/manage_diaries', 'ManageDiariesPageController@search')->name('manage_diaries');
     Route::get('/getDiarySummary', 'ManageDiariesPageController@getDiarySummary');//chart.jsによるアクセス
     Route::get('/getUserSummary', 'ManageUsersPageController@getUserSummary');//chart.jsによるアクセス
-    Route::post('/sendMail',"MailingController@information")->name('sendMail');
-    Route::post("/diary_multiple_delete", "DiaryController@destroy")->name('diary_multiple_delete');
+//    Route::post('/sendMail',"MailingController@information")->name('sendMail');
 });
-
+Route::post("admin/diary_multiple_delete", "DiaryController@destroy")->name('diary_multiple_delete');
 Route::post("admin/user_checkbox", "UserController@check")->name('user_checkbox');
 
 Route::post("admin/CSVImport", "CSVController@import_csv")->name("import_csv");

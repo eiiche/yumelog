@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\timeline;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 /**
  * App\User
@@ -81,14 +82,15 @@ class User extends Authenticatable
         return $this->hasMany(Favorite::class);
     }
 
-    public function scopeSearchText($query,string $search_text){
-
+    public function scopeSearchText($query, string $search_text)
+    {
         return $query->where("id", "like", "%".$search_text."%")
             ->orWhere("name", "like", "%".$search_text."%")
             ->orWhere("email", "like", "%".$search_text."%")->simplePaginate($this->paginate);
     }
 
-    public function scopeSummary($query,$start,$end){
+    public function scopeSummary($query, $start, $end)
+    {
         return $query->
             select(DB::raw("Date(created_at) as date"), DB::raw("count(*) as users"))
             ->where('created_at', '>=', $start)
@@ -96,5 +98,4 @@ class User extends Authenticatable
             ->groupBy(DB::raw("Date(created_at)"))
             ->orderBy("date", "asc");
     }
-
 }

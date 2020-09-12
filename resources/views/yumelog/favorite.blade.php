@@ -6,7 +6,7 @@
         <h1>お気に入りした投稿</h1>
     </div>
 
-        <?php foreach ($diaries as $diary) { ?>
+        @foreach ($diaries as $diary)
     <div class="post">
         {{$diary->created_at}}
         <h3>{{$diary->text}}></h3>
@@ -23,5 +23,5 @@
             </button>
         </form>
     </div>
-        <?php } ?>
+        @endforeach
 @endsection

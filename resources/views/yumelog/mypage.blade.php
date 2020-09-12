@@ -8,7 +8,7 @@
         @foreach ($diaries as $diary)
     <div class="post">
         {{$diary->created_at}}
-        <h3>{{$diary->text}}></h3>
+        <h3>{{$diary->text}}</h3>
         <form action="{{route('editDiarySession')}}" method="post" style="display: inline">
             @csrf
             <input type="hidden" name="editbtn" value="{{$diary->id}}"><!--ボタン押下時に送信する情報はこのタグに追加-->

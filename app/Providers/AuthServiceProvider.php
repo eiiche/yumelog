@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Admin;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -28,12 +29,13 @@ class AuthServiceProvider extends ServiceProvider
 
         //ゲート
         //管理者がadminmailerの場合、isAdminMailerの処理を許可
-        Gate::define("isAdminMailer",function ($admin){
+        //Gate::allowsではデフォルトでUserが渡されるため、forUserでAdminを渡す必要がある
+        Gate::define("isAdminMailer", function (Admin $admin) {
             return $admin->role == "adminmailer";
         });
 
         //管理者がadmindeleteの場合、isaAdminDeleteの処理を許可
-        Gate::define("isAdminDelete",function ($admin){
+        Gate::define("isAdminDelete", function (Admin $admin) {
             return $admin->role == "admindelete";
         });
     }

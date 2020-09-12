@@ -40,7 +40,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
-                        @guest
+                        @guest("admin")
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin.login') }}">{{ __('Login') }}</a>
                             </li>
@@ -52,7 +52,7 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{Auth::guard('admin')->user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -87,11 +87,11 @@
                         <p><button type="button" class="btn btn-primary btn-lg" onclick="location.href='manage_admins'" style="margin-top:20px;width: 50%">管理者設定</button></p>
 
                         <!--ログイン関連-->
-                        <?php if (Auth::check()) { ?>
-                        <p><button type="button" class="btn btn-default btn-lg" onclick="location.href='logout'" style="margin-top:40px">ログアウト</button></p>
-                        <?php } else { ?>
-                        <p><button type="button" class="btn btn-default btn-lg" onclick="location.href='login'" style="margin-top:40px">ログイン</button></p>
-                        <?php } ?>
+                        @if (Auth::guard('admin'))
+                        <p><button type="button" class="btn btn-default btn-lg" onclick="location.href='{{route("logout")}}'" style="margin-top:40px">ログアウト</button></p>
+                        @else
+                        <p><button type="button" class="btn btn-default btn-lg" onclick="location.href='{{route("login")}}'" style="margin-top:40px">ログイン</button></p>
+                        @endif
                     </div>
                     </div>
                 </div>

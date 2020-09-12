@@ -65,19 +65,19 @@ class CSVController extends Controller
             function () use ($request) {
 
             // ファイルの書き出しはfopen()
-            $stream = fopen('php://output', 'w');
+                $stream = fopen('php://output', 'w');
 
-            // ボタンのテーブルに応じてヘッダの設定
-            if ($request->table == "diary") {
-                $head = [
+                // ボタンのテーブルに応じてヘッダの設定
+                if ($request->table == "diary") {
+                    $head = [
                 '投稿ID',
                 'テキスト',
                 '投稿者ID',
                 '登録日',
                 '更新日'
             ];
-            } elseif ($request->input("table") == "user") {
-                $head = [
+                } elseif ($request->input("table") == "user") {
+                    $head = [
                     "ユーザID",
                     "名前",
                     "メールアドレス",
@@ -85,36 +85,36 @@ class CSVController extends Controller
                     "登録日",
                     "更新日"
                 ];
-            }
-            // 宣言したストリームに対してヘッダを書き出し
-            mb_convert_variables('SJIS-win', 'UTF-8', $head);
-            fputcsv($stream, $head);
+                }
+                // 宣言したストリームに対してヘッダを書き出し
+                mb_convert_variables('SJIS-win', 'UTF-8', $head);
+                fputcsv($stream, $head);
 
-            if ($request->table == "diary") {
+                if ($request->table == "diary") {
 
                 //検索結果のidを条件にエクスポート
                 $diary_ids = $request->session()->get("diary_search_session");//セッション取り出し
-                $data = Diary::where("id",$diary_ids)->get();
-                foreach ($data as $line) {
-                    // ストリームに対して1行ごと書き出し
-                    mb_convert_variables('SJIS-win', 'UTF-8', $line);
-                    fputcsv($stream, [
+                $data = Diary::where("id", $diary_ids)->get();
+                    foreach ($data as $line) {
+                        // ストリームに対して1行ごと書き出し
+                        mb_convert_variables('SJIS-win', 'UTF-8', $line);
+                        fputcsv($stream, [
                         $line['id'],
                         $line['text'],
                         $line['author_id'],
                         $line['created_at'],
                         $line['updated_at'],
                     ]);
-                }
-            } elseif ($request->table == "user") {
+                    }
+                } elseif ($request->table == "user") {
 
                 //検索結果のidを条件にエクスポート
                 $user_ids = $request->session()->get("user_search_session");//セッション取り出し
-                $data = User::where("id",$user_ids)->get();
-                foreach ($data as $line) {
-                    // ストリームに対して1行ごと書き出し
-                    mb_convert_variables('SJIS-win', 'UTF-8', $line);
-                    fputcsv($stream, [
+                $data = User::where("id", $user_ids)->get();
+                    foreach ($data as $line) {
+                        // ストリームに対して1行ごと書き出し
+                        mb_convert_variables('SJIS-win', 'UTF-8', $line);
+                        fputcsv($stream, [
                         $line['id'],
                         $line['name'],
                         $line['emails'],
@@ -122,10 +122,10 @@ class CSVController extends Controller
                         $line['created_at'],
                         $line['updated_at'],
                     ]);
+                    }
                 }
-            }
-            fclose($stream);
-        },
+                fclose($stream);
+            },
             // StreamedResponseの第2引数（レスポンス）
             \Illuminate\Http\Response::HTTP_OK,
             // StreamedResponseの第3引数（レスポンスヘッダ）

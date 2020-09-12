@@ -24,8 +24,8 @@ class AdminPolicy
 
     //ポリシー
     //ロールがadmindeleteの管理者のみ投稿を削除できる
-    public function havePermission(Admin $admin,int $diary_id){
-
+    public function havePermission(Admin $admin, int $diary_id)
+    {
         return $admin->role == "admindelete"
             ? Response::allow()//許可時
             : Response::deny('You have not permission.');//拒否時
@@ -33,8 +33,8 @@ class AdminPolicy
 
     //ポリシー
     //投稿者のみ投稿を削除できる
-    public function isUser(User $user,int $diary_id){
-
+    public function isUser(User $user, int $diary_id)
+    {
         return $user->id == $diary_id
             ? Response::allow()//許可時
             : Response::deny('You are not author.');//拒否時

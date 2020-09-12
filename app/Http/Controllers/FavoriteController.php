@@ -92,7 +92,7 @@ class FavoriteController extends Controller
         //紐づくお気に入りレコードを取得。ない場合はnullが格納される
         //紐づいたFavoriteモデルのオブジェクトを取得。
         //scopeはquerybuilderを返すので、オブジェクト取得のfirstメソッドはscope外に記述する
-        $favorite = Favorite::idMatch($diary_id,$user_id)->first();
+        $favorite = Favorite::idMatch($diary_id, $user_id)->first();
         if ($favorite) {
             //削除処理
             $favorite->delete();

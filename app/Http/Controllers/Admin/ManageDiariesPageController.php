@@ -29,10 +29,10 @@ class ManageDiariesPageController extends Controller
         $since_date = $request->since_date;
         $until_date = date('Y-m-d H:i:s', strtotime($request->until_date . ' +1 day'));//一日加算し当日の0時まで検索可能にする
 
-        $diaries = Diary::search($search_text,$author_id,$since_date,$until_date);
+        $diaries = Diary::search($search_text, $author_id, $since_date, $until_date)->simplePaginate($this->paginate);
 
         $diary_ids = $diaries->pluck("id");
-        $request->session()->put("diary_search_session",$diary_ids);//セッションに保存
+        $request->session()->put("diary_search_session", $diary_ids);//セッションに保存
 
         //ビューに渡す
         return view("admin.manage_diaries", ["diaries"=>$diaries]);
@@ -46,7 +46,7 @@ class ManageDiariesPageController extends Controller
         $end = Carbon::today();//本日の日付を格納
 
         //日付と日付ごとの件数取得
-        $summary = Diary::summary($start,$end)->get();
+        $summary = Diary::summary($start, $end)->get();
 
         //日付を用意
         $d = $start->copy();

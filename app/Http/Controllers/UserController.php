@@ -96,17 +96,20 @@ class UserController extends Controller
      */
     public function destroy(Request $request)
     {
-        User::destroy($request->user_id);
+        $checked_user_id = $request->user_id;
+        User::destroy($checked_user_id);
 
         return redirect()->back();
     }
 
     public function mail(Request $request)
     {
-        $destination = User::where("id", $request->user_id)->get();
+        $emails = $request->user_id;
+        $destination = User::where("id", $emails)->get();
+        dd($destination);
         $title = $request->title;
         $text = $request->text;
 
-        Mail::bcc($destination)->send(new notification($title, $text));
+        Mail::to($destination)->send(new notification($title, $text));
     }
 }

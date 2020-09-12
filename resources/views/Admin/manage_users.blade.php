@@ -39,7 +39,7 @@
                                             <td><input class="form-check-input" type="checkbox" value="{{$user->id}}" name="user_id[]"></td>
                                             <td>{{$user->id}}</td>
                                             <td>{{$user->name}}</td>
-                                            <td>{{$user->email}}</td>
+                                            <td>{{$user->emails}}</td>
                                             {{--<td>{{$user->email_verified_at}}</td>--}}
                                             {{--<td >{{$user->password}}</td>--}}
                                             <td>{{$user->created_at}}</td>
@@ -49,17 +49,17 @@
                                 </table>
                                         <div>
                                             <!--gateで振り分け-->
-                                            @can("isAdminDelete",auth()->user())
+                                            @if(Gate::forUser(Auth::guard('admin')->user())->allows("isAdminDelete"))
                                     <button type="submit" name="action" value="delete" class="btn btn-danger btn-lg" onclick="return confirm('削除しますか？')">削除する</button>
                                             @else
                                                 <button class="btn btn-secondary btn-lg">削除する(権限者のみ)</button>
-                                            @endcan
+                                            @endif
                                                 <!--gateで振り分け-->
-                                            @can("isAdminMailer",auth()->user())
+                                            @if(Gate::forUser(Auth::guard('admin')->user())->allows("isAdminMailer"))
                                     <button type="button" name="action" value="mail" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#modalMailForm">メール配信</button>
                                             @else
                                                 <button type="button" class="btn btn-secondary btn-lg">メール配信(権限者のみ)</button>
-                                            @endcan
+                                            @endif
                                         </div>
 
                                     <!--mailing modal-->
@@ -73,13 +73,11 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form method="post" action="{{route('admin.sendMail')}}">
                                                         <p>件名</p>
                                                         <textarea name="title" id="title" cols="50" rows="2"></textarea>
                                                         <p>本文</p>
                                                         <textarea name="text" id="text" cols="50" rows="10"></textarea>
                                                         <button type="submit"></button>
-                                                    </form>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -120,7 +118,7 @@
                                     <input type="hidden" name="table" value="user">
                                     <div>
                                     <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Close</button>
-                                    <button type="submit" name="action" value="mail" class="btn btn-danger btn-lg" >送信する</button>
+                                    <button type="submit" value="user" class="btn btn-danger btn-lg" name="table">インポートする</button>
                                     </div>
                                 </form>
                             </div>

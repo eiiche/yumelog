@@ -87,16 +87,18 @@ class DiaryController extends Controller
     public function destroy(Request $request)
     {
         //リクエストから送信ユーザと投稿IDを取得
-        $admin = $request->user();
+        $admin = Auth::guard('admin')->check();
         $user =  $request->user();
-        $diary_id = $request->id;
-        if ($user->can('isUser', $diary_id)) {
-            Diary::destroy($request->diary_id);
-        }elseif ($admin->can("havePermission",$diary_id)){
-            Diary::destroy($request->diary_id);
+        $diary_id = $request->diary_id;
+        //ログインユーザが管理者でない場合、ID比較、削除判定
+        if ($user != null) {
+            if ($user->can('isUser', $diary_id)) {
+                Diary::destroy($request->diary_id);
+            }
         }
+
+        Diary::destroy($request->diary_id);
 
         return redirect()->back();
     }
-
 }

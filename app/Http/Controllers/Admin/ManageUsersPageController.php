@@ -26,7 +26,7 @@ class ManageUsersPageController extends Controller
         $users = User::searchText($search_text);
 
         $user_ids = $users->pluck("id");
-        $request->session()->put("user_search_session",$user_ids);//セッションに保存
+        $request->session()->put("user_search_session", $user_ids);//セッションに保存
 
         return  view("admin.manage_users", ["users"=>$users]);
     }
@@ -37,7 +37,7 @@ class ManageUsersPageController extends Controller
         $start = Carbon::today()->subMonth(6);//本日より一年前(subyear)の日付を格納
         $end = Carbon::today();//本日の日付を格納
 
-        $summary = User::summary($start,$end)->get();
+        $summary = User::summary($start, $end)->get();
 
 
         $d = $start->copy();

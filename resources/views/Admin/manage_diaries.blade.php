@@ -47,7 +47,7 @@
                                 </form>
                             </div>
                             <div class="container">
-                                <form method= "POST" action="{{route("admin.diary_multiple_delete")}}">
+                                <form method= "POST" action="{{route("diary_multiple_delete")}}">
                                     @csrf
                                 <table class="table">
                                     <tr><th><input class="form-check-input" type="checkbox" name="all" onClick="AllChecked();"></th><th>日記id</th><th>投稿文</th><th>投稿者ID</th><th>投稿日</th><th>更新日</th></tr>
@@ -63,11 +63,11 @@
                                     @endforeach
                                 </table>
                                     <!--gateで振り分け-->
-                                    @can("isAdminDelete",auth()->user())
+                                    @if(Gate::forUser(Auth::guard('admin')->user())->allows("isAdminDelete"))
                                         <input type="submit" value="削除する" class="btn btn-danger btn-lg" name="delete" onclick="return confirm('削除しますか？')">
                                     @else
                                         <input value="削除する(権限者のみ)" class="btn btn-secondary btn-lg">
-                                    @endcan
+                                    @endif
                                 </form>
                                 <div style="padding-top:25px">
                                 {{$diaries->links()}}
@@ -99,7 +99,7 @@
                                     <input type="hidden" name="table" value="diary">
                                     <div>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-danger btn-lg" >送信する</button>
+                                    <button type="submit" class="btn btn-danger btn-lg" >インポートする</button>
                                     </div>
                                 </form>
                             </div>

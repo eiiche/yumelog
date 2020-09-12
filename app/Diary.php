@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
  * App\Diary
@@ -46,18 +47,18 @@ class Diary extends Model
     }
 
     //スコープ。テーブル取得の際に使用する条件を記述
-    public function scopeDate($query,$since_date,$until_date)
+    public function scopeDate($query, $since_date, $until_date)
     {
         //指定した日時間でレコード取得
         return $query->whereBetween("created_at", [$since_date, $until_date]);
     }
 
-    public function scopeAuthorId($query,int $author_id)
+    public function scopeAuthorId($query, int $author_id)
     {
         return $query->where("author_id", $author_id);
     }
 
-    public function scopeSearchText($query,string $search_text)
+    public function scopeSearchText($query, string $search_text)
     {
         return $query->where(function ($query) use ($search_text) {
             $query
@@ -66,18 +67,18 @@ class Diary extends Model
         });
     }
 
-    public function scopeSummary($query,$start,$end){
-
+    public function scopeSummary($query, $start, $end)
+    {
         return $query
             ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as posts'))//日付と日付ごとの件数
             ->where('created_at', '>=', $start)
             ->where('created_at', '<=', $end)
             ->groupBy(DB::raw('Date(created_at)'))
-            ->orderBy('date', 'asc')
-            ->get();
+            ->orderBy('date', 'asc');
     }
 
-    public function scopeSearch($query,String $search_text = null,int $author_id = null,$since_date = null,$until_date = null){
+    public function scopeSearch($query, String $search_text = null, int $author_id = null, $since_date = null, $until_date = null)
+    {
 
         //検索
         return $query->
@@ -91,10 +92,6 @@ class Diary extends Model
                 if ($since_date && $until_date) {
                     $query->date($since_date, $until_date);
                 }
-            })
-            ->simplePaginate($this->paginate);
-    }
-    public function scopeGetSummary(){
-
+            });
     }
 }

@@ -86,7 +86,7 @@ class User extends Authenticatable
     {
         return $query->where("id", "like", "%".$search_text."%")
             ->orWhere("name", "like", "%".$search_text."%")
-            ->orWhere("email", "like", "%".$search_text."%")->simplePaginate($this->paginate);
+            ->orWhere("emails", "like", "%".$search_text."%")->simplePaginate($this->paginate);
     }
 
     public function scopeSummary($query, $start, $end)

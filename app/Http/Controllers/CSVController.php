@@ -94,7 +94,7 @@ class CSVController extends Controller
 
                 //検索結果のidを条件にエクスポート
                 $diary_ids = $request->session()->get("diary_search_session");//セッション取り出し
-                $data = Diary::where("id", $diary_ids)->get();
+                $data = Diary::whereIn("id", $diary_ids)->get();
                     foreach ($data as $line) {
                         // ストリームに対して1行ごと書き出し
                         mb_convert_variables('SJIS-win', 'UTF-8', $line);

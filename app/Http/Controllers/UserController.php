@@ -104,12 +104,10 @@ class UserController extends Controller
 
     public function mail(Request $request)
     {
-        $emails = $request->user_id;
-        $destination = User::where("id", $emails)->get();
-        dd($destination);
+        $destination = User::whereIn("id",$request->user_id)->get()->pluck('emails');
         $title = $request->title;
         $text = $request->text;
 
-        Mail::to($destination)->send(new notification($title, $text));
+        Mail::bcc($destination)->send(new notification($title,$text));
     }
 }

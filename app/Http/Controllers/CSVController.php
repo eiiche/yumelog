@@ -12,7 +12,14 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class CSVController extends Controller
 {
-    public function import_csv(Request $request)
+    /**
+     * CSVインポート
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     *
+     */
+    public function importCsv(Request $request)
     {
         // アップロードファイルのファイルパスを取得
         $file_path = $request->file('csv')->path();
@@ -55,7 +62,13 @@ class CSVController extends Controller
         return redirect()->back();
     }
 
-    public function export_csv(Request $request)
+    /**
+     * CSVエクスポート
+     *
+     * @param Request $request
+     * @return StreamedResponse
+     */
+    public function exportCsv(Request $request)
     {
         //現時刻取得
         $now = Carbon::now();

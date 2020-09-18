@@ -65,13 +65,22 @@ class Admin extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    // リレーション (1対多の関係)。複数形
+    /**
+     * リレーション (1対多の関係)。複数形
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function diaries()
     {
         // 記事を新しい順で取得する
         return $this->hasMany('App\Diary');
     }
 
+    /**
+     * リレーション (1対多の関係)。複数形
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function favorites()
     {
         return $this->hasMany(Favorite::class);

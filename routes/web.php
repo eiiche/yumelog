@@ -57,13 +57,15 @@ Route::post("yumelog/deleteDiary", "DiaryController@destroy")->name('deleteDiary
 
 Route::post("yumelog/deletedDiary", "DiaryController@destroy")->name('deletedDiary');
 
+Route::get("/","YumelogController@index");
+
 //ログイン判定をしたいアクセスをグループにし、ミドルウェアを割り当て
 Route::group(['middleware' => ['auth']], function () {
     Route::get('yumelog/mypage', "MypageController@index")->name('mypage');
-    Route::get('yumelog/favorite', "FavoritePageController@index");
+    Route::get('yumelog/favorite', "FavoritePageController@index")->name('favorite');
     Route::get('yumelog/writelog', function () {
         return view("yumelog.writelog");
-    });
+    })->name('writelog');
 });
 
 //Adminログイン用ルーティング
@@ -71,12 +73,9 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
     Auth::routes(['register' => false]);// /admin/registerのルーティングを登録させない
 
     Route::get('/home', 'AdminHomeController@index')->name('admin_home');
-    Route::get('/manage_users', 'ManageUsersPageController@index')->name('admin_manage_users');
-    Route::get('/manage_diaries', 'ManageDiariesPageController@index')->name('admin_manage_diaries');
-    Route::get("/manage_favorites", "ManageFavoritesPageController@index")->name("admin_manage_favorites");
-    Route::get("/manage_admins", "ManageAdminsPageController@index")->name("admin_manage_admins");
-    Route::get("/manage_access_logs", "ManageAccessLogsPageController@index")->name("admin_manage_access_logs");
-    Route::get("/manage_admin_logs", "ManageAdminLogsController@index")->name("admin_manage_admin_logs");
+    Route::get('/manage_users', 'ManageUsersPageController@index')->name('manage_users');
+    Route::get('/manage_diaries', 'ManageDiariesPageController@index')->name('manage_diaries');
+    Route::get("/manage_admins", "ManageAdminsPageController@index")->name("manage_admins");
     Route::post('/manage_users', 'ManageUsersPageController@search')->name('manage_users');
     Route::post('/manage_diaries', 'ManageDiariesPageController@search')->name('manage_diaries');
     Route::get('/getDiarySummary', 'ManageDiariesPageController@getDiarySummary');//chart.jsによるアクセス
@@ -86,5 +85,5 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
 Route::post("admin/diary_multiple_delete", "DiaryController@destroy")->name('diary_multiple_delete');
 Route::post("admin/user_checkbox", "UserController@check")->name('user_checkbox');
 
-Route::post("admin/CSVImport", "CSVController@import_csv")->name("import_csv");
-Route::post("admin/CSVExport", "CSVController@export_csv")->name("export_csv");
+Route::post("admin/CSVImport", "CSVController@importCsv")->name("import_csv");
+Route::post("admin/CSVExport", "CSVController@exportCsv")->name("export_csv");

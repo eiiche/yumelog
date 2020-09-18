@@ -9,6 +9,13 @@ use Illuminate\Support\Facades\Auth;
 
 class FavoritePageController extends Controller
 {
+
+    /**
+     * お気に入りした投稿一覧画面を表示
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(Request $request)
     {
         $user = Auth::user();//ログインしているユーザ取得

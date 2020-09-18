@@ -83,10 +83,10 @@
             <div class="row">
                 <div class="col-3">
                     <div class="sidebar_fixed text-center" style="padding-top:75px">
-                        <p><button type="button" class="btn-note2" onclick="location.href='/yumelog/public/yumelog'" style="margin-top:40px; width: 50%">ホーム</button></p>
-                        <p><button type="button" class="btn-note1" onclick="location.href='/yumelog/public/yumelog/writelog'" style="margin-top:40px; width: 50% ">日記を書く</button></p>
-                        <p><button type="button" class="btn-note2" onclick="location.href='/yumelog/public/yumelog/mypage'" style="margin-top:40px; width: 50%">マイページ</button></p>
-                        <p><button type="button" class="btn-note2" onclick="location.href='/yumelog/public/yumelog/favorite'" style="margin-top:40px; width: 50%">お気に入り</button></p>
+                        <p><button type="button" class="btn-note2" onclick="location.href='{{route('yumelog')}}'" style="margin-top:40px; width: 50%">ホーム</button></p>
+                        <p><button type="button" class="btn-note1" onclick="location.href='{{route('writelog')}}'" style="margin-top:40px; width: 50% ">日記を書く</button></p>
+                        <p><button type="button" class="btn-note2" onclick="location.href='{{route('mypage')}}'" style="margin-top:40px; width: 50%">マイページ</button></p>
+                        <p><button type="button" class="btn-note2" onclick="location.href='{{route('favorite')}}'" style="margin-top:40px; width: 50%">お気に入り</button></p>
                         <button type="button" class="btn-note2 btn btn-default text-white" onclick="location.href='{{route("about")}}'" style="margin-top:300px">YUMELOGとは？</button>
                     </div>
 

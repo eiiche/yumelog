@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\Auth;
 
 class MypageController extends Controller
 {
+
+    /**
+     * 投稿した日記一覧画面を表示
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(Request $request)
     {
         //著者とログインユーザに紐づく日記を取得。(ユーザidはAuthWithInstanceミドルウェアから受け取る)

@@ -14,8 +14,12 @@ class YumeLogController extends Controller
 {
 
 
-    //web.phpからgetアクセスされた際の処理を記述
-    //ログイン状態確認のため、Requestを引数に受け取り、判定
+    /**
+     * TOP画面表示
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(Request $request)
     {
 

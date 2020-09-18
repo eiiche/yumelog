@@ -13,12 +13,22 @@ class ManageUsersPageController extends Controller
 {
     public $paginate = 6;
 
+
+    /**
+     * 管理画面　ユーザ一覧表示
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         $users = User::orderBy("id", "asc")->simplePaginate($this->paginate);//ID順
         return view("admin.manage_users", ["users"=>$users]);
     }
 
+    /**
+     * @param UserSearchRequest $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function search(UserSearchRequest $request)
     {
         //検索文字列でカラム検索
@@ -31,6 +41,11 @@ class ManageUsersPageController extends Controller
         return  view("admin.manage_users", ["users"=>$users]);
     }
 
+    /**
+     * chart.jsへのデータ受け渡し
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getUserSummary()
     {
         //日付を用意

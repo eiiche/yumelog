@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\timeline;
@@ -70,26 +71,50 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    // リレーション (1対多の関係)。複数形
+    /**
+     * リレーション (1対多の関係)。複数形
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function diaries()
     {
         // 記事を新しい順で取得する
         return $this->hasMany('App\Diary');
     }
 
+    /**
+     * リレーション (1対多の関係)。複数形
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function favorites()
     {
         return $this->hasMany(Favorite::class);
     }
 
-    public function scopeSearchText($query, string $search_text)
+    /**
+     * 文字列検索
+     *
+     * @param Builder $query
+     * @param string $search_text
+     * @return \Illuminate\Contracts\Pagination\Paginator
+     */
+    public function scopeSearchText(Builder $query, string $search_text)
     {
         return $query->where("id", "like", "%".$search_text."%")
             ->orWhere("name", "like", "%".$search_text."%")
             ->orWhere("emails", "like", "%".$search_text."%")->simplePaginate($this->paginate);
     }
 
-    public function scopeSummary($query, $start, $end)
+    /**
+     * chart.jsへ受け渡すデータを取得するクエリ
+     *
+     * @param Builder $query
+     * @param string $start
+     * @param string $end
+     * @return Builder
+     */
+    public function scopeSummary(Builder $query, string $start, string  $end)
     {
         return $query->
             select(DB::raw("Date(created_at) as date"), DB::raw("count(*) as users"))

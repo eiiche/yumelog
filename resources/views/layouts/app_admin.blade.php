@@ -82,9 +82,9 @@
                     </div>
                     <div class="card-body">
                     <div class="sidebar_fixed">
-                        <p><button type="button" class="btn btn-primary btn-lg" onclick="location.href='manage_users'" style="margin-top:20px;width: 50%">ユーザ管理</button></p>
-                        <p><button type="button" class="btn btn-primary btn-lg" onclick="location.href='manage_diaries'" style="margin-top:20px;width: 50%">投稿管理</button></p>
-                        <p><button type="button" class="btn btn-primary btn-lg" onclick="location.href='manage_admins'" style="margin-top:20px;width: 50%">管理者設定</button></p>
+                        <p><button type="button" class="btn btn-primary btn-lg" onclick="location.href='{{route("admin.manage_users")}}'" style="margin-top:20px;width: 50%">ユーザ管理</button></p>
+                        <p><button type="button" class="btn btn-primary btn-lg" onclick="location.href='{{route("admin.manage_diaries")}}'" style="margin-top:20px;width: 50%">投稿管理</button></p>
+                        <p><button type="button" class="btn btn-primary btn-lg" onclick="location.href='{{route("admin.manage_admins")}}'" style="margin-top:20px;width: 50%">管理者設定</button></p>
 
                         <!--ログイン関連-->
                         @if (Auth::guard('admin'))

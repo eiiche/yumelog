@@ -2,7 +2,10 @@
 
 namespace App;
 
+use Doctrine\DBAL\Query\QueryBuilder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -35,39 +38,70 @@ class Diary extends Model
     protected $perPage = 30;
 
 
-
-    public function user()// リレーション (従属の関係)。単数形
+    /**
+     * リレーション (従属の関係)。単数形
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
     {
         return $this->belongsTo(User::class, "author_id");
     }
 
+    /**
+     * リレーション。1対多の関係
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function favorites()
     {
         return $this->hasMany(Favorite::class);
     }
 
-    //スコープ。テーブル取得の際に使用する条件を記述
-    public function scopeDate($query, $since_date, $until_date)
+    /**
+     * 日付検索
+     *
+     * @param Builder $query
+     * @param string $since_date
+     * @param string $until_date
+     * @return Builder
+     */
+    public function scopeDate(Builder $query, string $since_date, string $until_date)
     {
         //指定した日時間でレコード取得
         return $query->whereBetween("created_at", [$since_date, $until_date]);
     }
 
-    public function scopeAuthorId($query, int $author_id)
+    public function scopeAuthorId(Builder $query, int $author_id)
     {
         return $query->where("author_id", $author_id);
     }
 
-    public function scopeSearchText($query, string $search_text)
+    /**
+     * 文字列検索
+     *
+     * @param Builder $query
+     * @param string $search_text
+     * @return Builder
+     */
+    public function scopeSearchText(Builder $query, string $search_text)
     {
-        return $query->where(function ($query) use ($search_text) {
+        return $query->where(function (Builder$query) use ($search_text) {
             $query
                 ->where("id", $search_text)
                 ->orWhere("text", "like", "%" . $search_text . "%");
         });
     }
 
-    public function scopeSummary($query, $start, $end)
+    /**
+     * chart.js用データ取得
+     *
+     * @param Builder $query
+     * @param string $start
+     * @param string $end
+     * @return Builder
+     */
+    public function scopeSummary(Builder $query, string $start, string $end)
     {
         return $query
             ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as posts'))//日付と日付ごとの件数
@@ -77,7 +111,17 @@ class Diary extends Model
             ->orderBy('date', 'asc');
     }
 
-    public function scopeSearch($query, String $search_text = null, int $author_id = null, $since_date = null, $until_date = null)
+    /**
+     * 文字列、投稿者ID、日付検索
+     *
+     * @param Builder $query
+     * @param String|null $search_text
+     * @param int|null $author_id
+     * @param string|null $since_date
+     * @param string|null $until_date
+     * @return \Illuminate\Database\Concerns\BuildsQueries|Builder|mixed
+     */
+    public function scopeSearch(Builder $query, String $search_text = null, int $author_id = null, string $since_date = null, string $until_date = null)
     {
 
         //検索

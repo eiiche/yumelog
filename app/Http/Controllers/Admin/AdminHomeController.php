@@ -9,13 +9,16 @@ use Illuminate\Support\Facades\DB;
 
 class AdminHomeController extends Controller
 {
+    /**
+     * AdminHomeController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth:admin');
     }
 
     /**
-     * Show the application dashboard.
+     * 管理画面TOPを表示
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */

@@ -6,6 +6,7 @@ use App\Diary;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Diary\DiarySearchRequest;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,14 +14,24 @@ class ManageDiariesPageController extends Controller
 {
     public $paginate = 6;
 
-    //管理画面 Diaryテーブル一覧表示
+    /**
+     * 管理画面 Diaryテーブル一覧表示
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         $diaries = Diary::orderBy("id", "asc")->simplePaginate($this->paginate);//ID順
         return view("admin.manage_diaries", ["diaries"=>$diaries]);
     }
 
-    //管理画面　Diaryテーブル検索処理
+    /**
+     * 管理画面 Diaryテーブル検索
+     *
+     * @param DiarySearchRequest $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
+     */
     public function search(DiarySearchRequest $request)
     {
         //検索値を用意
@@ -38,7 +49,11 @@ class ManageDiariesPageController extends Controller
         return view("admin.manage_diaries", ["diaries"=>$diaries]);
     }
 
-    //chart.jsへのグラフデータ受け渡し
+    /**
+     * 管理画面 chart.jsへのデータ受け渡し
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getDiarySummary()
     {
         //変数を用意

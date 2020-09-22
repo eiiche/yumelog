@@ -17,8 +17,7 @@ class CreateFavoritesTable extends Migration
             $table->increments("id");
             $table->unsignedInteger("diary_id");
             $table->unsignedInteger("user_id");
-            $table->timestamp('updated_at')->useCurrent()->nullable();
-            $table->timestamp('created_at')->useCurrent()->nullable();//NULL値可能なcreated_atとupdated_atカラム追加。現在時刻を設定。
+            $table->timestamp()->nullable();
 
             //外部キー制約。
             $table->foreign('user_id')

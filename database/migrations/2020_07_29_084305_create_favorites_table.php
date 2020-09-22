@@ -17,7 +17,7 @@ class CreateFavoritesTable extends Migration
             $table->increments("id");
             $table->unsignedInteger("diary_id");
             $table->unsignedInteger("user_id");
-            $table->timestamp()->nullable();
+            $table->timestamps()->nullable();
 
             //外部キー制約。
             $table->foreign('user_id')

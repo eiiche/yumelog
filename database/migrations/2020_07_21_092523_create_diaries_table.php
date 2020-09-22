@@ -18,7 +18,7 @@ class CreateDiariesTable extends Migration
             $table->increments("id");//findメソッドで値取得するにはフィールド名をidにする
             $table->string("text", 300);
             $table->unsignedinteger("author_id");//usersテーブルのuserIdを参照する外部キー。usersテーブルのincrementsはunsignedinteger型なので型を合致させる
-            $table->timestamps()->nullable();
+            $table->timestamps();
 
             //外部キー制約。下記に指定した項目が外部キーとなる
             $table->foreign('author_id')

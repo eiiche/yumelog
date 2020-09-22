@@ -38,7 +38,7 @@ Route::get('yumelog', 'YumeLogController@index')->name('yumelog');
 //アドレス yumelog にpostアクセス(フォーム送信)された場合のルーティング
 Route::post("yumelog", "DiaryController@store")->name('wroteDiary');
 
-Route::get("yumelogPost", "YumelogController@index");
+Route::get("yumelogPost", "YumeLogController@index");
 
 Route::get("yumelogAbout", function () {
     return view("yumelog.about");
@@ -57,7 +57,7 @@ Route::post("yumelog/deleteDiary", "DiaryController@destroy")->name('deleteDiary
 
 Route::post("yumelog/deletedDiary", "DiaryController@destroy")->name('deletedDiary');
 
-Route::get("/","YumelogController@index");
+Route::get("/","YumeLogController@index");
 
 //ログイン判定をしたいアクセスをグループにし、ミドルウェアを割り当て
 Route::group(['middleware' => ['auth']], function () {

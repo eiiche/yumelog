@@ -38,5 +38,10 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define("isAdminDelete", function (Admin $admin) {
             return $admin->role == "admindelete";
         });
+
+        //管理者がadminの場合、isaAdminの処理を許可
+        Gate::define("isAdmin", function (Admin $admin) {
+            return $admin->role == "admin";
+        });
     }
 }

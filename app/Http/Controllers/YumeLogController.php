@@ -29,7 +29,6 @@ class YumeLogController extends Controller
 
         //TOP一覧表示用の日記を取得
         //TODO:一覧取得はDiaryControllerに移行した方が良さそう
-        //最新の投稿を30件数一覧取得
         $diaries = Diary::latest()->paginate();//diaryクラスのperpageが使用される
 
         //$user=trueの場合(ログイン済)、ユーザのお気に入りデータを取得。$userがfalseなら空を挿入

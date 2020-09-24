@@ -13,8 +13,8 @@ class AdminsTableSeeder extends Seeder
     {
         $param = [
             "name" => "admin",
-            "emails" => "ekugio.0809@yahoo.co.jp",
-            "password" => Hash::make("eache0809"),
+            "emails" => "admin@gmail.com",
+            "password" => Hash::make("admin"),
             "role" => "admin",
             "created_at" => new DateTime(),
             "updated_at" => new DateTime()
@@ -23,8 +23,8 @@ class AdminsTableSeeder extends Seeder
 
         $param = [
             "name" => "adminmailer",
-            "emails" => "mailer.0809@yahoo.co.jp",
-            "password" => Hash::make("eache0809"),
+            "emails" => "mailer@gmail.com",
+            "password" => Hash::make("mailer"),
             "role" => "adminmailer",
             "created_at" => new DateTime(),
             "updated_at" => new DateTime()
@@ -33,8 +33,8 @@ class AdminsTableSeeder extends Seeder
 
         $param = [
             "name" => "admindelete",
-            "emails" => "delete.0809@yahoo.co.jp",
-            "password" => Hash::make("eache0809"),
+            "emails" => "delete@gmail.com",
+            "password" => Hash::make("delete"),
             "role" => "admindelete",
             "created_at" => new DateTime(),
             "updated_at" => new DateTime()

@@ -23,17 +23,28 @@
     border-top: none;
 }
 
+.posts{
+    margin-top: 50px;
+}
+
 .post{
     margin-top: 30px;
 }
 
-.iconImageDiv{
-    width: 10px;
-    height: 10px;
+.iconImage{
+    border: 2px solid #b7b5cd;
+    border-radius: 10px;
 }
 
-.iconImage{
-    border: #b7b5cd 10px;
+.iconImage:after{
+    border-right: 10px solid #e9605c;
+}
+
+.sidebar{
+    background-color: #ffffff;
+    top: 100px;
+    border-radius: 40px;
+    margin-top: 100px;
 }
 
 .btn-note2{
@@ -59,7 +70,7 @@
     background-color: #ffffff;
     /*box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.22);*/
     height: 100%;
-    border-radius: 100px;
+    border-radius: 40px;
 }
 
 *{
@@ -125,7 +136,7 @@
 
 .background{
     /*background-image: url('/yumelog/public/img/wood.jpg');*/
-    background-color: #f8f8ff;
+    background-color: #4b4d5c;
     background-attachment: fixed;
     background-size: cover;
     background-position: center;

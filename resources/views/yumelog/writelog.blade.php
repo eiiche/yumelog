@@ -11,7 +11,7 @@
         @endforeach
     @endif
 
-    <form method="POST" action="{{route('wroteDiary')}}" class="text-center">
+    <form method="POST" action="{{route('wroteDiary')}}" class="text-center" style="margin-top: 50px">
         @csrf
         <textarea class="form-control" id="text" rows="10" name="text"></textarea>
         <!--name="id"をキーにしてコントローラーに日記テキスト受け渡し-->

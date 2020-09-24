@@ -88,7 +88,7 @@
 <div class="container-xl">
     <div class="row">
         <div class="col-3">
-            <div class="sidebar_fixed text-center" style="padding-top:75px">
+            <div class="sidebar_fixed text-center sidebar" style="padding-top:75px">
                 <p>
                     <button type="button" class="btn-note2" onclick="location.href='{{route('yumelog')}}'"
                             style="margin-top:40px; width: 50%">ホーム

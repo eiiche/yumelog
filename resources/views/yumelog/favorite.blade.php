@@ -9,7 +9,7 @@
     @foreach ($diaries as $diary)
         <div class="post">
             {{$diary->created_at}}
-            <h3>{{$diary->text}}></h3>
+            <h4>{{$diary->text}}></h4>
             <!--お気に入りボタン-->
             <form action="{{route('postFav')}}" method="post" enctype='multipart/form-data'>
                 @csrf

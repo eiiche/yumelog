@@ -32,6 +32,8 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('favorites');
+        Schema::dropIfExists('diaries');
         Schema::dropIfExists('users');
     }
 }

@@ -32,6 +32,7 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
+        //外部キー制約に対応してドロップ順を考慮
         Schema::dropIfExists('favorites');
         Schema::dropIfExists('diaries');
         Schema::dropIfExists('users');

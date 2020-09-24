@@ -123,6 +123,8 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'log' =>'errorlog',//追加。エラーログをherokuに流す
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

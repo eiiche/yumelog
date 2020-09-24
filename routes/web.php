@@ -44,7 +44,7 @@ Route::get("yumelogAbout", function () {
     return view("yumelog.about");
 })->name("about");
 
-Route::post("yumelog/mypage/iconUpload","MypageController@iconUpload")->name("iconUpload");
+Route::post("yumelog/mypage/iconUpload", "MypageController@iconUpload")->name("iconUpload");
 
 Route::get("logout", "Auth\LoginController@logout");
 

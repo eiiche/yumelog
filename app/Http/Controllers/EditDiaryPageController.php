@@ -13,7 +13,7 @@ class EditDiaryPageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function index(Request $request)

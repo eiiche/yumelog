@@ -6,6 +6,7 @@ use App\Diary;
 use App\Favorite;
 use App\Like;
 use App\User;
+
 //use http\Client\Curl\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,12 +35,11 @@ class YumeLogController extends Controller
         //$user=trueの場合(ログイン済)、ユーザのお気に入りデータを取得。$userがfalseなら空を挿入
         //A ? B : C
         $faves = $user ?
-                Favorite::where("user_id", "=", $user->id)->whereIn('diary_id', $diaries->pluck('id'))->pluck('diary_id')
-                :
-                collect([])
-        ;
+            Favorite::where("user_id", "=", $user->id)->whereIn('diary_id', $diaries->pluck('id'))->pluck('diary_id')
+            :
+            collect([]);
 
-        return view("yumelog.index", ["user" => $user,"diaries" => $diaries,"faves" => $faves]);
+        return view("yumelog.index", ["user" => $user, "diaries" => $diaries, "faves" => $faves]);
     }
 
     public function test()

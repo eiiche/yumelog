@@ -11,9 +11,10 @@
         @endforeach
     @endif
 
-    <form method= "POST" action="{{route('wroteDiary')}}" class="text-center" >
+    <form method="POST" action="{{route('wroteDiary')}}" class="text-center">
         @csrf
-        <textarea class="form-control" id="text" rows="10" name="text"></textarea><!--name="id"をキーにしてコントローラーに日記テキスト受け渡し-->
+        <textarea class="form-control" id="text" rows="10" name="text"></textarea>
+        <!--name="id"をキーにしてコントローラーに日記テキスト受け渡し-->
         <br>
         <input type="submit" value="投稿する" class="btn btn-default btn-lg">
     </form>

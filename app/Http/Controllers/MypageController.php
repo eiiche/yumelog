@@ -34,10 +34,11 @@ class MypageController extends Controller
         $extension = $file->getClientOriginalExtension();//拡張子取得
         $filename = $file->getClientOriginalName();//ファイル名取得
         $filepath = pathinfo($filename, PATHINFO_FILENAME);//ファイルパス生成
-        $fileNameToStore = $filepath.".".$extension;//ファイルパス+ファイル名+拡張子(user保存用)
-        Image::make($file)->resize(200, 200)->save(public_path('storage/'.$filename));
+        $fileNameToStore = $filepath . "." . $extension;//ファイルパス+ファイル名+拡張子(user保存用)
+        Image::make($file)->resize(200, 200)->save(public_path('storage/' . $filename));
 
 
+        //ユーザに紐づけ保存
         $user = Auth::user();
         $user->image = $fileNameToStore;
 

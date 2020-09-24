@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('emails')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('image')->nullable();
             $table->rememberToken();
             $table->timestamps();//created_at updated_atの二つのフィールドが生成される
         });

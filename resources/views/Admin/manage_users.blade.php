@@ -49,13 +49,13 @@
                                 </table>
                                         <div>
                                             <!--gateで振り分け-->
-                                            @if(Gate::forUser(Auth::guard('admin')->user())->allows("isAdminDelete"))
+                                            @if(Gate::forUser(Auth::guard('admin')->user())->allows("isAdminDelete") || Gate::forUser(Auth::guard('admin')->user())->allows("isAdmin"))
                                     <button type="submit" name="action" value="delete" class="btn btn-danger btn-lg" onclick="return confirm('削除しますか？')">削除する</button>
                                             @else
                                                 <button class="btn btn-secondary btn-lg">削除する(権限者のみ)</button>
                                             @endif
                                                 <!--gateで振り分け-->
-                                            @if(Gate::forUser(Auth::guard('admin')->user())->allows("isAdminMailer"))
+                                            @if(Gate::forUser(Auth::guard('admin')->user())->allows("isAdminMailer") || Gate::forUser(Auth::guard('admin')->user())->allows("isAdmin"))
                                     <button type="button" name="action" value="mail" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#modalMailForm">メール配信</button>
                                             @else
                                                 <button type="button" class="btn btn-secondary btn-lg">メール配信(権限者のみ)</button>

@@ -14,7 +14,7 @@ class UsersTableSeeder extends Seeder
         $param = [
             "name" => "eache",
             "emails" => "ekugio.0809@gmail.com",
-            "password" => Hash::make("eache0809"),
+            "password" => Hash::make("eache"),
             "created_at" => new DateTime(),
             "updated_at" => new DateTime()
         ];

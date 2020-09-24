@@ -44,6 +44,8 @@ Route::get("yumelogAbout", function () {
     return view("yumelog.about");
 })->name("about");
 
+Route::post("yumelog/mypage/iconUpload","MypageController@iconUpload")->name("iconUpload");
+
 Route::get("logout", "Auth\LoginController@logout");
 
 Route::post("yumelog/editedDiary", "DiaryController@update")->name('editedDiary');
@@ -57,7 +59,7 @@ Route::post("yumelog/deleteDiary", "DiaryController@destroy")->name('deleteDiary
 
 Route::post("yumelog/deletedDiary", "DiaryController@destroy")->name('deletedDiary');
 
-Route::get("/","YumeLogController@index");
+Route::get("/", "YumeLogController@index")->name('index');
 
 //ログイン判定をしたいアクセスをグループにし、ミドルウェアを割り当て
 Route::group(['middleware' => ['auth']], function () {

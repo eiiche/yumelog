@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Diary;
+use App\Http\Requests\ImageUploadRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 
 class MypageController extends Controller
 {
@@ -23,5 +25,18 @@ class MypageController extends Controller
         $diaries = Diary::where("author_id", "=", $user->id)->get();
 
         return view("yumelog.mypage", ["diaries" => $diaries]);
+    }
+
+    public function iconUpload(ImageUploadRequest $request){
+        //リサイズ後　publicフォルダに画像保存
+        $file = $request->file('user_image');
+        Image::make($file)->resize(200,200)->save($file);
+
+        //ユーザに画像紐づけ保存
+        $user = Auth::user();
+        $user->image = str_replace('public/','',$file);
+        $user->save();
+
+        return redirect(route('mypage'));
     }
 }

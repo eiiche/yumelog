@@ -1,6 +1,6 @@
 @font-face {
     font-family: Boku2;
-    src: url('/yumelog/public/fonts/Boku2-Regular.otf');
+    src: url('../fonts/Boku2-Regular.otf');/*デプロイ環境用に相対パス化*/
 }
 
 .sidebar_fixed {
@@ -13,9 +13,9 @@
 .btn-note1{
     text-decoration: none;
     padding: 0.5rem;
-    background: #f7f7f7;
+    background: #ffffff;
     border-left: solid 6px #f09593;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.22);
+    /*box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.22);*/
     outline: none;
     width: 100%;
     border-right: none;
@@ -30,9 +30,9 @@
 .btn-note2{
     text-decoration: none;
     padding: 0.5rem;
-    background: #f7f7f7;
+    background: #ffffff;
     border-left: solid 6px #9561e2;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.22);
+    /*box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.22);*/
     outline: none;
     width: 100%;
     border-right: none;
@@ -43,12 +43,14 @@
 /*!*タイムライン*!*/
 
 .board{
+    margin-top: 100px;
     padding-top:100px;
     padding-right: 50px;
     padding-left: 50px;
-    background-color: #fffaf0;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.22);
+    background-color: #ffffff;
+    /*box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.22);*/
     height: 100%;
+    border-radius: 100px;
 }
 
 *{
@@ -113,7 +115,8 @@
 
 
 .background{
-    background-image: url('/yumelog/public/img/wood.jpg');
+    /*background-image: url('/yumelog/public/img/wood.jpg');*/
+    background-color: #f8f8ff;
     background-attachment: fixed;
     background-size: cover;
     background-position: center;

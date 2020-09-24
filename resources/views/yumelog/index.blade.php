@@ -9,6 +9,11 @@
 
             <!--スクロール表示可能な日記-->
                 @foreach($diaries as $diary)
+                    <div class="post" style="display: flex">
+                    <div class="profile">
+                        <img src="{{asset('storage/'. $diary->user->image)}}">
+                        {{$diary->user->name}}
+                    </div>
                 <div class="post">
                   <h3 class="name float-right">
                 <span class="label">
@@ -38,6 +43,7 @@
                     </button>
                 </form>
                 </div>
+                    </div>
                 @endforeach
 
     @endauth

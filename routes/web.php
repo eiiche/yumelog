@@ -71,7 +71,7 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 //Adminログイン用ルーティング
-Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
+Route::prefix('admin')->namespace('admin')->name('admin.')->group(function () {
     Auth::routes(['register' => false]);// /admin/registerのルーティングを登録させない
 
     Route::get('/home', 'AdminHomeController@index')->name('admin_home');

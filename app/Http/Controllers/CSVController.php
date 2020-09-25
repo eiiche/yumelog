@@ -77,27 +77,27 @@ class CSVController extends Controller
         $response = new StreamedResponse(
             function () use ($request) {
 
-            // ファイルの書き出しはfopen()
+                // ファイルの書き出しはfopen()
                 $stream = fopen('php://output', 'w');
 
                 // ボタンのテーブルに応じてヘッダの設定
                 if ($request->table == "diary") {
                     $head = [
-                '投稿ID',
-                'テキスト',
-                '投稿者ID',
-                '登録日',
-                '更新日'
-            ];
+                        '投稿ID',
+                        'テキスト',
+                        '投稿者ID',
+                        '登録日',
+                        '更新日'
+                    ];
                 } elseif ($request->input("table") == "user") {
                     $head = [
-                    "ユーザID",
-                    "名前",
-                    "メールアドレス",
-                    "パスワード",
-                    "登録日",
-                    "更新日"
-                ];
+                        "ユーザID",
+                        "名前",
+                        "メールアドレス",
+                        "パスワード",
+                        "登録日",
+                        "更新日"
+                    ];
                 }
                 // 宣言したストリームに対してヘッダを書き出し
                 mb_convert_variables('SJIS-win', 'UTF-8', $head);
@@ -105,36 +105,36 @@ class CSVController extends Controller
 
                 if ($request->table == "diary") {
 
-                //検索結果のidを条件にエクスポート
-                $diary_ids = $request->session()->get("diary_search_session");//セッション取り出し
-                $data = Diary::whereIn("id", $diary_ids)->get();
+                    //検索結果のidを条件にエクスポート
+                    $diary_ids = $request->session()->get("diary_search_session");//セッション取り出し
+                    $data = Diary::whereIn("id", $diary_ids)->get();
                     foreach ($data as $line) {
                         // ストリームに対して1行ごと書き出し
                         mb_convert_variables('SJIS-win', 'UTF-8', $line);
                         fputcsv($stream, [
-                        $line['id'],
-                        $line['text'],
-                        $line['author_id'],
-                        $line['created_at'],
-                        $line['updated_at'],
-                    ]);
+                            $line['id'],
+                            $line['text'],
+                            $line['author_id'],
+                            $line['created_at'],
+                            $line['updated_at'],
+                        ]);
                     }
                 } elseif ($request->table == "user") {
 
-                //検索結果のidを条件にエクスポート
-                $user_ids = $request->session()->get("user_search_session");//セッション取り出し
-                $data = User::where("id", $user_ids)->get();
+                    //検索結果のidを条件にエクスポート
+                    $user_ids = $request->session()->get("user_search_session");//セッション取り出し
+                    $data = User::where("id", $user_ids)->get();
                     foreach ($data as $line) {
                         // ストリームに対して1行ごと書き出し
                         mb_convert_variables('SJIS-win', 'UTF-8', $line);
                         fputcsv($stream, [
-                        $line['id'],
-                        $line['name'],
-                        $line['email'],
-                        $line["password"],
-                        $line['created_at'],
-                        $line['updated_at'],
-                    ]);
+                            $line['id'],
+                            $line['name'],
+                            $line['email'],
+                            $line["password"],
+                            $line['created_at'],
+                            $line['updated_at'],
+                        ]);
                     }
                 }
                 fclose($stream);
@@ -143,8 +143,8 @@ class CSVController extends Controller
             \Illuminate\Http\Response::HTTP_OK,
             // StreamedResponseの第3引数（レスポンスヘッダ）
             [
-                'Content-Type'        => 'text/csv',
-                'Content-Disposition' => 'attachment; filename='.$now->format('YmdHis').'.csv',
+                'Content-Type' => 'text/csv',
+                'Content-Disposition' => 'attachment; filename=' . $now->format('YmdHis') . '.csv',
             ]
         );
         return $response;

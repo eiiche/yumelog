@@ -51,8 +51,7 @@ class UserController extends Controller
      */
     public function mail(Request $request)
     {
-        $destination = User::whereIn("id", $request->user_id)->get()->pluck('email
-        ');
+        $destination = User::whereIn("id", $request->user_id)->get()->pluck('email');
         $title = $request->title;
         $text = $request->text;
 

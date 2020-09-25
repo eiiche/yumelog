@@ -42,9 +42,6 @@
 
     @endauth
     @guest
-        <div class="title">
-            <h1>み ん な の に っ き</h1>
-        </div>
 
         <!--スクロール表示可能な日記-->
         @foreach($diaries as $diary)

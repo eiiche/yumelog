@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Gate;
  *
  * @property int $id
  * @property string $name
- * @property string $emails
+ * @property string $email
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property string $password
  * @property string|null $remember_token
@@ -50,7 +50,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'emails', 'password','image'
+        'name', 'email', 'password','image'
     ];
 
     /**
@@ -103,7 +103,7 @@ class User extends Authenticatable
     {
         return $query->where("id", "like", "%".$search_text."%")
             ->orWhere("name", "like", "%".$search_text."%")
-            ->orWhere("emails", "like", "%".$search_text."%")->simplePaginate($this->paginate);
+            ->orWhere("email", "like", "%".$search_text."%")->simplePaginate($this->paginate);
     }
 
     /**

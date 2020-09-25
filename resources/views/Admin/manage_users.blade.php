@@ -47,7 +47,7 @@
                                            name="user_id[]"></td>
                                 <td>{{$user->id}}</td>
                                 <td>{{$user->name}}</td>
-                                <td>{{$user->emails}}</td>
+                                <td>{{$user->email}}</td>
                                 {{--<td>{{$user->email_verified_at}}</td>--}}
                                 {{--<td >{{$user->password}}</td>--}}
                                 <td>{{$user->created_at}}</td>

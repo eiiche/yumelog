@@ -11,7 +11,7 @@ use Illuminate\Notifications\Notifiable;
  *
  * @property int $id
  * @property string $name
- * @property string $emails
+ * @property string $email
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property string $password
  * @property string|null $remember_token
@@ -44,7 +44,7 @@ class Admin extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'emails', 'password',
+        'name', 'email', 'password',
     ];
 
     /**

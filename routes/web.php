@@ -30,10 +30,7 @@ Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
-
 Route::get('yumelog', 'YumeLogController@index')->name('yumelog');
-
-
 
 //アドレス yumelog にpostアクセス(フォーム送信)された場合のルーティング
 Route::post("yumelog", "DiaryController@store")->name('wroteDiary');
@@ -71,8 +68,9 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 //Adminログイン用ルーティング
-Route::prefix('admin')->namespace('admin')->name('admin.')->group(function () {
-    Auth::routes(['register' => false]);// /admin/registerのルーティングを登録させない
+Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
+
+    Auth::routes(['register' => false]);// admin用authルート。registerのルーティングは登録させない
 
     Route::get('/home', 'AdminHomeController@index')->name('admin_home');
     Route::get('/manage_users', 'ManageUsersPageController@index')->name('manage_users');

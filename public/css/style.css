@@ -24,7 +24,6 @@
 }
 
 .posts {
-    margin-top: 50px;
 }
 
 .post {
@@ -64,7 +63,7 @@
 
 .board {
     margin-top: 100px;
-    padding-top: 100px;
+    padding-top: 50px;
     padding-right: 50px;
     padding-left: 50px;
     background-color: #ffffff;

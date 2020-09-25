@@ -6,6 +6,7 @@ use App\Diary;
 use App\Http\Requests\ImageUploadRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 class MypageController extends Controller
@@ -37,6 +38,8 @@ class MypageController extends Controller
         $fileNameToStore = $filepath . "." . $extension;//ファイルパス+ファイル名+拡張子(user保存用)
         Image::make($file)->resize(200, 200)->save(public_path('storage/' . $filename));
 
+        //s3に保存
+        Storage::disk('s3')->putFile('/', $request->file('file'), 'public');
 
         //ユーザに紐づけ保存
         $user = Auth::user();

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
+
 class MypageController extends Controller
 {
 
@@ -30,20 +31,20 @@ class MypageController extends Controller
 
     public function iconUpload(ImageUploadRequest $request)
     {
-        //リサイズ後　publicフォルダに画像保存
+
         $file = $request->file('user_image');
-        $extension = $file->getClientOriginalExtension();//拡張子取得
-        $filename = $file->getClientOriginalName();//ファイル名取得
-        $filepath = pathinfo($filename, PATHINFO_FILENAME);//ファイルパス生成
-        $fileNameToStore = $filepath . "." . $extension;//ファイルパス+ファイル名+拡張子(user保存用)
-        Image::make($file)->resize(200, 200)->save(public_path('storage/' . $filename));
+        $name = $file->getClientOriginalName();
+        $storePath = "images/".$name;
+
+        $image = Image::make($file)->resize(200, 200)->encode('jpg');//リサイズ
 
         //s3に保存
-        Storage::disk('s3')->putFile('/', $request->file('file'), 'public');
+        Storage::disk('s3')->put($storePath,(string)$image->encode(), 'public');//第三引数にpublic指定することでURLアクセスを可能にする
+        $path = Storage::disk("s3")->url($storePath);
 
         //ユーザに紐づけ保存
         $user = Auth::user();
-        $user->image = $fileNameToStore;
+        $user->image = $path;
 
         $user->save();
 

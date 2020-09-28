@@ -8,10 +8,10 @@
                 <div class="post" style="display: flex">
                     <div class="profile" style="display: flex; flex-direction: column; text-align: center">
                         @if($diary->user->image != null)
-                            <img src="{{asset('storage/'. $diary->user->image)}}" width="60px" height="60px"
+                            <img src="{{$diary->user->image}}" width="60px" height="60px"
                                  class="iconImage">
                         @else
-                            <img src="{{asset('storage/noimage.png')}}" width="60px" height="60px" class="iconImage">
+                            <img src="https://eaches3.s3-ap-northeast-1.amazonaws.com/images/noimage2.png" width="60px" height="60px" class="iconImage">
                         @endif
                         {{$diary->user->name}}
                     </div>
@@ -49,10 +49,10 @@
                 <div class="post" style="display: flex">
                     <div class="profile" style="display: flex; flex-direction: column; text-align: center">
                         @if($diary->user->image != null)
-                            <img src="{{asset('storage/'. $diary->user->image)}}" width="60px" height="60px"
+                            <img src="{{$diary->user->image}}" width="60px" height="60px"
                                  class="iconImage">
                         @else
-                            <img src="{{asset('storage/noimage.png')}}" width="60px" height="60px" class="iconImage">
+                            <img src="https://eaches3.s3-ap-northeast-1.amazonaws.com/images/noimage2.png" width="60px" height="60px" class="iconImage">
                         @endif
                         {{$diary->user->name}}
                     </div>

@@ -7,9 +7,9 @@
                 <h3>アイコンアップロード</h3>
                 <div>
                     @if(Auth::user()->image == null)
-                        <img src="{{asset('storage/noimage.png')}}">
+                        <img src="https://eaches3.s3-ap-northeast-1.amazonaws.com/images/noimage2.png">
                     @else
-                        <img src="{{asset('storage/'. Auth::user()->image)}}">
+                        <img src="{{Auth::user()->image}}">
                     @endif
                 </div>
                 <form action="{{route('iconUpload')}}" method="post" enctype="multipart/form-data">

@@ -28,6 +28,7 @@ return [
 
     'cloud' => env('FILESYSTEM_CLOUD', 's3'),
 
+
     /*
     |--------------------------------------------------------------------------
     | Filesystem Disks
@@ -55,13 +56,12 @@ return [
             'visibility' => 'public',
         ],
 
-        //aws s3 変更
         's3' => [
             'driver' => 's3',
-            'key' => env('AKIAZAHXP4B2RRTFOIPZ'),
-            'secret' => env('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'),
-            'region' => env('ap-northeast-1'),
-            'bucket' => env('eaches3'),
+            'key' => env('AWS_ACCESS_KEY_ID'),
+            'secret' => env('AWS_SECRET_ACCESS_KEY'),
+            'region' => env('AWS_DEFAULT_REGION'),
+            'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
         ],

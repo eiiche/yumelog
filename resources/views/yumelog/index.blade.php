@@ -16,9 +16,9 @@
                         {{$diary->user->name}}
                     </div>
                     <div style="margin-left: 100px">
-                        <h3 class="date">
+                        <h5 class="date">
                             {!! $diary->created_at->format('Y年m月d日h時m分') !!}
-                        </h3>
+                        </h5>
                         <h4 class="text">
                             {{$diary->text}}
                         </h4>
@@ -57,9 +57,9 @@
                         {{$diary->user->name}}
                     </div>
                     <div style="margin-left: 100px">
-                        <h3 class="date">
+                        <h5 class="date">
                             {!! $diary->created_at->format('Y年m月d日h時m分') !!}
-                        </h3>
+                        </h5>
                         <h4 class="text">
                             {{$diary->text}}
                         </h4>

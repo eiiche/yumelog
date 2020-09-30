@@ -30,6 +30,7 @@
             <!--一覧表示-->
 
             <form method="POST" action="{{route("user_checkbox")}}">
+
                 @csrf
                 <div class="container">
                     <table class="table">
@@ -75,6 +76,7 @@
                     </div>
 
                     <!--mailing modal-->
+
                     <div class="modal fade" id="modalMailForm" tabindex="-1" role="dialog"
                          aria-labelledby="modalMailFormLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -86,14 +88,30 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <p>件名</p>
-                                    <textarea name="title" id="title" cols="50" rows="2"></textarea>
-                                    <p>本文</p>
-                                    <textarea name="text" id="text" cols="50" rows="10"></textarea>
-                                    <button type="submit"></button>
+                                    @if($errors->has('title'))
+                                        @foreach($errors->get('title') as $title_error)
+                                            <p style="color: red">{{$title_error}}</p>
+                                        @endforeach
+                                    @endif
+                                    @if($errors->has('text'))
+                                        @foreach($errors->get('text') as $text_error)
+                                            <p style="color: red">{{$text_error}}</p>
+                                        @endforeach
+                                    @endif
+                                    @if($errors->has('user_id[]'))
+                                        @foreach($errors->get('user_id[]') as $user_error)
+                                            <p style="color: red">{{$user_error}}</p>
+                                        @endforeach
+                                    @endif
+                                        <p>件名</p>
+                                        <textarea name="title" id="title" cols="50" rows="2"></textarea>
+                                        <p>本文</p>
+                                        <textarea name="text" id="text" cols="50" rows="10"></textarea>
+
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                    </button>
                                     <button type="submit" name="action" value="mail" class="btn btn-danger btn-lg"
                                             onclick="return confirm('メールを送信しますか？')">送信する
                                     </button>
@@ -144,6 +162,8 @@
             </div>
         </div>
     </div>
+
+
 
 @endsection
 

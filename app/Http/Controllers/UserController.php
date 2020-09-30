@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\User\MailRequest;
 use App\Mail\notification;
 use App\User;
 use Illuminate\Support\Facades\Mail;
@@ -23,7 +24,8 @@ class UserController extends Controller
         if ($request->input('action') == "delete") {
             $this->destroy($request);//一括削除
         } elseif ($request->input('action') == "mail") {
-            $this->mail($request);//メール一括配信
+            $mailRequest = new MailRequest($request->all());
+            $this->mail($mailRequest);//メール一括配信
         } elseif ($request->input('action') == "csv_export") {
             return redirect(route("export_csv"))->with($request);//csvエクスポート
         }
@@ -49,7 +51,7 @@ class UserController extends Controller
      *
      * @param Request $request
      */
-    public function mail(Request $request)
+    public function mail(MailRequest $request)
     {
         $destination = User::whereIn("id", $request->user_id)->get()->pluck('email');
         $title = $request->title;

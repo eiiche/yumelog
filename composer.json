@@ -9,16 +9,17 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
+        "ext-gd": "*",
         "barryvdh/laravel-debugbar": "^3.3",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0",
         "intervention/image": "^2.5",
         "laravel/framework": "^7.0",
+        "laravel/socialite": "^5.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.1",
-        "league/flysystem-aws-s3-v3": "^1.0",
-        "ext-gd": "*"
+        "league/flysystem-aws-s3-v3": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.7",

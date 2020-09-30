@@ -81,9 +81,10 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
     Route::get('/getDiarySummary', 'ManageDiariesPageController@getDiarySummary');//chart.jsによるアクセス
     Route::get('/getUserSummary', 'ManageUsersPageController@getUserSummary');//chart.jsによるアクセス
 //    Route::post('/sendMail',"MailingController@information")->name('sendMail');
+
 });
 Route::post("admin/diary_multiple_delete", "DiaryController@destroy")->name('diary_multiple_delete');
 Route::post("admin/user_checkbox", "UserController@check")->name('user_checkbox');
-
+Route::post('mailing','UserController@mail')->name('mail');
 Route::post("admin/CSVImport", "CSVController@importCsv")->name("import_csv");
 Route::post("admin/CSVExport", "CSVController@exportCsv")->name("export_csv");

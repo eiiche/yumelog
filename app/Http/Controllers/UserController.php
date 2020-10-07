@@ -13,24 +13,24 @@ class UserController extends Controller
 {
 
 
-    /**
-     * フォームから受け取ったactionの内容で削除orメール配信orCSVエクスポートに振り分け
-     *
-     * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function check(Request $request)
-    {
-        //name="action"のタグのvalueの値で振り分け
-        if ($request->input('action') == "delete") {
-            redirect(route("user_multiple_delete"))->with($request);//一括削除
-        } elseif ($request->input('action') == "mail") {
-            $this->mail($request);//メール一括配信
-        } elseif ($request->input('action') == "csv_export") {
-            return redirect(route("export_csv"))->with($request);//csvエクスポート
-        }
-        return redirect()->back();
-    }
+//    /**
+//     * フォームから受け取ったactionの内容で削除orメール配信orCSVエクスポートに振り分け
+//     *
+//     * @param Request $request
+//     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+//     */
+//    public function check(Request $request)
+//    {
+//        //name="action"のタグのvalueの値で振り分け
+//        if ($request->input('action') == "delete") {
+//            redirect(route("user_multiple_delete"))->with($request);//一括削除
+//        } elseif ($request->input('action') == "mail") {
+//            $this->mail($request);//メール一括配信
+//        } elseif ($request->input('action') == "csv_export") {
+//            return redirect(route("export_csv"))->with($request);//csvエクスポート
+//        }
+//        return redirect()->back();
+//    }
 
     /**
      * Remove the specified resource from storage.

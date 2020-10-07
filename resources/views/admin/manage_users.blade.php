@@ -18,6 +18,10 @@
                     <p style="color: red">{{$search_text_error}}</p>
                 @endforeach
             @endif
+        <!--メール配信エラー-->
+                @if($errors->has('title') || $errors->has('text') || $errors->has('user_id'))
+                        <p style="color: red">メール配信が正常に実行されませんでした</p>
+                @endif
             <div>
                 <form method="POST" action="manage_users">
                     @csrf
@@ -57,12 +61,7 @@
                         @endforeach
                     </table>
                     <div>
-                        @if (session('flash_message'))
-                            <div class="flash_message bg-danger text-center py-3 my-0">
-                                {{ session('flash_message') }}
-                            </div>
-                        @endif
-                    <!--gateで振り分け-->
+                        <!--gateで振り分け-->
                         @if(Gate::forUser(Auth::guard('admin')->user())->allows("isAdminDelete") || Gate::forUser(Auth::guard('admin')->user())->allows("isAdmin"))
                             <button type="submit" name="action" value="delete" class="btn btn-danger btn-lg"
                                     onclick="javascript: form.action='{{route("user_multiple_delete")}}'">削除する
@@ -123,11 +122,11 @@
                                             <p style="color: red">{{$text_error}}</p>
                                         @endforeach
                                     @endif
-                                    @if($errors->has('user_id[]'))
-                                        @foreach($errors->get('user_id[]') as $user_error)
-                                            <p style="color: red">{{$user_error}}</p>
-                                        @endforeach
-                                    @endif
+                                        @if($errors->has('user_id'))
+                                            @foreach($errors->get('user_id') as $user_id_error)
+                                                <p style="color: red">{{$user_id_error}}</p>
+                                            @endforeach
+                                        @endif
                                     <p>件名</p>
                                     <textarea name="title" id="title" cols="50" rows="2"></textarea>
                                     <p>本文</p>
@@ -152,8 +151,7 @@
             <form action="{{route("export_csv")}}" method="post" style="display: inline">
                 @csrf
                 <input type="hidden" name="table" value="user">
-                <button type="submit" class="btn btn-default btn-lg" name="action" value="csv_export"
-                        onclick="javascript: form.action='{{route("csv_export")}}'">CSVエクスポート
+                <button type="submit" class="btn btn-default btn-lg" name="action" value="csv_export">CSVエクスポート
                 </button>
             </form>
             <button type="button" value="user" name="table" class="btn btn-default btn-lg" data-toggle="modal"

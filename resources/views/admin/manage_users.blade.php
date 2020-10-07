@@ -29,7 +29,7 @@
 
             <!--一覧表示-->
 
-            <form method="POST" action="{{route("user_checkbox")}}">
+            <form method="POST">
 
                 @csrf
                 <div class="container">
@@ -57,10 +57,15 @@
                         @endforeach
                     </table>
                     <div>
-                        <!--gateで振り分け-->
+                        @if (session('flash_message'))
+                            <div class="flash_message bg-danger text-center py-3 my-0">
+                                {{ session('flash_message') }}
+                            </div>
+                        @endif
+                    <!--gateで振り分け-->
                         @if(Gate::forUser(Auth::guard('admin')->user())->allows("isAdminDelete") || Gate::forUser(Auth::guard('admin')->user())->allows("isAdmin"))
                             <button type="submit" name="action" value="delete" class="btn btn-danger btn-lg"
-                                    onclick="return confirm('削除しますか？')">削除する
+                                    onclick="javascript: form.action='{{route("user_multiple_delete")}}'">削除する
                             </button>
                         @else
                             <button class="btn btn-secondary btn-lg">削除する(権限者のみ)</button>
@@ -76,7 +81,27 @@
                     </div>
 
                     <!--mailing modal-->
+                    <script>
+                        //エラーがある場合再読み込み時にmodalが表示される
+                        if ($errors) {
+                            document.getElementById("modalMailForm").style.display = "none";
+                        } else {
 
+                        }
+
+
+                        function clickBtn1() {
+                            const p1 = document.getElementById("p1");
+
+                            if (p1.style.display == "block") {
+                                // noneで非表示
+                                p1.style.display = "none";
+                            } else {
+                                // blockで表示
+                                p1.style.display = "block";
+                            }
+                        }
+                    </script>
                     <div class="modal fade" id="modalMailForm" tabindex="-1" role="dialog"
                          aria-labelledby="modalMailFormLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -103,17 +128,17 @@
                                             <p style="color: red">{{$user_error}}</p>
                                         @endforeach
                                     @endif
-                                        <p>件名</p>
-                                        <textarea name="title" id="title" cols="50" rows="2"></textarea>
-                                        <p>本文</p>
-                                        <textarea name="text" id="text" cols="50" rows="10"></textarea>
+                                    <p>件名</p>
+                                    <textarea name="title" id="title" cols="50" rows="2"></textarea>
+                                    <p>本文</p>
+                                    <textarea name="text" id="text" cols="50" rows="10"></textarea>
 
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
                                     </button>
                                     <button type="submit" name="action" value="mail" class="btn btn-danger btn-lg"
-                                            onclick="return confirm('メールを送信しますか？')">送信する
+                                            onclick="javascript: form.action='{{route("mail")}}'">送信する
                                     </button>
                                 </div>
                             </div>
@@ -127,7 +152,9 @@
             <form action="{{route("export_csv")}}" method="post" style="display: inline">
                 @csrf
                 <input type="hidden" name="table" value="user">
-                <button type="submit" class="btn btn-default btn-lg" name="action" value="csv_export">CSVエクスポート</button>
+                <button type="submit" class="btn btn-default btn-lg" name="action" value="csv_export"
+                        onclick="javascript: form.action='{{route("csv_export")}}'">CSVエクスポート
+                </button>
             </form>
             <button type="button" value="user" name="table" class="btn btn-default btn-lg" data-toggle="modal"
                     data-target="#modalCSVForm">CSVインポート

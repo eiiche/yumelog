@@ -84,7 +84,8 @@
                 <form action="{{route("export_csv")}}" method="post" style="display: inline">
                     @csrf
                     <input type="hidden" name="table" value="diary">
-                    <button type="submit" name="action" value="csv_export" class="btn btn-default btn-lg">CSVエクスポート</button>
+                    <button type="submit" name="action" value="csv_export" class="btn btn-default btn-lg">CSVエクスポート
+                    </button>
                 </form>
                 <button type="button" value="diary" name="table" class="btn btn-default btn-lg" data-toggle="modal"
                         data-target="#modalCSVForm">CSVインポート

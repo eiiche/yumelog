@@ -7,6 +7,7 @@ use App\Mail\notification;
 use App\User;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -22,10 +23,9 @@ class UserController extends Controller
     {
         //name="action"のタグのvalueの値で振り分け
         if ($request->input('action') == "delete") {
-            $this->destroy($request);//一括削除
+            redirect(route("user_multiple_delete"))->with($request);//一括削除
         } elseif ($request->input('action') == "mail") {
-            $mailRequest = new MailRequest($request->all());
-            $this->mail($mailRequest);//メール一括配信
+            $this->mail($request);//メール一括配信
         } elseif ($request->input('action') == "csv_export") {
             return redirect(route("export_csv"))->with($request);//csvエクスポート
         }
@@ -58,5 +58,6 @@ class UserController extends Controller
         $text = $request->text;
 
         Mail::bcc($destination)->send(new notification($title, $text));
+        return redirect()->back();
     }
 }

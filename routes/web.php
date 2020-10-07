@@ -84,6 +84,7 @@ Route::prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
 
 });
 Route::post("admin/diary_multiple_delete", "DiaryController@destroy")->name('diary_multiple_delete');
+Route::post("admin/user_multiple_delete", "UserController@destroy")->name('user_multiple_delete');
 Route::post("admin/user_checkbox", "UserController@check")->name('user_checkbox');
 Route::post('mailing','UserController@mail')->name('mail');
 Route::post("admin/CSVImport", "CSVController@importCsv")->name("import_csv");

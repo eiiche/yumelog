@@ -19,7 +19,7 @@ class EditDiaryPageController extends Controller
     public function index(Request $request)
     {
         $diary_id = $request->editbtn;//mypageの編集ボタンからdiary_id取得
-        $diary = Diary::find($diary_id)->first();//該当の投稿を取得
+        $diary = Diary::find($diary_id);//該当の投稿を取得
         $request->session()->put("diary_session", $diary);//セッションに保存
 
         return redirect(route('editDiary'));

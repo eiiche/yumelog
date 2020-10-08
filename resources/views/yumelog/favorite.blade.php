@@ -6,6 +6,10 @@
         <h1>お気に入りした投稿</h1>
     </div>
 
+    @if($diaries->isEmpty())
+        <p class="flash_message text-center py-3 my-0" style="background:rgba(170,145,172 ,0.5)">お気に入りした投稿がありません</p>
+    @endif
+
     @foreach ($diaries as $diary)
         <div class="post">
             {{$diary->created_at}}

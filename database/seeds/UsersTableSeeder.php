@@ -19,5 +19,14 @@ class UsersTableSeeder extends Seeder
             "updated_at" => new DateTime()
         ];
         DB::table("users")->insert($param);
+
+        $param = [
+            "name" => "test",
+            "email" => "test@gmail.com",
+            "password" => Hash::make("testtest"),
+            "created_at" => new DateTime(),
+            "updated_at" => new DateTime()
+        ];
+        DB::table("users")->insert($param);
     }
 }

@@ -19,6 +19,7 @@ class DiaryController extends Controller
     public function store(StoreRequest $request)
     {
         Diary::create($request->validated());
+        $request->session()->put("flash_message","日記を投稿しました");//セッションに保存
         return redirect()->back();
     }
 

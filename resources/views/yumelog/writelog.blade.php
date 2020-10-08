@@ -1,6 +1,13 @@
 @extends("layouts.app2")
 
 @section("content")
+    <!-- フラッシュメッセージ -->
+    @if (session('flash_message'))
+        <div class="flash_message text-center py-3 my-0" style="background:rgba(170,145,172 ,0.5)">
+            {{ session('flash_message') }}
+        </div>
+    @endif
+
     <div class="title">
         <h1>日記を書く</h1>
     </div>

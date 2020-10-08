@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\User\MailRequest;
-use App\Mail\notification;
+use App\Mail\Notification;
 use App\User;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
@@ -57,7 +57,7 @@ class UserController extends Controller
         $title = $request->title;
         $text = $request->text;
 
-        Mail::bcc($destination)->send(new notification($title, $text));
+        Mail::bcc($destination)->send(new Notification($title, $text));
         return redirect()->back();
     }
 }

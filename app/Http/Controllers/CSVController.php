@@ -39,22 +39,20 @@ class CSVController extends Controller
                 $col = 2;
 
                 if (count($line) == $col) {
+                    //※created,updatedはcreateメソッドで自動生成されるため不要
                     Diary::create([
                         'text' => $line[0],
                         'author_id' => $line[1],
-                        'created_at' => new \DateTime(),
-                        'updated_at' => new \DateTime()
                     ]);
                 }
             } elseif ($request->table == "user") {
                 $col = 3;
                 if (count($line) == $col) {
+                    //※created,updatedはcreateメソッドで自動生成されるため不要
                     User::create([
                         "name" => $line[0],
                         "email" => $line[1],
                         "password" => \Hash::make($line[2]),
-                        'created_at' => new \DateTime(),
-                        'updated_at' => new \DateTime()
                     ]);
                 }
             }

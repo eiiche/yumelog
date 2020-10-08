@@ -67,7 +67,7 @@
                                     onclick="javascript: form.action='{{route("user_multiple_delete")}}'">削除する
                             </button>
                         @else
-                            <button class="btn btn-secondary btn-lg">削除する(権限者のみ)</button>
+                            <button class="btn btn-secondary btn-lg" onclick="return confirm('削除しますか？')">削除する(権限者のみ)</button>
                         @endif
                     <!--gateで振り分け-->
                         @if(Gate::forUser(Auth::guard('admin')->user())->allows("isAdminMailer") || Gate::forUser(Auth::guard('admin')->user())->allows("isAdmin"))
